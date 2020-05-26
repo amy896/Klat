@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Klat</title>
 </head>
 <body>
-
+chatInviteForm
+	<div>
+		<form action="inviteMember" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<input type="text" placeholder="invite someone">
+			<input type="submit">
+		</form>
+	</div>
 </body>
 </html>
