@@ -18,11 +18,17 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations" value="classpath:com/fanta/klat/dao/mapper/**/*.xml"></property>
-		<property name="typeAliasesPackage" value="model"></property>
+		<property name="typeAliasesPackage" value="com.fanta.klat.model"></property>
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="memberDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface" value="com.fanta.klat.dao.MemberDao"></property>
+	</bean>
+	
 
 </beans>
