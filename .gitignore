@@ -30,3 +30,16 @@ hs_err_pid*
 ## ignoring target file
 target/
 /.DS_Store
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
