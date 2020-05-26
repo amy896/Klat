@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ChatRoomDao">
+
+	<insert id="insertChatRoom" parameterType="chatRoom">
+		insert into tbl_chat_room
+		(cr_title)
+		values(#{crTitle})
+		<selectKey order="AFTER" keyProperty="crNum" resultType="int">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertChatRoomMember">
+		insert into tbl_chat_room_member
+		(cr_num, m_num)
+		values(#{param1}, #{param2})
+	</insert>
+	
+	<resultMap id="chatRoomMap" type="chatRoom">
+		<result column="cr_num" property="crNum" />
+		<result column="cr_title" property="crTitle" />
+	</resultMap>
+</mapper>

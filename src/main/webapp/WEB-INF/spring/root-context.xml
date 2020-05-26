@@ -29,6 +29,10 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		<property name="mapperInterface" value="com.fanta.klat.dao.MemberDao"></property>
 	</bean>
-	
+
+	<bean id="chatRoomDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface" value="com.fanta.klat.dao.ChatRoomDao"></property>
+	</bean>	
 
 </beans>
