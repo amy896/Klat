@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Klat</title>
 </head>
 <body>
-
+chatAddForm
+	<div>
+		<form action="addChatRoom" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<input type="hidden" name="mNum" value="${mNum}">
+			Title<input type="text" name="crTitle" autocomplete="off">
+			<input type="submit">
+		</form>
+	</div>
 </body>
 </html>
