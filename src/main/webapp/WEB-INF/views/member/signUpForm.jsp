@@ -1,18 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Klat</title>
+<%@ include file="/WEB-INF/views/inc/common.jsp"%>
 </head>
 <body>
 	<h4>Sign Up Page</h4>
-	<form action="signUpMember" method="post">
+	<form action="signupmember" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		ID : <input type="text" name="mId"><br>
-		Name : <input type="text" name="mName"> <br>
-		Password : <input type="password" name="mPw"><br>
+		ID : <input type="text" name="userid"><br>
+		Name : <input type="text" name="username"> <br>
+		Password : <input type="password" name="userpassword"><br>
 		<input type="submit" value="SIGN UP">
 	</form>
 	

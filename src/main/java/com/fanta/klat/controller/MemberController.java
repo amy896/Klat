@@ -14,15 +14,25 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-	
-	@RequestMapping(value = "/signUpForm", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/signupform", method = RequestMethod.GET)
 	public String showSignUpForm() {
 		return "member/signUpForm";
 	}
-	
-	@RequestMapping(value = "/signUpMember", method = RequestMethod.POST)
-	public String signUpMember(Member member) {
+
+	@RequestMapping(value = "/signupmember", method = RequestMethod.POST)
+	public String signUpMember(String userid, String username, String userpassword) {
+		Member member = new Member();
+		member.setmId(userid);
+		member.setmName(username);
+		member.setmPw(userpassword);
 		memberService.signUpMember(member);
-		return null;
+		return "redirect:/member/signinform";
 	}
+
+	@RequestMapping(value = "/signinform", method = RequestMethod.GET)
+	public String showSignInForm() {
+		return "member/signInForm";
+	}
+
 }
