@@ -7,6 +7,7 @@
 <title>Klat</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 chatRoom
 </body>
 </html>
