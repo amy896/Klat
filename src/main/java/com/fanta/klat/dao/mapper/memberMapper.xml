@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="selectAuthoritiesByMNum" resultType="String">
-		select m_num, a_authority
+		select a_authority
 		from tbl_authority
 		where m_num = #{param1}
 	</select>
