@@ -17,24 +17,24 @@ public class ChatController {
 	@Autowired
 	private ChatRoomService crService;
 	
-	@RequestMapping("/chatRoom")
-	public String showChatRoom(Principal principal, HttpSession session, int crNum) {
+	@RequestMapping("/chatroom")
+	public String showChatRoom(Principal principal, HttpSession session, int crnum) {
 		int mNum = 1;
 		session.setAttribute("mNum", mNum);
 		return "/chat/chatRoom";
 	}
 	
-	@RequestMapping("/addForm")
-	public String showAddForm(HttpSession session, Model model, String crTitle) {
+	@RequestMapping("/addform")
+	public String showAddForm(HttpSession session, Model model, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		model.addAttribute("mNum", mNum);
 		return "/chat/addAddForm";
 	}
 	
-	@RequestMapping("/addChatRoom")
-	public String addChatRoom(HttpSession session, String crTitle) {
+	@RequestMapping("/addchatroom")
+	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		int crNum = crService.addChatRoom(mNum, crTitle);
+		int crNum = crService.addChatRoom(mNum, crtitle);
 		
 		return "redirect:chatRoom?crNum="+crNum;
 	}
