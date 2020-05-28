@@ -50,9 +50,10 @@ public class ChatController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/getchatroom")
-	public List<ChatRoom> getChatRoom(HttpSession session) {
+	@RequestMapping("/getchatroomlist")
+	public List<ChatRoom> getChatRoomList(HttpSession session) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		return crService.getChatRoomByMNum(mNum);
+		List<ChatRoom> chatRoomList = crService.getChatRoomByMNum(mNum);
+		return chatRoomList;
 	}
 }
