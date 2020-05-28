@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <script>
 
@@ -26,6 +28,7 @@ function enterChatRoom(crNum) {
 
 </script>
 navigation
+<div onclick="location.href='${contextPath}/chat/addform'">채팅 추가</div>
 <div class="chatRoomList">
 </div>
 <hr>

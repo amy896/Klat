@@ -9,9 +9,8 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/inc/nav.jsp"%>
+<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 chatRoom
-
-<div onclick="location.href='${contextPath}/chat/addform'">채팅 추가</div>
 
 </body>
 </html>
