@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.ChatRoomDao">
+<mapper namespace="com.fanta.klat.dao.ChatRoomDao">
 
 	<insert id="insertChatRoom" parameterType="chatRoom">
 		insert into tbl_chat_room
@@ -16,6 +16,14 @@
 		(cr_num, m_num)
 		values(#{param1}, #{param2})
 	</insert>
+	
+	<select id="selectChatRoomByMNum" parameterType="int" resultMap="chatRoomMap">
+		select cr.cr_num, cr.cr_title 
+		from tbl_chat_room cr join tbl_chat_room_member crm
+		on cr.cr_num = crm.cr_num
+		where crm.m_num = #{param1}
+		order by cr.cr_num desc
+	</select>
 	
 	<resultMap id="chatRoomMap" type="chatRoom">
 		<result column="cr_num" property="crNum" />
