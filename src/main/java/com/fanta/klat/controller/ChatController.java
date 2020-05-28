@@ -35,7 +35,6 @@ public class ChatController {
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		int crNum = crService.addChatRoom(mNum, crtitle);
-		
 		return "redirect:chatRoom?crNum="+crNum;
 	}
 }
