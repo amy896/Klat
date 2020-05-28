@@ -9,8 +9,8 @@
 		<div class="main_title_container">
 			<img src="${contextPath}/img/logo_white.png">
 			<p>Share Your Thinking</p>
-			<button onclick="location.href='${contextPath}/member/signupform'">SIGN UP</button>
-			<button onclick="location.href='${contextPath}/member/signinform'">SIGN IN</button>
+			<button onclick="location.href='${contextPath}/member/signupform'">Sign up</button>
+			<button onclick="location.href='${contextPath}/member/signinform'">Sign in</button>
 		</div>
 		
 	</div>
