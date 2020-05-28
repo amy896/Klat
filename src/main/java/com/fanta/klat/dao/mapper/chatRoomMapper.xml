@@ -17,7 +17,13 @@
 		values(#{param1}, #{param2})
 	</insert>
 	
-	<select id="selectChatRoomByMNum" parameterType="int" resultMap="chatRoomMap">
+	<update id="updateChatRoom" parameterType="chatRoom">
+		update tbl_chat_room
+		set cr_title = #{crTitle}
+		where cr_num = #{crNum}
+	</update>
+	
+	<select id="selectChatRoomListByMNum" parameterType="int" resultMap="chatRoomMap">
 		select cr.cr_num, cr.cr_title 
 		from tbl_chat_room cr join tbl_chat_room_member crm
 		on cr.cr_num = crm.cr_num

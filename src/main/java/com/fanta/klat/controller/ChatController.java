@@ -41,11 +41,24 @@ public class ChatController {
 		return "chat/chatAddForm";
 	}
 
+	@RequestMapping("/addchatroom")
+	public String addChatRoom(HttpSession session, String crtitle) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		int crNum = crService.addChatRoom(mNum, crtitle);
+		return "redirect:chatroom?crnum=" + crNum;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/modifychatroom")
+	public boolean modifyChatRoom(HttpSession session, Model model, int crnum, String crtitle) {
+		return crService.modifyChatRoom(crnum, crtitle);
+	}
+
 	@ResponseBody
 	@RequestMapping("/getchatroomlist")
 	public List<ChatRoom> getChatRoomList(HttpSession session) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		List<ChatRoom> chatRoomList = crService.getChatRoomByMNum(mNum);
+		List<ChatRoom> chatRoomList = crService.getChatRoomListByMNum(mNum);
 		return chatRoomList;
 	}
 }

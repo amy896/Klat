@@ -16,7 +16,6 @@ public class ChatRoomService {
 	public int addChatRoom(int mNum, String crTitle) {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setCrTitle(crTitle);
-		System.out.println(chatRoom);
 
 		if (crDao.insertChatRoom(chatRoom) > 0) {
 			crDao.insertChatRoomMember(chatRoom.getCrNum(), mNum);
@@ -24,7 +23,17 @@ public class ChatRoomService {
 		return chatRoom.getCrNum();
 	}
 
-	public List<ChatRoom> getChatRoomByMNum(int mNum) {
-		return crDao.selectChatRoomByMNum(mNum);
+	public boolean modifyChatRoom(int crNum, String crTitle) {
+		ChatRoom chatRoom = new ChatRoom();
+		chatRoom.setCrNum(crNum);
+		chatRoom.setCrTitle(crTitle);
+		if(crDao.updateChatRoom(chatRoom) > 0) {
+			return true;
+		};
+		return false;
+	}
+
+	public List<ChatRoom> getChatRoomListByMNum(int mNum) {
+		return crDao.selectChatRoomListByMNum(mNum);
 	}
 }
