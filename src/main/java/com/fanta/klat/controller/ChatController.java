@@ -45,14 +45,6 @@ public class ChatController {
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		int crNum = crService.addChatRoom(mNum, crtitle);
-
-		return "redirect:chatroom?crnum=" + crNum;
-	}
-
-	@ResponseBody
-	@RequestMapping("/getchatroom")
-	public List<ChatRoom> getChatRoom(HttpSession session) {
-		int mNum = (Integer) session.getAttribute("mNum");
-		return crService.getChatRoomByMNum(mNum);
+		return "redirect:chatRoom?crNum="+crNum;
 	}
 }
