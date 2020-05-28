@@ -10,10 +10,9 @@
 <%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 chatAddForm
 	<div>
-		<form action="addChatRoom" method="post">
+		<form action="addchatroom" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-			<input type="hidden" name="mNum" value="${mNum}">
-			Title<input type="text" name="crTitle" autocomplete="off">
+			Title<input type="text" name="crtitle" autocomplete="off">
 			<input type="submit">
 		</form>
 	</div>

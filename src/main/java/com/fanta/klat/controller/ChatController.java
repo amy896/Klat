@@ -1,6 +1,7 @@
 package com.fanta.klat.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,34 +9,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fanta.klat.model.ChatRoom;
+import com.fanta.klat.model.Member;
 import com.fanta.klat.service.ChatRoomService;
+import com.fanta.klat.service.MemberService;
 
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
 	@Autowired
 	private ChatRoomService crService;
-	
+	@Autowired
+	private MemberService memberService;
+
 	@RequestMapping("/chatroom")
-	public String showChatRoom(Principal principal, HttpSession session, int crnum) {
-		int mNum = 1;
+	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum) {
+		String mId = principal.getName();
+		Member member = memberService.getMemberByMId(mId);
+		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
-		return "/chat/chatRoom";
+		return "chat/chatRoom";
 	}
-	
+
 	@RequestMapping("/addform")
-	public String showAddForm(HttpSession session, Model model, String crtitle) {
+	public String showAddForm(HttpSession session, Model model) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		model.addAttribute("mNum", mNum);
-		return "/chat/addAddForm";
+		return "chat/chatAddForm";
 	}
-	
+
 	@RequestMapping("/addchatroom")
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		int crNum = crService.addChatRoom(mNum, crtitle);
-		
-		return "redirect:chatRoom?crNum="+crNum;
+
+		return "redirect:chatroom?crnum=" + crNum;
+	}
+
+	@ResponseBody
+	@RequestMapping("/getchatroom")
+	public List<ChatRoom> getChatRoom(HttpSession session) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		return crService.getChatRoomByMNum(mNum);
 	}
 }
