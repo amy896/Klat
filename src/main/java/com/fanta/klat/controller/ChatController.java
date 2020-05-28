@@ -41,10 +41,11 @@ public class ChatController {
 		return "chat/chatAddForm";
 	}
 
-	@RequestMapping("/addchatroom")
-	public String addChatRoom(HttpSession session, String crtitle) {
+	@ResponseBody
+	@RequestMapping("/getchatroomlist")
+	public List<ChatRoom> getChatRoomList(HttpSession session) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		int crNum = crService.addChatRoom(mNum, crtitle);
-		return "redirect:chatRoom?crNum="+crNum;
+		List<ChatRoom> chatRoomList = crService.getChatRoomByMNum(mNum);
+		return chatRoomList;
 	}
 }
