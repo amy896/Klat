@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+body {
+	background-color: black;
+}
+
+body * {
+	color: white;
+}
+
+.container {
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
+
+.main_title_container {
+	width: 500px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.main_title_container img {
+	width: 250px;
+}
+
+.main_title_container p {
+	font-size: 40px;
+	margin: 25px 0 52px;
+}
+
+.main_title_container button {
+	width: 185px;
+	border: 1px solid white;
+	background-color: black;
+	padding: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.main_title_container button+button {
+	margin-left: 20px;
+}
