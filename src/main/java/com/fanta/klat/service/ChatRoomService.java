@@ -35,13 +35,18 @@ public class ChatRoomService {
 
 	public boolean exitChatRoom(int crNum, int mNum) {
 		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
+			if(removeChatRoom()) {
+				System.out.println("비어있는 채팅방을 삭제했습니다.");
+			} else {
+				System.out.println("비어있는 채팅방이 없습니다.");
+			}
 			return true;
 		}
 		return false; 
 	}
 
-	public boolean removeChatRoom(int crNum) {
-		if (crDao.deleteChatRoom(crNum) > 0) {
+	public boolean removeChatRoom() {
+		if (crDao.deleteEmptyChatRoom() > 0) {
 			return true;
 		}
 		return false;

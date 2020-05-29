@@ -41,6 +41,7 @@ public class ChatController {
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
+		session.setAttribute("crNum", crnum);
 		return "chat/chatRoom";
 	}
 
@@ -64,11 +65,12 @@ public class ChatController {
 		return crService.modifyChatRoom(crnum, crtitle);
 	}
 	
-	@ResponseBody
 	@RequestMapping("/exitchatroom")
-	public boolean exitChatRoom(HttpSession session, int crnum) {
+	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		return crService.exitChatRoom(crnum, mNum);
+		int crNum = (Integer) session.getAttribute("crNum");
+		crService.exitChatRoom(crNum, mNum);
+		return "redirect:chatmain";
 	}
 
 	@ResponseBody
