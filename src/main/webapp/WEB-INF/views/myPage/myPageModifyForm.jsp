@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <body>
+<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
+여기는 modify form입니다.
 
 </body>
-</html>
