@@ -35,6 +35,6 @@ header
 	<button onclick="change()">수정</button>
 </div>
 <div>
-	
+	<button onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${sessionScope.crNum}'">나가기</button>
 </div>
 <hr>

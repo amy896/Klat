@@ -34,6 +34,7 @@ public class ChatRoomService {
 	}
 
 	public boolean exitChatRoom(int crNum, int mNum) {
+		System.out.println("exitChatRoom");
 		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
 			return true;
 		}

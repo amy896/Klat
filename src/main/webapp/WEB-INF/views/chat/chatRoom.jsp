@@ -11,6 +11,6 @@
 <%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 <%@ include file="/WEB-INF/views/inc/header.jsp"%>
 chatRoom
-
+crNum : ${sessionScope.crNum}
 </body>
 </html>
