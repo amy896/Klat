@@ -27,13 +27,19 @@
 		})
 	}
 </script>
+<div class="header_container">
+	<a class="img_container" href="${contextPath }/main">
+		<img src="${contextPath}/img/logo_white.png" alt="클랏 로고입니다"/>
+	</a>
+	<div class="chat_room_title">
+		<p></p>
+		<input type="text" id="new_chat_room_title" placeholder="new title please">
+		<button onclick="change()">수정</button>
+	</div>
 
-header
-<div class="chat_room_title">
-	<p></p>
-	<input type="text" id="new_chat_room_title" placeholder="new title please">
-	<button onclick="change()">수정</button>
 </div>
+
+
 <div>
 	
 </div>
