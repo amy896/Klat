@@ -35,6 +35,16 @@ public class MemberService {
 		return false;
 	}
 	
+	public boolean modifyMember(int mNum, String mName, String mPw) {
+		Member member = memberDao.selectMemberByMNum(mNum);
+		member.setmName(mName);
+		member.setmPw(mPw);
+		if(memberDao.updateMember(member) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public Member getMemberByMId(String mId) {
 		return memberDao.selectMemberByMId(mId);
 	}

@@ -40,12 +40,18 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/modifyform")
-	public String showModifyForm() {
+	public String showModifyForm(HttpSession session, Model model) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		Member member = memberService.getMemberByMNum(mNum);
+		model.addAttribute("member", member);
 		return "myPage/myPageModifyForm";
 	}
 	
 	@RequestMapping("/modifymember")
-	public String modifyMember() {
+	public String modifyMember(HttpSession session, String mname, String mpw) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		memberService.modifyMember(mNum, mname, mpw);
+		
 		return "redirect:mypagemain";
 	}
 }

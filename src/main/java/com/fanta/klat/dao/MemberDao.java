@@ -14,6 +14,8 @@ public interface MemberDao {
 	
 	public int deleteAuthority(int mNum);
 
+	public int updateMember(Member member);
+	
 	public Member selectMemberByMId(String mId);
 
 	public Member selectMemberByMNum(int mNum);
