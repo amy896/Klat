@@ -27,9 +27,23 @@ public class ChatRoomService {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setCrNum(crNum);
 		chatRoom.setCrTitle(crTitle);
-		if(crDao.updateChatRoom(chatRoom) > 0) {
+		if (crDao.updateChatRoom(chatRoom) > 0) {
 			return true;
-		};
+		}
+		return false;
+	}
+
+	public boolean exitChatRoom(int crNum, int mNum) {
+		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
+			return true;
+		}
+		return false; 
+	}
+
+	public boolean removeChatRoom(int crNum) {
+		if (crDao.deleteChatRoom(crNum) > 0) {
+			return true;
+		}
 		return false;
 	}
 

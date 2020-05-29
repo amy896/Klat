@@ -23,6 +23,18 @@
 		where cr_num = #{crNum}
 	</update>
 	
+	<delete id="deleteChatRoomMember" parameterType="int">
+		delete 
+		from tbl_chat_room_member
+		where cr_num = #{crNum} and m_num = #{mNum} 
+	</delete>
+	
+	<delete id="deleteChatRoom" parameterType="int">
+		delete 
+		from tbl_chat_room
+		where cr_num = #{crNum}
+	</delete>
+	
 	<select id="selectChatRoomListByMNum" parameterType="int" resultMap="chatRoomMap">
 		select cr.cr_num, cr.cr_title 
 		from tbl_chat_room cr join tbl_chat_room_member crm

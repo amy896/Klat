@@ -34,4 +34,7 @@ header
 	<input type="text" id="new_chat_room_title" placeholder="new title please">
 	<button onclick="change()">수정</button>
 </div>
+<div>
+	
+</div>
 <hr>
