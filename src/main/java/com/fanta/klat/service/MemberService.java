@@ -56,5 +56,9 @@ public class MemberService {
 	public List<String> getAuthoritiesByMNum(int mNum){
 		return memberDao.selectAuthoritiesByMNum(mNum);
 	}
+	
+	public List<Member> searchMemberList(String keyword) {
+		return memberDao.selectMemberByKeyword(keyword);
+	}
 
 }

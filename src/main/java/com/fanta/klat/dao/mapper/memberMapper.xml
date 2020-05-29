@@ -55,6 +55,10 @@
 		where m_num = #{param1}
 	</select>
 	
+	<select id="selectMemberByKeyword" resultMap="memberMap">
+	
+	</select>
+	
 	<resultMap type="member" id="memberMap">
 		<result column="m_num" property="mNum"/>
 		<result column="m_id" property="mId"/>

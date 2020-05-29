@@ -22,4 +22,5 @@ public interface MemberDao {
 
 	public List<String> selectAuthoritiesByMNum(int mNum);
 
+	public List<Member> selectMemberByKeyword(String keyword);
 }

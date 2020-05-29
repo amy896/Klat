@@ -25,7 +25,6 @@ public class ChatController {
 	@Autowired
 	private MemberService memberService;
 
-	
 	@RequestMapping("/chatmain")
 	public String showChatMain(Principal principal, HttpSession session) {
 		String mId = principal.getName();
@@ -79,5 +78,22 @@ public class ChatController {
 		int mNum = (Integer) session.getAttribute("mNum");
 		List<ChatRoom> chatRoomList = crService.getChatRoomListByMNum(mNum);
 		return chatRoomList;
+	}
+	
+	@RequestMapping("/inviteform")
+	public String showInviteForm() {
+		return "chat/chatInviteForm";
+	}
+	
+	@RequestMapping("/invitemember")
+	public String inviteMember(HttpSession session) {
+		int crNum = (Integer) session.getAttribute("crNum");
+		return "redirect:chatroom?crnum=" + crNum;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/searchmemberlist")
+	public List<Member> searchMemberList(@RequestParam(value = "keyword") String keyword) {
+		return memberService.searchMemberList(keyword);
 	}
 }
