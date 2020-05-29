@@ -25,6 +25,16 @@ public class ChatController {
 	@Autowired
 	private MemberService memberService;
 
+	
+	@RequestMapping("/chatmain")
+	public String showChatMain(Principal principal, HttpSession session) {
+		String mId = principal.getName();
+		Member member = memberService.getMemberByMId(mId);
+		int mNum = member.getmNum();
+		session.setAttribute("mNum", mNum);
+		return "chat/chatMain";
+	}
+	
 	@RequestMapping("/chatroom")
 	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum) {
 		String mId = principal.getName();
@@ -52,6 +62,13 @@ public class ChatController {
 	@RequestMapping("/modifychatroom")
 	public boolean modifyChatRoom(HttpSession session, Model model, int crnum, String crtitle) {
 		return crService.modifyChatRoom(crnum, crtitle);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/exitchatroom")
+	public boolean exitChatRoom(HttpSession session, int crnum) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		return crService.exitChatRoom(crnum, mNum);
 	}
 
 	@ResponseBody
