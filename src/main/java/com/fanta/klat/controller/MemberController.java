@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fanta.klat.model.Member;
 import com.fanta.klat.service.MemberService;
@@ -34,5 +35,15 @@ public class MemberController {
 	public String showSignInForm() {
 		return "member/signInForm";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkUserId", method = RequestMethod.GET)
+	public boolean checkUserId(String userId) {
+		Member member = memberService.getMemberByMId(userId);
+		if(member == null) {
+			return false;
+		}
+		return true;
+	} 
 
 }
