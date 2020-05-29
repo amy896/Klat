@@ -44,6 +44,23 @@ public class ChatRoomService {
 		}
 		return false; 
 	}
+	
+	public boolean exitAllChatRoom(int mNum) {
+		boolean isExit = false;
+		List<ChatRoom> chatRoomList = getChatRoomListByMNum(mNum);
+		for(int i=0; i<chatRoomList.size(); i++) {
+			int crNum = chatRoomList.get(i).getCrNum();
+			if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
+				isExit = true;
+				if(removeChatRoom()) {
+					System.out.println("비어있는 채팅방을 삭제했습니다.");
+				} else {
+					System.out.println("비어있는 채팅방이 없습니다.");
+				}
+			}
+		}
+		return isExit; 
+	}
 
 	public boolean removeChatRoom() {
 		if (crDao.deleteEmptyChatRoom() > 0) {
