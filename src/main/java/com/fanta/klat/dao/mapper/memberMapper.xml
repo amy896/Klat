@@ -17,6 +17,26 @@
 	 	values(#{param1})
 	</insert>
 	
+	<delete id="deleteMemberByMNum">
+		delete 
+		from tbl_member
+		where m_num = #{param1}
+	</delete>
+	
+	<delete id="deleteAuthority">
+		delete 
+		from tbl_authority
+		where m_num = #{param1}
+	</delete>
+	
+	<update id="updateMember" parameterType="member">
+		update tbl_member
+		set m_name = #{mName}, 
+			m_pw = #{mPw},
+			m_profile_img = #{mProfileImg}
+		where m_num = #{mNum} 
+	</update>
+	
 	<select id="selectMemberByMId" resultMap="memberMap">
 		select m_num, m_id, m_name, m_pw, m_profile_img
 		from tbl_member
