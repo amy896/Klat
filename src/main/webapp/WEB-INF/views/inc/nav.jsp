@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <script>
 
 $(function() {
@@ -27,8 +26,19 @@ function enterChatRoom(crNum) {
 }
 
 </script>
-navigation
-<div onclick="location.href='${contextPath}/chat/addform'">채팅 추가</div>
-<div class="chatRoomList">
+<div class="navigation_container">
+	<div class="profile_container">
+		<a class="profile_img_container" href="${contextPath}/mypage/mypagemain">
+			<img src="http://via.placeholder.com/600x600" alt="프로필 이미지입니다">
+		</a>
+		<a href="${contextPath}/mypage/mypagemain">홍길동 님</a>	
+	</div>
+	<button onclick="location.href='${contextPath}/member/signout'">로그아웃</button>
+		
+	<div class="chat_list_container">
+		<p class="title">채팅</p>
+		<div class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-plus"></i></div>
+		<div class="chatRoomList"></div>
+	</div>
 </div>
 <hr>

@@ -23,7 +23,7 @@
 		<security:form-login login-page="/member/signinform" 
 							 login-processing-url="/member/signinmember"
 							 authentication-failure-url="/member/signinform?signinform=fail"
-							 default-target-url="/chat/chatroom"
+							 default-target-url="/chat/chatmain"
 							 username-parameter="userid"
 							 password-parameter="userpassword"/>
 		<security:logout delete-cookies="JSESSIONID"
