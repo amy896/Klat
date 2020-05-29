@@ -29,10 +29,13 @@
 		where cr_num = #{crNum} and m_num = #{mNum} 
 	</delete>
 	
-	<delete id="deleteChatRoom" parameterType="int">
+	<delete id="deleteEmptyChatRoom">
 		delete 
-		from tbl_chat_room
-		where cr_num = #{crNum}
+		from tbl_chat_room cr
+		where 
+		(select count(*) 
+		from tbl_chat_room_member crm
+		where crm.cr_num = cr.cr_num) = 0
 	</delete>
 	
 	<select id="selectChatRoomListByMNum" parameterType="int" resultMap="chatRoomMap">
