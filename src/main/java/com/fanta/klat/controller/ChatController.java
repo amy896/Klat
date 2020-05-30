@@ -93,7 +93,9 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/searchmemberlist")
-	public List<Member> searchMemberList(@RequestParam(value = "keyword") String keyword) {
-		return memberService.searchMemberList(keyword);
+	public List<String> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword, String mid) {
+		int crNum = (Integer) session.getAttribute("crNum");
+		int mNum = (Integer) session.getAttribute("mNum");
+		return memberService.searchMemberList(keyword, crNum, mNum);
 	}
 }
