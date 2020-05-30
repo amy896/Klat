@@ -41,6 +41,9 @@
 
 
 <div>
+	<button onclick="location.href='${contextPath}/chat/inviteform'">초대</button>
+</div>
+<div>
 	<button onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${sessionScope.crNum}'">나가기</button>
 </div>
 <hr>

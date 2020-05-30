@@ -55,6 +55,12 @@
 		where m_num = #{param1}
 	</select>
 	
+	<select id="selectMemberByKeyword" resultType="String">
+		select m_id
+		from tbl_member
+		where m_id like CONCAT('%', #{param1}, '%')
+	</select>
+	
 	<resultMap type="member" id="memberMap">
 		<result column="m_num" property="mNum"/>
 		<result column="m_id" property="mId"/>

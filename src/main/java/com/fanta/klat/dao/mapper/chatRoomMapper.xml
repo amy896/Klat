@@ -46,6 +46,12 @@
 		order by cr.cr_num desc
 	</select>
 	
+	<select id="selectChatRoomMemberListByCrNum" parameterType="int" resultType="int">
+		select m_num
+		from tbl_chat_room_member
+		where cr_num = #{crNum}
+	</select>
+	
 	<resultMap id="chatRoomMap" type="chatRoom">
 		<result column="cr_num" property="crNum" />
 		<result column="cr_title" property="crTitle" />

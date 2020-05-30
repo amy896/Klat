@@ -16,45 +16,58 @@ public class MemberService {
 	MemberDao memberDao;
 	@Autowired
 	ChatRoomDao chatRoomDao;
-	
+
 	@Transactional
 	public boolean signUpMember(Member member) {
-		if(memberDao.insertMember(member)>0)
-			if(memberDao.insertAuthority(member.getmNum())>0)
+		if (memberDao.insertMember(member) > 0)
+			if (memberDao.insertAuthority(member.getmNum()) > 0)
 				return true;
 		return false;
 	}
-	
+
 	public boolean removeMember(int mNum) {
-		if(memberDao.deleteMemberByMNum(mNum) > 0) {
-			if(memberDao.deleteAuthority(mNum) > 0) {
+		if (memberDao.deleteMemberByMNum(mNum) > 0) {
+			if (memberDao.deleteAuthority(mNum) > 0) {
 				return true;
 			}
 			return false;
 		}
 		return false;
 	}
-	
+
 	public boolean modifyMember(int mNum, String mName, String mPw) {
 		Member member = memberDao.selectMemberByMNum(mNum);
 		member.setmName(mName);
 		member.setmPw(mPw);
-		if(memberDao.updateMember(member) > 0) {
+		if (memberDao.updateMember(member) > 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public Member getMemberByMId(String mId) {
 		return memberDao.selectMemberByMId(mId);
 	}
-	
+
 	public Member getMemberByMNum(int mNum) {
 		return memberDao.selectMemberByMNum(mNum);
 	}
 
-	public List<String> getAuthoritiesByMNum(int mNum){
+	public List<String> getAuthoritiesByMNum(int mNum) {
 		return memberDao.selectAuthoritiesByMNum(mNum);
 	}
 
+	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
+		List<String> memberListByKeyword = memberDao.selectMemberByKeyword(keyword);
+		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
+		
+		memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
+		
+		for (int j = 0; j < mNumList.size(); j++) {
+			String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
+			memberListByKeyword.remove(mIdInChatRoom);
+		}
+
+		return memberListByKeyword;
+	}
 }

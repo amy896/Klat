@@ -13,4 +13,5 @@ public interface ChatRoomDao {
 	public int deleteChatRoomMember(@Param("crNum")int crNum, @Param("mNum")int mNum);
 	public int deleteEmptyChatRoom();
 	public List<ChatRoom> selectChatRoomListByMNum(int mNum);
+	public List<Integer> selectChatRoomMemberListByCrNum(int crNum);
 }
