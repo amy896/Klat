@@ -12,13 +12,13 @@
 			</a>
 			<form action="signinmember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<p class="title">ID</p> 
+				<p class="title">아이디</p> 
 				<input type="text" name="userid" autocomplete="off">
-				<p class="title">Password</p> 
+				<p class="title">비밀번호</p> 
 				<input type="password" name="userpassword" autocomplete="auto">
-				<input type="submit" value="Sign in">
+				<input type="submit" value="로그인">
 			</form>
-			<a href="${contextPath}/member/signupform">Sign up to Klat</a>
+			<a href="${contextPath}/member/signupform">회원 가입</a>
 		</div>
 	</div>
 
