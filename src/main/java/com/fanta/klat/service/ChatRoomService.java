@@ -68,6 +68,10 @@ public class ChatRoomService {
 		}
 		return false;
 	}
+	
+	public ChatRoom getChatRoomByCrNum(int crNum) {
+		return crDao.selectChatRoomByCrNum(crNum);
+	}
 
 	public List<ChatRoom> getChatRoomListByMNum(int mNum) {
 		return crDao.selectChatRoomListByMNum(mNum);

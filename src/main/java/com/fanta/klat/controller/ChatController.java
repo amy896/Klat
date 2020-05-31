@@ -56,6 +56,7 @@ public class ChatController {
 	
 	@RequestMapping("/chatroom")
 	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum, Model model) {
+		ChatRoom chatroom = crService.getChatRoomByCrNum(crnum);
 		String mId = principal.getName();
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
@@ -63,6 +64,7 @@ public class ChatController {
 		session.setAttribute("crNum", crnum);
 		
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
+		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
 	}
