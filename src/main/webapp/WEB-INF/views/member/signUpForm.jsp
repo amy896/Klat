@@ -11,7 +11,7 @@
 	$(function() {
 		$("form").on("submit", function(){
 			var resultArr = new Array;
-			$("input").each(function(){
+			$(".inputVal").each(function(){
 				var result = input_validation_check($(this));
 				resultArr.push(result);			
 			});
@@ -22,7 +22,7 @@
 			}
 		});
 
-		$("input").on("blur", function() {
+		$(".inputVal").on("blur", function() {
 			input_validation_check($(this));
 		});
 		
@@ -86,19 +86,19 @@
 			<form action="signupmember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<p class="title">아이디</p>
-				<input type="text" name="userid" autocomplete="off">
+				<input class="inputVal" type="text" name="userid" autocomplete="off">
 				<p class="validation_check"></p>
 				
 				<p class="title">비밀번호</p>
-				<input type="password" name="userpassword" autocomplete="off">
+				<input class="inputVal" type="password" name="userpassword" autocomplete="off">
 				<p class="validation_check"></p>
 				
 				<p class="title">비밀번호 재확인</p>
-				<input type="password" name="userpasswordcheck" autocomplete="off">
+				<input class="inputVal" type="password" name="userpasswordcheck" autocomplete="off">
 				<p class="validation_check"></p>
 				
 				<p class="title">이름</p>
-				<input type="text" name="username" autocomplete="off">
+				<input class="inputVal" type="text" name="username" autocomplete="off">
 				<p class="validation_check"></p>
 				
 				<input type="submit" value="가입하기">
