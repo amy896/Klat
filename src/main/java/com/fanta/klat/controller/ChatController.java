@@ -34,7 +34,7 @@ public class ChatController {
 	private MemberService memberService;
 
 	@RequestMapping("/chatmain")
-	public String showChatMain(Principal principal, HttpSession session) {
+	public String showChatMain(Principal principal, HttpSession session, Model model) {
 		String mId = principal.getName();
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
