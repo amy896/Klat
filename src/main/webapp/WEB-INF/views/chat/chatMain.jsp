@@ -10,11 +10,13 @@
 	<div class="container">
 		<c:forEach items="${chatInfoList}" var="chatInfo">
 			<div class="chatInfo_container">
-				<div class="chat_room_title">
-					${chatInfo.chat.crTitle}	
+				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">
+					${chatInfo.chat.crTitle}
 				</div>
 				
-				<ul>
+				<ul class="member_list_container">
+					<li class="chat_invite_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum='+${chatInfo.chat.crNum}">
+					</li>
 					<c:forEach items="${chatInfo.chatMemberList}" var="member">
 						<li class="member_container">
 							<div class="profile_img_container">
