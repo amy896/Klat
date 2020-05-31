@@ -5,48 +5,76 @@
 </head>
 <script type="text/javascript">
 
-	var idRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	var pwRegExp = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+	var idPwreg = /^[a-z0-9]{8,20}$/;
+	var nameReg  = /^[a-z0-9가-힣]{2,20}$/;
 
 	$(function() {
-		$("input").on("blur", function() {
-			var inputValue = $(this).val();
-
-			if (inputValue == "") {
-				$(this).next().text("필수 정보입니다.");
-			} else {
-				$(this).next().text("");
-				var nameVal = $(this).attr('name');
-				
-				if (nameVal == "userid") {
-					if(inputValue.match(regExp) != null) {
-						$.ajax({
-							url : "${contextPath}/member/checkUserId",
-							data : {"userId" : inputValue},
-							dataType : "json",
-							success : function(result) {
-								if (result) {
-									$(this).next().text("이미 사용 중인 아이디입니다.");
-								} else {
-									$(this).next().text("멋진 아이디네요!");
-								}
-							}
-						});
-					} else {
-						$(this).next().text("이메일 형식을 입력해주세요.");
-					}
-
-				} else if (nameVal == "") {
-
-				} else if (nameVal == "") {
-
-				} else if (nameVal == "") {
-
+		$("form").on("submit", function(){
+			var resultArr = new Array;
+			$("input").each(function(){
+				var result = input_validation_check($(this));
+				resultArr.push(result);			
+			});
+			for(var i=0;i<resultArr.length;i++){
+				if(resultArr[i] == false){
+					return false;
 				}
-
 			}
 		});
-	})
+
+		$("input").on("blur", function() {
+			input_validation_check($(this));
+		});
+		
+	});
+	
+	function input_validation_check(currentInput){
+		var inputValue = currentInput.val();
+		if (inputValue == "") {
+			currentInput.next().text("필수 정보입니다.");
+			return false;
+		} else {
+			var nameVal = currentInput.attr('name');
+			var validation_check = currentInput.next();
+			validation_check.text("");
+			
+			if (nameVal == "userid") {
+				if(inputValue.match(idPwreg) != null) {
+					$.ajax({
+						url : "${contextPath}/member/checkUserId",
+						data : {"userId" : inputValue},
+						dataType : "json",
+						success : function(result) {
+							if(result) {
+								validation_check.text("이미 사용 중인 아이디입니다.");
+								return false;
+							} else {
+								validation_check.text("멋진 아이디네요!");
+							}
+						}
+					});
+				} else {
+					validation_check.text("8~20자의 영문 소문자 숫자만 사용 가능합니다.");
+					return false;
+				}
+			} else if (nameVal == "userpassword" && inputValue.match(idPwreg) == null) {
+				validation_check.text("8~20자의 영문 소문자 숫자만 사용 가능합니다.");
+				return false;
+			} else if (nameVal == "userpasswordcheck") {
+				var password1 = $("input[name='userpassword']").val();
+				var password2 = $("input[name='userpasswordcheck']").val();
+				if(password1 != password2){
+					validation_check.text("비밀번호가 일치하지 않습니다.");
+					return false;
+				}
+			} else if (nameVal == "username" && inputValue.match(nameReg) == null) {
+				validation_check.text("2~20자의 영문 소문자, 숫자와 한글만 사용 가능합니다.");
+				return false;
+			}
+		}
+
+	}
+	
 </script>
 <body>
 
@@ -57,25 +85,25 @@
 			</a>
 			<form action="signupmember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<p class="title">ID</p>
+				<p class="title">아이디</p>
 				<input type="text" name="userid" autocomplete="off">
 				<p class="validation_check"></p>
 				
-				<p class="title">User name</p>
-				<input type="text" name="username" autocomplete="off">
-				<p class="validation_check"></p>
-				
-				<p class="title">Password</p>
+				<p class="title">비밀번호</p>
 				<input type="password" name="userpassword" autocomplete="off">
 				<p class="validation_check"></p>
 				
-				<p class="title">Password check</p>
-				<input type="password" name="userpasswordCheck" autocomplete="off">
+				<p class="title">비밀번호 재확인</p>
+				<input type="password" name="userpasswordcheck" autocomplete="off">
 				<p class="validation_check"></p>
 				
-				<input type="submit" value="Sign up">
+				<p class="title">이름</p>
+				<input type="text" name="username" autocomplete="off">
+				<p class="validation_check"></p>
+				
+				<input type="submit" value="가입하기">
 			</form>
-			<a href="${contextPath}/member/signinform">Sign in to Klat</a>
+			<a href="${contextPath}/member/signinform">로그인</a>
 		</div>
 	</div>
 	
