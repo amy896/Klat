@@ -28,7 +28,7 @@
 	}
 </script>
 <div class="header_container">
-	<a class="img_container" href="${contextPath }/main">
+	<a class="img_container" href="${contextPath }/chat/chatmain">
 		<img src="${contextPath}/img/logo_white.png" alt="클랏 로고입니다"/>
 	</a>
 	<div class="chat_room_title">
@@ -38,8 +38,6 @@
 	</div>
 
 </div>
-
-
 <div>
 	<button onclick="location.href='${contextPath}/chat/inviteform'">초대</button>
 </div>

@@ -1,8 +1,11 @@
 package com.fanta.klat.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,6 +39,18 @@ public class ChatController {
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
+
+		List<Map<String, Object>> chatInfoList = new ArrayList<Map<String, Object>>();
+		List<ChatRoom> chatList = crService.getChatRoomListByMNum(mNum);
+		for (ChatRoom chat : chatList) {
+			Map<String, Object> chatInfo = new HashMap<String, Object>();
+			chatInfo.put("chat", chat);
+			chatInfo.put("chatMemberList", memberService.getChatMemberListExceptMe(chat.getCrNum(), mNum));
+			chatInfoList.add(chatInfo);
+		}
+
+		model.addAttribute("member", member);
+		model.addAttribute("chatInfoList", chatInfoList);
 		return "chat/chatMain";
 	}
 	

@@ -1,0 +1,53 @@
+.chatInfo_container {
+	width: 70%;
+	min-height: 150px;
+	margin: 0px auto;
+	border: 1px solid black;
+	margin-top: 30px;
+	position: relative;
+}
+
+.chatInfo_container .chat_room_title {
+	background-color: black;
+	color: white;
+	font-size: 20px;
+	padding: 15px;
+}
+
+.chatInfo_container .chat_exit_btn {
+	display: inline-block;
+	position: absolute;
+	padding: 5px;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	color: white;
+}
+.chatInfo_container  ul{
+	padding: 20px;
+}
+.chatInfo_container .member_container {
+	display: inline-block;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.chatInfo_container .profile_img_container {
+	border: 1px solid black;
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin: 5px auto;
+}
+
+.chatInfo_container .profile_img_container img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.chatInfo_container .member_container .member_name{
+	margin-top: 10px;
+	font-size: 13px;
+}

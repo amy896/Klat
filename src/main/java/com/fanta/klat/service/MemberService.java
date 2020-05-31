@@ -53,6 +53,10 @@ public class MemberService {
 		return memberDao.selectMemberByMNum(mNum);
 	}
 
+	public List<Member> getChatMemberListExceptMe(int crNum, int mNum) {
+		return memberDao.selctChatMemberListExceptMe(crNum, mNum);
+	}
+
 	public List<String> getAuthoritiesByMNum(int mNum) {
 		return memberDao.selectAuthoritiesByMNum(mNum);
 	}

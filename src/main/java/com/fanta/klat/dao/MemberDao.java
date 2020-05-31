@@ -20,6 +20,8 @@ public interface MemberDao {
 
 	public Member selectMemberByMNum(int mNum);
 
+	public List<Member> selctChatMemberListExceptMe(int crNum, int mNum);
+
 	public List<String> selectAuthoritiesByMNum(int mNum);
 
 	public List<String> selectMemberByKeyword(String keyword);

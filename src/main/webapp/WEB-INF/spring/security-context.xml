@@ -28,7 +28,7 @@
 							 password-parameter="userpassword"/>
 		<security:logout delete-cookies="JSESSIONID"
 						 logout-url="/member/signoutmember"
-						 logout-success-url="/member/signupform"
+						 logout-success-url="/main"
 						 invalidate-session="true"/>
 	</security:http>
 	
