@@ -34,5 +34,10 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		<property name="mapperInterface" value="com.fanta.klat.dao.ChatRoomDao"></property>
 	</bean>	
+	
+	<bean id="chatMessageDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface" value="com.fanta.klat.dao.ChatMessageDao"></property>
+	</bean>	
 
 </beans>
