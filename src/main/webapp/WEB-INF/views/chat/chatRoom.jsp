@@ -9,8 +9,11 @@
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 	<div class="container">
-		chatRoom
-		crNum : ${sessionScope.crNum}
+		<div class="chat_container">
+			<input type="hidden" class="pageType" value="chatroom">
+			<input type="hidden" class="crNum" value="${chatroom.crNum }">
+			<input type="hidden" class="crTitle" value="${chatroom.crTitle }">
+		</div>
 	</div>
 </body>
 </html>
