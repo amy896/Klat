@@ -2,8 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <script>
+	var sock;
+	var stompClient;
+	
 	$(function() {
-		
+		socketConnect();
 		var pageType = $(".pageType").val();
 		if(pageType == "chatroom"){
 			var chatTitle = $(".crTitle").val();
@@ -32,7 +35,16 @@
 				alert("request:" + request + " status:" + status + " error:" + error);
 			}
 		})
-	}
+	}// end change()
+	
+	function socketConnect(){
+		sock = new SockJS("${contextPath}/chat");
+		stompClient = Stomp.over(sock);
+		stompClient.connect({},function(){
+			
+		});
+	}//end socketConnect()
+	
 </script>
 <div class="header_container">
 	<a class="img_container" href="${contextPath }/chat/chatmain">
