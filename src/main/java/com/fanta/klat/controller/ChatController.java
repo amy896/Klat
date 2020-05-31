@@ -1,7 +1,10 @@
 package com.fanta.klat.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,16 +28,27 @@ public class ChatController {
 	@Autowired
 	private MemberService memberService;
 
-	
 	@RequestMapping("/chatmain")
-	public String showChatMain(Principal principal, HttpSession session) {
+	public String showChatMain(Principal principal, HttpSession session, Model model) {
 		String mId = principal.getName();
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
+
+		List<Map<String, Object>> chatInfoList = new ArrayList<Map<String, Object>>();
+		List<ChatRoom> chatList = crService.getChatRoomListByMNum(mNum);
+		for (ChatRoom chat : chatList) {
+			Map<String, Object> chatInfo = new HashMap<String, Object>();
+			chatInfo.put("chat", chat);
+			chatInfo.put("chatMemberList", memberService.getChatMemberListExceptMe(chat.getCrNum(), mNum));
+			chatInfoList.add(chatInfo);
+		}
+
+		model.addAttribute("member", member);
+		model.addAttribute("chatInfoList", chatInfoList);
 		return "chat/chatMain";
 	}
-	
+
 	@RequestMapping("/chatroom")
 	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum) {
 		String mId = principal.getName();
@@ -58,13 +72,13 @@ public class ChatController {
 		int crNum = crService.addChatRoom(mNum, crtitle);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/modifychatroom")
 	public boolean modifyChatRoom(HttpSession session, Model model, int crnum, String crtitle) {
 		return crService.modifyChatRoom(crnum, crtitle);
 	}
-	
+
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");

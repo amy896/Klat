@@ -29,7 +29,13 @@
 		where m_num = #{param1}
 	</select>
 	
-	<select id="selectAuthoritiesByMNum" resultType="String">
+	<select id="selctChatMemberListExceptMe" resultMap="memberMap">
+		select m.m_num, m.m_id, m.m_name
+		from tbl_chat_room_member crm join tbl_member m
+		on crm.cr_num = #{param1} and crm.m_num = m.m_num and m.m_num != #{param2}
+	</select>
+	
+	<select id="selectAuthoritiesByMNum" resultType="string">
 		select a_authority
 		from tbl_authority
 		where m_num = #{param1}

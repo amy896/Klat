@@ -11,27 +11,31 @@ import com.fanta.klat.model.Member;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
 	MemberDao memberDao;
-	
+
 	@Transactional
 	public boolean signUpMember(Member member) {
-		if(memberDao.insertMember(member)>0)
-			if(memberDao.insertAuthority(member.getmNum())>0)
+		if (memberDao.insertMember(member) > 0)
+			if (memberDao.insertAuthority(member.getmNum()) > 0)
 				return true;
 		return false;
 	}
-	
+
 	public Member getMemberByMId(String mId) {
 		return memberDao.selectMemberByMId(mId);
 	}
-	
+
 	public Member getMemberByMNum(int mNum) {
 		return memberDao.selectMemberByMNum(mNum);
 	}
 
-	public List<String> getAuthoritiesByMNum(int mNum){
+	public List<Member> getChatMemberListExceptMe(int crNum, int mNum) {
+		return memberDao.selctChatMemberListExceptMe(crNum, mNum);
+	}
+
+	public List<String> getAuthoritiesByMNum(int mNum) {
 		return memberDao.selectAuthoritiesByMNum(mNum);
 	}
 
