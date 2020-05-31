@@ -3,7 +3,14 @@
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <script>
 	$(function() {
-		$(".chat_room_title > p").text("채팅방 이름 들어갈 자리");
+		
+		var pageType = $(".pageType").val();
+		if(pageType == "chatroom"){
+			var chatTitle = $(".crTitle").val();
+			$(".chat_room_title > p").text(chatTitle);
+		}else{
+			$(".header_container > div").hide();
+		}
 	});
 
 	function change() {
@@ -31,17 +38,20 @@
 	<a class="img_container" href="${contextPath }/chat/chatmain">
 		<img src="${contextPath}/img/logo_white.png" alt="클랏 로고입니다"/>
 	</a>
+
 	<div class="chat_room_title">
 		<p></p>
 		<input type="text" id="new_chat_room_title" placeholder="new title please">
 		<button onclick="change()">수정</button>
 	</div>
+	
+	<div>
+		<button onclick="location.href='${contextPath}/chat/inviteform'">초대</button>
+	</div>
+	<div>
+		<button onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${sessionScope.crNum}'">나가기</button>
+	</div>
+		
 
-</div>
-<div>
-	<button onclick="location.href='${contextPath}/chat/inviteform'">초대</button>
-</div>
-<div>
-	<button onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${sessionScope.crNum}'">나가기</button>
 </div>
 <hr>
