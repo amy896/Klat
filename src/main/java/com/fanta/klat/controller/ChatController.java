@@ -1,6 +1,7 @@
 package com.fanta.klat.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fanta.klat.model.ChatMessage;
 import com.fanta.klat.model.ChatRoom;
 import com.fanta.klat.model.Member;
+import com.fanta.klat.service.ChatMessageService;
 import com.fanta.klat.service.ChatRoomService;
 import com.fanta.klat.service.MemberService;
 
@@ -22,6 +25,8 @@ import com.fanta.klat.service.MemberService;
 public class ChatController {
 	@Autowired
 	private ChatRoomService crService;
+	@Autowired
+	private ChatMessageService cmService;
 	@Autowired
 	private MemberService memberService;
 
@@ -35,12 +40,15 @@ public class ChatController {
 	}
 	
 	@RequestMapping("/chatroom")
-	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum) {
+	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum, Model model) {
 		String mId = principal.getName();
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
 		session.setAttribute("crNum", crnum);
+		
+		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
+		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
 	}
 
@@ -97,5 +105,18 @@ public class ChatController {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = (Integer) session.getAttribute("mNum");
 		return memberService.searchMemberList(keyword, crNum, mNum);
+	}
+	
+	@RequestMapping(value = "/sendchatmessage")
+	public void sendChatMessage(HttpSession session, String cmContent, String cmType, Date cmWriteDate) {
+		int crNum = (Integer) session.getAttribute("crNum");
+		int mNum = (Integer) session.getAttribute("mNum");
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setCmContent(cmContent);
+		chatMessage.setCmType(cmType);
+		chatMessage.setCmWriteDate(cmWriteDate);
+		chatMessage.setCrNum(crNum);
+		chatMessage.setmNum(mNum);
+		cmService.sendChatMessage(chatMessage);
 	}
 }

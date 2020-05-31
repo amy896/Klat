@@ -2,11 +2,16 @@ package com.fanta.klat.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ChatMessage {
 	private int cmNum;
 	private String cmContent;
 	private String cmType;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date cmWriteDate;
+	private int crNum;
+	private int mNum;
 	
 	public int getCmNum() {
 		return cmNum;
@@ -32,9 +37,21 @@ public class ChatMessage {
 	public void setCmWriteDate(Date cmWriteDate) {
 		this.cmWriteDate = cmWriteDate;
 	}
+	public int getCrNum() {
+		return crNum;
+	}
+	public void setCrNum(int crNum) {
+		this.crNum = crNum;
+	}
+	public int getmNum() {
+		return mNum;
+	}
+	public void setmNum(int mNum) {
+		this.mNum = mNum;
+	}
 	@Override
 	public String toString() {
 		return "ChatMessage [cmNum=" + cmNum + ", cmContent=" + cmContent + ", cmType=" + cmType + ", cmWriteDate="
-				+ cmWriteDate + "]";
+				+ cmWriteDate + ", crNum=" + crNum + ", mNum=" + mNum + "]";
 	}
 }
