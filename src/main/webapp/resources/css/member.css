@@ -31,6 +31,12 @@
 	color: red;
 }
 
+.sign_in_fali_msg {
+	margin-top: 10px;
+	font-size: 15px;
+	color: red;
+}
+
 input {
 	width: 100%;
 	height: 40px;

@@ -56,6 +56,10 @@
 				<p class="title">비밀번호</p> 
 				<input class="inputVal" type="password" name="userpassword" autocomplete="auto">
 				<p class="validation_check"></p>
+
+				<c:if test='${param.signinform eq "fail"}'>
+				<p class="sign_in_fali_msg">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</p>
+				</c:if>
 				
 				<input type="submit" value="로그인">
 			</form>
