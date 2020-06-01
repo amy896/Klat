@@ -31,7 +31,7 @@ function enterChatRoom(crNum) {
 		<a class="profile_img_container" href="${contextPath}/mypage/mypagemain">
 			<img src="http://via.placeholder.com/600x600" alt="프로필 이미지입니다">
 		</a>
-		<a href="${contextPath}/mypage/mypagemain">${member.mName}님</a>	
+		<a href="${contextPath}/mypage/mypagemain">${sessionScope.member.mName}님</a>	
 	</div>
 	<button onclick="location.href='${contextPath}/member/signoutmember'">로그아웃</button>
 		
@@ -41,4 +41,3 @@ function enterChatRoom(crNum) {
 		<div class="chatRoomList"></div>
 	</div>
 </div>
-<hr>
