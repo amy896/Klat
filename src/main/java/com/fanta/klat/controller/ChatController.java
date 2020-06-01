@@ -39,6 +39,7 @@ public class ChatController {
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
 		session.setAttribute("mNum", mNum);
+		session.setAttribute("member", member);
 
 		List<Map<String, Object>> chatInfoList = new ArrayList<Map<String, Object>>();
 		List<ChatRoom> chatList = crService.getChatRoomListByMNum(mNum);
