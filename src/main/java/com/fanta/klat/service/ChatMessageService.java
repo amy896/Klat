@@ -19,7 +19,11 @@ public class ChatMessageService {
 		}
 		return false;
 	}
-	
+
+	public ChatMessage getChatMessageByCmNum(int cmNum) {
+		return cmDao.selectChatMessageByCmNum(cmNum);
+	}
+
 	public List<ChatMessage> getAllChatMessageByCrNum(int crNum) {
 		return cmDao.selectAllChatMessageByCrNum(crNum);
 	}

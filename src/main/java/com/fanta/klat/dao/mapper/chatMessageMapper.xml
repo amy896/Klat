@@ -11,6 +11,12 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectChatMessageByCmNum" resultMap="chatMessageMap">
+		select cm_num, cm_content, cm_type, cm_write_date, cr_num, m_num
+		from tbl_chat_message
+		where cm_num = #{cmNum}
+	</select>
+	
 	<select id="selectAllChatMessageByCrNum" parameterType="int" resultMap="chatMessageMap">
 		select cm_content, cm_type, cm_write_date, m_num
 		from tbl_chat_message
