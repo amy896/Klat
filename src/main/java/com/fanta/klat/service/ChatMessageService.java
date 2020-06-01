@@ -13,11 +13,12 @@ public class ChatMessageService {
 	@Autowired
 	private ChatMessageDao cmDao;
 
-	public boolean sendChatMessage(ChatMessage chatMessage) {
+	public int sendChatMessage(ChatMessage chatMessage) {
+		int cmNum = 0;
 		if (cmDao.insertChatMessage(chatMessage) > 0) {
-			return true;
+			return chatMessage.getCmNum();
 		}
-		return false;
+		return cmNum;
 	}
 
 	public ChatMessage getChatMessageByCmNum(int cmNum) {
