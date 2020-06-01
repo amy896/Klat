@@ -41,7 +41,13 @@
 		sock = new SockJS("${contextPath}/chat");
 		stompClient = Stomp.over(sock);
 		stompClient.connect({},function(){
+			var crNum = $(".crNum").val();
 			
+			stompClient.subscribe("/category/msg/"+crNum,function(cm){
+				alert("메시지 보냄!");
+				msgInfo = JSON.parse(cm.body);
+				addMsg(msgInfo);
+			});
 		});
 	}//end socketConnect()
 	
