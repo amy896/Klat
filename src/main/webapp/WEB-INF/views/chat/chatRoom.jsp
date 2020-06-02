@@ -60,7 +60,12 @@ $(function(){
 			<input type="hidden" class="pageType" value="chatroom">
 			<input type="hidden" class="crNum" value="${chatroom.crNum }">
 			
-			<div class="chat_list_container">
+			<div class="chat_message_list_container">
+				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
+					<div>${chatMessage.mNum}</div>
+					<div>${chatMessage.cmWriteDate}</div>
+					<div>${chatMessage.cmContent}</div>
+				</c:forEach>
 			</div>
 			
 			<div>
