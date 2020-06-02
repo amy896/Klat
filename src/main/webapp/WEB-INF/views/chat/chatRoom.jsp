@@ -62,16 +62,18 @@ $(function(){
 			
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
-					<div>${chatMessage.mNum}</div>
-					<div>${chatMessage.cmWriteDate}</div>
-					<div>${chatMessage.cmContent}</div>
+					<div class="chat_message_box">
+						<div>${chatMessage.mNum}</div>
+						<div>${chatMessage.cmWriteDate}</div>
+						<div>${chatMessage.cmContent}</div>
+					</div>
 				</c:forEach>
 			</div>
 			
-			<div>
+			<div class="chat_message_input_box">
 				<button>코드</button>
 				<button>이미지</button>
-				<textarea rows="" cols=""></textarea>
+				<textarea></textarea>
 				<button>전송</button>
 			</div>
 		</div>
