@@ -7,7 +7,6 @@
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 	<div class="container">
-		chatAddForm
 		<div>
 			<form action="addchatroom" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
