@@ -149,45 +149,33 @@ public class ChatController {
 	}
 	
 	@SendTo("/category/msg/{var2}")
-	@MessageMapping("/sendImageFile/{var1}/{var2}/{var3}")
-	public ChatMessage sendImageFile(
-			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum,
-			@DestinationVariable(value = "var3") String originFileName) {
-		ChatMessage chatMessage = new ChatMessage();
-		chatMessage.setCmContent(originFileName);
-		chatMessage.setCmType("img");
-		chatMessage.setCrNum(crNum);
-		chatMessage.setmNum(mNum);
-		cmService.sendChatMessage(chatMessage);		
-		return chatMessage;
-	}
-
-	@SendTo("/category/msg/{var2}")
 	@MessageMapping("/sendCode/{var1}/{var2}/{var3}")
 	public ChatMessage sendCode(String code,
 			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value="var2") int crNum,
-			@DestinationVariable(value="var3")String type) {
+			@DestinationVariable(value = "var2") int crNum,
+			@DestinationVariable(value = "var3") String type) {
 		
-		System.out.println("member : " + mNum);
-		System.out.println("member : " + crNum);
-		System.out.println("member : " + type);
-		System.out.println("member : " + code);
-		
-		Member member = memberService.getMemberByMNum(mNum);
-		System.out.println("type = " +type);
-		if(type.equals("java")) {
-			type = "text/x-java";
-		}
-		
+		if(type.equals("java")) type = "text/x-java";
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(code);
 		chatMessage.setCmType(type);
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
 		cmService.sendChatMessage(chatMessage);
-		
+		return chatMessage;
+	}
+	
+	@SendTo("/category/msg/{var2}")
+	@MessageMapping("/sendImageFile/{var1}/{var2}")
+	public ChatMessage sendImageFile(String originFileName,
+			@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value = "var2") int crNum) {
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setCmContent(originFileName);
+		chatMessage.setCmType("img");
+		chatMessage.setCrNum(crNum);
+		chatMessage.setmNum(mNum);
+		cmService.sendChatMessage(chatMessage);		
 		return chatMessage;
 	}
 	
