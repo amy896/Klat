@@ -16,6 +16,7 @@
 	<resources location="/resources/css/" mapping="/css/**"/>
 	<resources location="/resources/js/" mapping="/js/**"/>
 	<resources location="/resources/img/" mapping="/img/**"/>
+	<resources location="/resources/lib/" mapping="/lib/**"/>
 		
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
