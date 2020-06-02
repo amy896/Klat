@@ -16,10 +16,25 @@
 <script type="text/javascript" src="${contextPath}/lib/codemirror/mode/php/php.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <script>
+var type;
+var codeEditor;
+
 $(function(){
 	
+	type = $(".codeType option:selected").val();
+	codeEditor = CodeMirror.fromTextArea($('#codeEditor')[0],{
+		mode : type,
+		theme : "gruvbox-dark",
+		lineNumbers : true,
+		autoCloseTags : true
+	});
+	codeEditor.setSize("446", "300");
+
+	$(".upload_code_btn").on("click",function(){
+		sendCode();
+	});
+	
 	$(".upload_img_btn").on("click",function(){
-		alert("click");
 		var upload_fiile_form = $("#upload_img_form")[0];
 		var formData = new FormData(upload_fiile_form);
 		$.ajax({
@@ -41,10 +56,17 @@ $(function(){
 		});
 	});
 	
+	function sendCode(){
+		var code = codeEditor.getValue();
+		if(type.includes('/')){
+			type = 'java';
+		}
+		stompClient.send("/client/sendCode/"+$(".mNum").val()+"/"+$(".crNum").val()+"/"+type,{},code);
+	};
+	
 	function sendImageFile(fileName,originFileName){
-		alert($(".crNum").val());
-		stompClient.send("/client/sendImageFile/"+${sessionScope.member.mNum}+"/"+$(".crNum").val()+"/"+originFileName);
-	}
+		stompClient.send("/client/sendImageFile/"+$(".mNum").val()+"/"+$(".crNum").val(),{},originFileName);
+	};
 
 });
 
@@ -59,6 +81,7 @@ $(function(){
 		<div class="chat_container">
 			<input type="hidden" class="pageType" value="chatroom">
 			<input type="hidden" class="crNum" value="${chatroom.crNum }">
+			<input type="hidden" class="mNum" value="${member.mNum }">
 			
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
@@ -76,6 +99,19 @@ $(function(){
 				<textarea></textarea>
 				<button>전송</button>
 			</div>
+		</div>
+				
+		<div class="uploadCode modal" style="border : 1px solid black">
+			<select name="codeType" class="codeType">
+				<option value="text/x-java">java</option>
+				<option value="javascript">javascript</option>
+				<option value="css">css</option>
+				<option value="xml">xml</option>
+				<option value="sql">sql</option>
+				<option value="php">php</option>
+			</select>
+			<textarea id="codeEditor"></textarea>
+			<a href="#" class="upload_code_btn">업로드</a>
 		</div>
 
 		<div class="uploadImage modal" style="border : 1px solid black">
