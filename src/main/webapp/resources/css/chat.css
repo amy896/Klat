@@ -66,3 +66,50 @@
 	margin-top: 10px;
 	font-size: 13px;
 }
+
+.chat_add_form_container {
+	margin: 20% auto;
+    height: 80px;
+    width: 350px;
+    border: 1px solid black;
+    padding: 40px;
+}
+
+.chat_add_form_container input[type=text] {
+	height: 30px;
+	width: 250px;
+}
+
+.chat_add_form_container input[type=submit] {
+	height: 36px;
+}
+
+.chat_invite_form_container {
+	margin: 20% auto;
+    height: 80px;
+    width: 450px;
+    border: 1px solid black;
+    padding: 40px;
+}
+
+.chat_add_form_container p,
+.chat_invite_form_container p {
+	margin-bottom: 20px;
+    font-size: 15pt;
+}
+
+.search_member_id {
+	height: 30px;
+	width: 250px;
+}
+
+.chat_invite_form_container li {
+	width: 190px;
+    background-color: #CCCCCC;
+    height: 20px;
+    padding: 4px 4px;
+}
+
+.chat_invite_form_container input[type=submit] {
+	height: 36px;
+}
