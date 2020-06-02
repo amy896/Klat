@@ -61,12 +61,12 @@ $(function(){
 		if(type.includes('/')){
 			type = 'java';
 		}
-		stompClient.send("/client/sendCode/"+${sessionScope.member.mNum}+"/"+$(".crNum").val()+"/"+type,{},code);
-	}
+		stompClient.send("/client/sendCode/"+$(".mNum").val()+"/"+$(".crNum").val()+"/"+type,{},code);
+	};
 	
 	function sendImageFile(fileName,originFileName){
-		stompClient.send("/client/sendImageFile/"+${sessionScope.member.mNum}+"/"+$(".crNum").val(),{},originFileName);
-	}
+		stompClient.send("/client/sendImageFile/"+$(".mNum").val()+"/"+$(".crNum").val(),{},originFileName);
+	};
 
 });
 
@@ -81,6 +81,7 @@ $(function(){
 		<div class="chat_container">
 			<input type="hidden" class="pageType" value="chatroom">
 			<input type="hidden" class="crNum" value="${chatroom.crNum }">
+			<input type="hidden" class="mNum" value="${member.mNum }">
 			
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">

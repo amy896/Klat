@@ -75,6 +75,7 @@ public class ChatController {
 
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
 		model.addAttribute("chatroom", chatroom);
+		model.addAttribute("member", member);
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
 	}
@@ -182,7 +183,7 @@ public class ChatController {
 	@ResponseBody
 	@RequestMapping(value = "/uploadImageFile", method = RequestMethod.POST)
 	public String uploadImageFile(HttpSession session, MultipartFile uploadimg) {
-		String uploadFolder = "/Users/amy/Desktop/test"; // 파일을 저장할 위치
+		String uploadFolder = "/Users/amy/Desktop/test";
 		String saveFileName = UUID.randomUUID().toString() + "_" + uploadimg.getOriginalFilename();
 		File saveFile = new File(uploadFolder, saveFileName);
 		try {
