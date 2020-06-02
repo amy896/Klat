@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fanta.klat.dao.ChatMessageDao">
 
-	<insert id="insertChatMessage" parameterType="chatRoom">
+	<insert id="insertChatMessage" parameterType="chatMessage">
 		insert into tbl_chat_message
 		(cm_content, cm_type, cm_write_date, cr_num, m_num)
 		values(#{cmContent}, #{cmType}, #{cmWriteDate}, #{crNum}, #{mNum})
