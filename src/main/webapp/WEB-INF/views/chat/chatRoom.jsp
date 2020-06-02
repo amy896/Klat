@@ -2,25 +2,38 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <link rel="stylesheet" type="text/css" href="${contextPath}/css/chat.css"/>
+<link rel="stylesheet" type="text/css" href="${contextPath}/lib/codemirror/lib/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/lib/codemirror/theme/gruvbox-dark.css" />
+<script type="text/javascript" src="${contextPath}/lib/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/edit/closetag.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/hint/show-hint.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/hint/css-hint.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/css/css.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/clike/clike.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/xml/xml.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/sql/sql.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/php/php.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <script>
 $(function(){
 	
-	$(".img_upload_btn").on("click",function(){
-		var upload_fiile_form = $("#upload_fiile_form")[0];
+	$(".upload_img_btn").on("click",function(){
+		alert("click");
+		var upload_fiile_form = $("#upload_img_form")[0];
 		var formData = new FormData(upload_fiile_form);
 		$.ajax({
-			url : "${contextPath}/chat/uploadFile",
+			url : "${contextPath}/chat/uploadImageFile",
 			data : formData,
 			processData : false,
 			contentType : false,
 			enctype: "multipart/form-data",
 			type : "post",
 			dataType : "json",
-			success : function(jsonStr){
-				var cmNum = jsonStr.cmNum;
-				var fileName = jsonStr.fileName;
-				var originName = jsonStr.originName;
-				sendFile(fileName,originName,cmNum);
+			success : function(saveFileInfo){
+				var fileName = saveFileInfo.fileName;
+				var originFileName = saveFileInfo.originFileName;
+				sendImageFile(fileName,originFileName);
 			},
 			error : function(){
 				alert("파일전송 에러발생");
@@ -28,13 +41,12 @@ $(function(){
 		});
 	});
 	
-	
-	function sendFile(fileName,originName,cmNum){
-		var result = $("input [name='mNum']").val();
-		stompClient.send("/client/sendFile/"+${sessionScope.member.mNum}+"/"+$(".crNum").val()+"/"+cmNum+"/"+originName);
+	function sendImageFile(fileName,originFileName){
+		alert($(".crNum").val());
+		stompClient.send("/client/sendImageFile/"+${sessionScope.member.mNum}+"/"+$(".crNum").val()+"/"+originFileName);
 	}
 
-})
+});
 
 </script>
 
@@ -58,22 +70,12 @@ $(function(){
 				<button>전송</button>
 			</div>
 		</div>
-		
-		<div class="codeModal">
-			<form>
-			
-			
-			</form>
-		
-		</div>
 
 		<div class="uploadImage modal" style="border : 1px solid black">
-			<form id="upload_fiile_form" method="post" enctype="multipart/form-data">
-				<input type="hidden" value="${wNum}" name="wNum"> 
-				<input type="text" value="${sessionScope.member.mNum}" name="mNum"> 
+			<form id="upload_img_form" method="post" enctype="multipart/form-data">
 				<input type="hidden" value="${_csrf.token}" name="${_csrf.parameterName}">
 				<input type="file" name="uploadimg" value="파일 선택" accept="image/*">
-				<a href="#" class="img_upload_btn">업로드</a>
+				<a href="#" class="upload_img_btn">업로드</a>
 			</form>
 		</div>
 	</div>

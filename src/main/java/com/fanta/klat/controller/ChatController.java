@@ -147,39 +147,62 @@ public class ChatController {
 		chatMessage.setmNum(mNum);
 		cmService.sendChatMessage(chatMessage);
 	}
-
+	
 	@SendTo("/category/msg/{var2}")
-	@MessageMapping("/sendFile/{var1}/{var2}/{var3}/{var4}")
-	public ChatMessage sendFileMsg(String fileName,
+	@MessageMapping("/sendImageFile/{var1}/{var2}/{var3}")
+	public ChatMessage sendImageFile(
 			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") String crNum,
-			@DestinationVariable(value="var3") int cmNum,
-			@DestinationVariable(value="var4")String originName) {
-		System.out.println("해당 메소드 진입!!");
-		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
-		return cm;
+			@DestinationVariable(value = "var2") int crNum,
+			@DestinationVariable(value = "var3") String originFileName) {
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setCmContent(originFileName);
+		chatMessage.setCmType("img");
+		chatMessage.setCrNum(crNum);
+		chatMessage.setmNum(mNum);
+		cmService.sendChatMessage(chatMessage);		
+		return chatMessage;
 	}
 
+	@SendTo("/category/msg/{var2}")
+	@MessageMapping("/sendCode/{var1}/{var2}/{var3}")
+	public ChatMessage sendCode(String code,
+			@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value="var2") int crNum,
+			@DestinationVariable(value="var3")String type) {
+		
+		System.out.println("member : " + mNum);
+		System.out.println("member : " + crNum);
+		System.out.println("member : " + type);
+		System.out.println("member : " + code);
+		
+		Member member = memberService.getMemberByMNum(mNum);
+		System.out.println("type = " +type);
+		if(type.equals("java")) {
+			type = "text/x-java";
+		}
+		
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setCmContent(code);
+		chatMessage.setCmType(type);
+		chatMessage.setCrNum(crNum);
+		chatMessage.setmNum(mNum);
+		cmService.sendChatMessage(chatMessage);
+		
+		return chatMessage;
+	}
+	
 	@ResponseBody
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public String uploadFile(HttpSession session, MultipartFile uploadimg) throws IllegalStateException, IOException {
+	@RequestMapping(value = "/uploadImageFile", method = RequestMethod.POST)
+	public String uploadImageFile(HttpSession session, MultipartFile uploadimg) {
 		String uploadFolder = "/Users/amy/Desktop/test"; // 파일을 저장할 위치
 		String saveFileName = UUID.randomUUID().toString() + "_" + uploadimg.getOriginalFilename();
 		File saveFile = new File(uploadFolder, saveFileName);
-		uploadimg.transferTo(saveFile);
-
-		int crNum = (Integer) session.getAttribute("crNum");
-		int mNum = (Integer) session.getAttribute("mNum");
-
-		ChatMessage chatMessage = new ChatMessage();
-		chatMessage.setCmContent(saveFileName);
-		chatMessage.setCmType("file");
-		chatMessage.setCrNum(crNum);
-		chatMessage.setmNum(mNum);
-		int cmNum = cmService.sendChatMessage(chatMessage);
-
-		String jsonStr = "{\"cmNum\":\"" + cmNum + "\",\"fileName\":\"" + saveFileName + "\",\"originName\":\""
-				+ uploadimg.getOriginalFilename() + "\"}";
-		return jsonStr;
+		try {
+			uploadimg.transferTo(saveFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String saveFileInfo = "{\"fileName\":\"" + saveFileName + "\",\"originFileName\":\""+ uploadimg.getOriginalFilename() + "\"}";
+		return saveFileInfo;
 	}
 }
