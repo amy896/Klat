@@ -24,6 +24,7 @@ public class MyPageController {
 		int mNum = (Integer) session.getAttribute("mNum");
 		Member member = memberService.getMemberByMNum(mNum);
 		model.addAttribute("member", member);
+		session.setAttribute("member", member);
 		return "myPage/myPageMain";
 	}
 	
