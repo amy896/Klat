@@ -135,7 +135,8 @@ public class ChatController {
 		return memberService.searchMemberList(keyword, crNum, mNum);
 	}
 
-	@RequestMapping(value = "/sendchatmessage")
+	@SendTo("/category/msg/{var2}")
+	@RequestMapping("/send/{var1}/{}")
 	public void sendChatMessage(HttpSession session, String cmContent, String cmType, Date cmWriteDate) {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = (Integer) session.getAttribute("mNum");

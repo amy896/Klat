@@ -16,7 +16,9 @@
 <script type="text/javascript" src="${contextPath}/lib/codemirror/mode/php/php.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <script>
+
 $(function(){
+
 	
 	$(".upload_img_btn").on("click",function(){
 		alert("click");
@@ -45,7 +47,15 @@ $(function(){
 		alert($(".crNum").val());
 		stompClient.send("/client/sendImageFile/"+${sessionScope.member.mNum}+"/"+$(".crNum").val()+"/"+originFileName);
 	}
-
+	
+	$("#send_chat_message_btn").on("click", function() {
+		sendMessage();
+	});
+	
+	function sendMessage() {
+		var message = $("#chat_message").val();
+// 		stompClient.send();
+	}
 });
 
 </script>
@@ -58,13 +68,13 @@ $(function(){
 	<div class="container">
 		<div class="chat_container">
 			<input type="hidden" class="pageType" value="chatroom">
-			<input type="hidden" class="crNum" value="${chatroom.crNum }">
+			<input type="hidden" class="crNum" value="${chatroom.crNum}">
 			
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
 					<div class="chat_message_box">
 						<div>${chatMessage.mNum}</div>
-						<div>${chatMessage.cmWriteDate}</div>
+						<div><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="HH:mm"/></div>
 						<div>${chatMessage.cmContent}</div>
 					</div>
 				</c:forEach>
@@ -73,9 +83,10 @@ $(function(){
 			<div class="chat_message_input_box">
 				<button>코드</button>
 				<button>이미지</button>
-				<textarea></textarea>
-				<button>전송</button>
+				<textarea id="chat_message" placeholder="write a message!"></textarea>
+				<button id="send_chat_message_btn">전송</button>
 			</div>
+			
 		</div>
 
 		<div class="uploadImage modal" style="border : 1px solid black">
