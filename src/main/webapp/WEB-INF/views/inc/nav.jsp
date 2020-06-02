@@ -33,8 +33,10 @@ function enterChatRoom(crNum) {
 		</a>
 		<a href="${contextPath}/mypage/mypagemain">${sessionScope.member.mName}님</a>	
 	</div>
-	<button onclick="location.href='${contextPath}/member/signoutmember'">로그아웃</button>
-		
+	<form action="${contextPath}/member/signoutmember" method="post">
+		<input type="hidden" value="${_csrf.token}" name="${_csrf.parameterName}">
+		<button>로그아웃</button>
+	</form>
 	<div class="chat_list_container">
 		<p class="title">채팅</p>
 		<div class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-plus"></i></div>
