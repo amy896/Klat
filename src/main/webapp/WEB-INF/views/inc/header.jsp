@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <c:set var="member" value="<%=request.getSession().getAttribute(\"member\")%>" />
 <script>
 	var sock;
@@ -40,12 +41,11 @@
 	function socketConnect(){
 		sock = new SockJS("${contextPath}/chat");
 		stompClient = Stomp.over(sock);
-		stompClient.connect({},function(){
+		stompClient.connect({}, function() {
 			var crNum = $(".crNum").val();
-			stompClient.subscribe("/category/msg/"+crNum,function(cm){
-				alert("메시지 보냄!");
+			stompClient.subscribe("/category/msg/"+crNum, function(cm) {
 				msgInfo = JSON.parse(cm.body);
-				addMsg(msgInfo);
+				addMessage(msgInfo);
 			});
 		});
 	}//end socketConnect()

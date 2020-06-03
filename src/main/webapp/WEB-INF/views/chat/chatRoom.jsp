@@ -62,11 +62,11 @@ $(function(){
 		if(type.includes('/')){
 			type = 'java';
 		}
-		stompClient.send("/client/sendCode/"+$(".mNum").val()+"/"+$(".crNum").val()+"/"+type,{},code);
+		stompClient.send("/client/sendCode/"+$(".mNum").val()+"/"+$(".crNum").val()+"/"+type, {}, code);
 	};
 	
 	function sendImageFile(fileName,originFileName){
-    stompClient.send("/client/sendImageFile/"+$(".mNum").val()+"/"+$(".crNum").val(),{},originFileName);
+		stompClient.send("/client/sendImageFile/"+$(".mNum").val()+"/"+$(".crNum").val(), {}, originFileName);
 	};
 
 	$("#send_chat_message_btn").on("click", function() {
@@ -74,13 +74,30 @@ $(function(){
 	});
 	
 	function sendMessage() {
-		var message = $("#chat_message").val();
-		console.log("message : "+message);
-		stompClient.send("/client/sendChatMessage/"+$(".crNum").val()+"/"+message);
+		var cmContent = $("#chat_message").val();
+		stompClient.send("/client/sendChatMessage/"+$(".mNum").val()+"/"+$(".crNum").val(), {}, cmContent);
 		$("#chat_message").val("");
 	}	
 });
 
+function addMessage(msgInfo) {
+	var chatMsg = $("<div class='chat_message_box'>");
+	
+	var content;
+	if(msgInfo.cmType == 'message') {
+		content = msgInfo.cmContent;
+	} else if(msgInfo.cmType == 'code') {
+		
+	} else if(msgInfo.cmType == 'img') {
+		
+	} 
+	
+	chatMsg.append("<div>"+msgInfo.mNum+"</div>"
+				  +"<div></div>"
+				  +"<div>"+content+"</div>");
+	
+	$(".chat_message_list_container").append(chatMsg);
+}
 </script>
 
 </head>

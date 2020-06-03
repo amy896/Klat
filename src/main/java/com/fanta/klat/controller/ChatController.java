@@ -3,7 +3,6 @@ package com.fanta.klat.controller;
 import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,18 +135,17 @@ public class ChatController {
 	}
 
 	@SendTo("/category/msg/{var2}")
-	@MessageMapping("/sendChatMessage/{var1}/{var2}/{var3}")
+	@MessageMapping("/sendChatMessage/{var1}/{var2}")
 	public ChatMessage sendChatMessage( 
 			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum,
-			@DestinationVariable(value = "var3") String cmContent) {
-
+			@DestinationVariable(value = "var2") int crNum, 
+			String cmContent) {
+		
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType("message");
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
-		System.out.println("chatMessage : "+chatMessage);
 		int cmNum = cmService.sendChatMessage(chatMessage);
 		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
 		return cm;
