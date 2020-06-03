@@ -128,7 +128,8 @@ function addMessage(msgInfo) {
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
 					<div class="chat_message_box">
-						<div>${chatMessage.mNum}</div>
+						<div>${chatMessage.mProfileImg}</div>
+						<div>${chatMessage.mName}</div>
 						<div><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="hh:mm"/></div>
 						<div>${chatMessage.cmContent}</div>
 					</div>

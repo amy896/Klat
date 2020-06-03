@@ -12,6 +12,8 @@ public class ChatMessage {
 	private Date cmWriteDate;
 	private int crNum;
 	private int mNum;
+	private int mName;
+	private int mProfileImg;
 	
 	public int getCmNum() {
 		return cmNum;
@@ -49,9 +51,22 @@ public class ChatMessage {
 	public void setmNum(int mNum) {
 		this.mNum = mNum;
 	}
+	public int getmName() {
+		return mName;
+	}
+	public void setmName(int mName) {
+		this.mName = mName;
+	}
+	public int getmProfileImg() {
+		return mProfileImg;
+	}
+	public void setmProfileImg(int mProfileImg) {
+		this.mProfileImg = mProfileImg;
+	}
 	@Override
 	public String toString() {
 		return "ChatMessage [cmNum=" + cmNum + ", cmContent=" + cmContent + ", cmType=" + cmType + ", cmWriteDate="
-				+ cmWriteDate + ", crNum=" + crNum + ", mNum=" + mNum + "]";
+				+ cmWriteDate + ", crNum=" + crNum + ", mNum=" + mNum + ", mName=" + mName + ", mProfileImg="
+				+ mProfileImg + "]";
 	}
 }
