@@ -8,7 +8,7 @@ public class ChatMessage {
 	private int cmNum;
 	private String cmContent;
 	private String cmType;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date cmWriteDate;
 	private int crNum;
 	private int mNum;

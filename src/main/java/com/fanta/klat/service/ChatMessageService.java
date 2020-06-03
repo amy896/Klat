@@ -1,5 +1,6 @@
 package com.fanta.klat.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ChatMessageService {
 
 	public int sendChatMessage(ChatMessage chatMessage) {		
 		int cmNum = 0;
+		Date cmWriteDate = new Date();
+		chatMessage.setCmWriteDate(cmWriteDate);
 		if (cmDao.insertChatMessage(chatMessage) > 0) {
 			cmNum = chatMessage.getCmNum();
 		}

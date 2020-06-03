@@ -92,10 +92,24 @@ function addMessage(msgInfo) {
 		
 	} 
 	
-	chatMsg.append("<div>"+msgInfo.mNum+"</div>"
-				  +"<div></div>"
-				  +"<div>"+content+"</div>");
+	var writeDate = new Date(msgInfo.cmWriteDate);
 	
+	var processedWriteDate;
+	var hour = writeDate.getHours();
+	var minute = writeDate.getMinutes();
+	
+	if(hour > 12) {
+		processedWriteDate = (Number(hour) - Number(12)) + ":" + minute + " PM";
+	} else if (hour == 12) {
+		processedWriteDate = hour + ":" + minute + " PM";
+	} else {
+		processedWriteDate = hour + ":" + minute + " AM"; 
+	}
+	
+	chatMsg.append("<div>"+msgInfo.mNum+"</div>"
+				  +"<div>"+processedWriteDate+"</div>"
+				  +"<div>"+content+"</div>");
+
 	$(".chat_message_list_container").append(chatMsg);
 }
 </script>
@@ -115,7 +129,7 @@ function addMessage(msgInfo) {
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
 					<div class="chat_message_box">
 						<div>${chatMessage.mNum}</div>
-						<div><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="HH:mm"/></div>
+						<div><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="hh:mm"/></div>
 						<div>${chatMessage.cmContent}</div>
 					</div>
 				</c:forEach>
