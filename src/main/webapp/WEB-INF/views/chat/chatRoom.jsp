@@ -19,7 +19,6 @@
 
 $(function(){
 
-	
 	$(".upload_img_btn").on("click",function(){
 		alert("click");
 		var upload_fiile_form = $("#upload_img_form")[0];
@@ -54,8 +53,10 @@ $(function(){
 	
 	function sendMessage() {
 		var message = $("#chat_message").val();
-// 		stompClient.send();
-	}
+		console.log("message : "+message);
+		stompClient.send("/client/sendChatMessage/"+$(".crNum").val()+"/"+message);
+		$("#chat_message").val("");
+	}	
 });
 
 </script>

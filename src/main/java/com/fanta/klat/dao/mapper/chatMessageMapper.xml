@@ -4,8 +4,8 @@
 
 	<insert id="insertChatMessage" parameterType="chatMessage">
 		insert into tbl_chat_message
-		(cm_content, cm_type, cm_write_date, cr_num, m_num)
-		values(#{cmContent}, #{cmType}, #{cmWriteDate}, #{crNum}, #{mNum})
+		(cm_content, cm_type, cr_num, m_num)
+		values(#{cmContent}, #{cmType}, #{crNum}, #{mNum})
 		<selectKey order="AFTER" keyProperty="cmNum" resultType="int">
 			select last_insert_id()
 		</selectKey>

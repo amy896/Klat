@@ -1,11 +1,10 @@
 package com.fanta.klat.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -136,17 +135,21 @@ public class ChatController {
 	}
 
 	@SendTo("/category/msg/{var2}")
-	@RequestMapping("/send/{var1}/{}")
-	public void sendChatMessage(HttpSession session, String cmContent, String cmType, Date cmWriteDate) {
-		int crNum = (Integer) session.getAttribute("crNum");
-		int mNum = (Integer) session.getAttribute("mNum");
+	@MessageMapping("/sendChatMessage/{var1}/{var2}/{var3}")
+	public ChatMessage sendChatMessage( 
+			@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value = "var2") int crNum,
+			@DestinationVariable(value = "var3") String cmContent) {
+
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
-		chatMessage.setCmType(cmType);
-		chatMessage.setCmWriteDate(cmWriteDate);
+		chatMessage.setCmType("message");
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
-		cmService.sendChatMessage(chatMessage);
+		System.out.println("chatMessage : "+chatMessage);
+		int cmNum = cmService.sendChatMessage(chatMessage);
+		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
+		return cm;
 	}
 	
 	@SendTo("/category/msg/{var2}")
@@ -155,6 +158,7 @@ public class ChatController {
 			@DestinationVariable(value = "var1") int mNum,
 			@DestinationVariable(value = "var2") int crNum,
 			@DestinationVariable(value = "var3") String originFileName) {
+		
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(originFileName);
 		chatMessage.setCmType("img");
@@ -168,8 +172,8 @@ public class ChatController {
 	@MessageMapping("/sendCode/{var1}/{var2}/{var3}")
 	public ChatMessage sendCode(String code,
 			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value="var2") int crNum,
-			@DestinationVariable(value="var3")String type) {
+			@DestinationVariable(value = "var2") int crNum,
+			@DestinationVariable(value = "var3")String type) {
 		
 		System.out.println("member : " + mNum);
 		System.out.println("member : " + crNum);
