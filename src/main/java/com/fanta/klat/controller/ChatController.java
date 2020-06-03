@@ -72,6 +72,7 @@ public class ChatController {
 		session.setAttribute("crNum", crnum);
 
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
+		System.out.println(chatMessageList);
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("member", member);
 		model.addAttribute("chatMessageList", chatMessageList);

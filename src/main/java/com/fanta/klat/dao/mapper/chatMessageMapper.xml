@@ -4,23 +4,25 @@
 
 	<insert id="insertChatMessage" parameterType="chatMessage">
 		insert into tbl_chat_message
-		(cm_content, cm_type, cr_num, m_num)
-		values(#{cmContent}, #{cmType}, #{crNum}, #{mNum})
+		(cm_content, cm_type, cm_write_date, cr_num, m_num)
+		values(#{cmContent}, #{cmType}, #{cmWriteDate}, #{crNum}, #{mNum})
 		<selectKey order="AFTER" keyProperty="cmNum" resultType="int">
 			select last_insert_id()
 		</selectKey>
 	</insert>
 	
 	<select id="selectChatMessageByCmNum" resultMap="chatMessageMap">
-		select cm_num, cm_content, cm_type, cm_write_date, cr_num, m_num
-		from tbl_chat_message
-		where cm_num = #{cmNum}
+		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, m.m_num, m.m_name, m.m_profile_img
+		from tbl_chat_message cm, tbl_member m 
+		where cm.m_num = m.m_num 
+		and cm_num = #{cmNum}
 	</select>
 	
 	<select id="selectAllChatMessageByCrNum" parameterType="int" resultMap="chatMessageMap">
-		select cm_content, cm_type, cm_write_date, m_num
-		from tbl_chat_message
-		where cr_num = #{crNum}
+		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, m.m_num, m.m_name, m.m_profile_img
+		from tbl_chat_message cm, tbl_member m
+		where cm.m_num = m.m_num 
+		and cr_num = #{crNum}
 	</select>
 	
 	<resultMap id="chatMessageMap" type="chatMessage">
@@ -30,5 +32,7 @@
 		<result column="cm_write_date" property="cmWriteDate" />
 		<result column="cr_num" property="crNum" />
 		<result column="m_num" property="mNum" />
+		<result column="m_name" property="mName" />
+		<result column="m_profile_img" property="mProfileImg" />
 	</resultMap>
 </mapper>
