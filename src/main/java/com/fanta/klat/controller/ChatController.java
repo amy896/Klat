@@ -74,6 +74,7 @@ public class ChatController {
 
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
 		model.addAttribute("chatroom", chatroom);
+		model.addAttribute("member", member);
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
 	}
@@ -153,12 +154,27 @@ public class ChatController {
 	}
 	
 	@SendTo("/category/msg/{var2}")
-	@MessageMapping("/sendImageFile/{var1}/{var2}/{var3}")
-	public ChatMessage sendImageFile(
+	@MessageMapping("/sendCode/{var1}/{var2}/{var3}")
+	public ChatMessage sendCode(String code,
 			@DestinationVariable(value = "var1") int mNum,
 			@DestinationVariable(value = "var2") int crNum,
-			@DestinationVariable(value = "var3") String originFileName) {
+			@DestinationVariable(value = "var3") String type) {
 		
+		if(type.equals("java")) type = "text/x-java";
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setCmContent(code);
+		chatMessage.setCmType(type);
+		chatMessage.setCrNum(crNum);
+		chatMessage.setmNum(mNum);
+		cmService.sendChatMessage(chatMessage);
+		return chatMessage;
+	}
+	
+	@SendTo("/category/msg/{var2}")
+	@MessageMapping("/sendImageFile/{var1}/{var2}")
+	public ChatMessage sendImageFile(String originFileName,
+			@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value = "var2") int crNum) {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(originFileName);
 		chatMessage.setCmType("img");
@@ -167,39 +183,11 @@ public class ChatController {
 		cmService.sendChatMessage(chatMessage);		
 		return chatMessage;
 	}
-
-	@SendTo("/category/msg/{var2}")
-	@MessageMapping("/sendCode/{var1}/{var2}/{var3}")
-	public ChatMessage sendCode(String code,
-			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum,
-			@DestinationVariable(value = "var3")String type) {
-		
-		System.out.println("member : " + mNum);
-		System.out.println("member : " + crNum);
-		System.out.println("member : " + type);
-		System.out.println("member : " + code);
-		
-		Member member = memberService.getMemberByMNum(mNum);
-		System.out.println("type = " +type);
-		if(type.equals("java")) {
-			type = "text/x-java";
-		}
-		
-		ChatMessage chatMessage = new ChatMessage();
-		chatMessage.setCmContent(code);
-		chatMessage.setCmType(type);
-		chatMessage.setCrNum(crNum);
-		chatMessage.setmNum(mNum);
-		cmService.sendChatMessage(chatMessage);
-		
-		return chatMessage;
-	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/uploadImageFile", method = RequestMethod.POST)
 	public String uploadImageFile(HttpSession session, MultipartFile uploadimg) {
-		String uploadFolder = "/Users/amy/Desktop/test"; // 파일을 저장할 위치
+		String uploadFolder = "/Users/amy/Desktop/test";
 		String saveFileName = UUID.randomUUID().toString() + "_" + uploadimg.getOriginalFilename();
 		File saveFile = new File(uploadFolder, saveFileName);
 		try {
