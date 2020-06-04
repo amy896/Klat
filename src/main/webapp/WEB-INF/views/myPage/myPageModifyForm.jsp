@@ -87,7 +87,7 @@ $(function() {
 						type : "post",
 						success : function(result){
 							if(result){
-								location.href="${contextPath}/mypage/modifyform";
+								location.href="${contextPath}/mypage/mypagemain";
 							}else{
 								alert("수정 실패");
 							}
@@ -107,7 +107,7 @@ $(function() {
 				type : "post",
 				success : function(result){
 					if(result){
-						location.href="${contextPath}/mypage/modifyform";
+						location.href="${contextPath}/mypage/mypagemain";
 					}else{
 						alert("수정 실패");
 					}
