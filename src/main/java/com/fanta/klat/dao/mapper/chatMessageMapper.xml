@@ -15,14 +15,14 @@
 		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, m.m_num, m.m_name, m.m_profile_img
 		from tbl_chat_message cm, tbl_member m 
 		where cm.m_num = m.m_num 
-		and cm_num = #{cmNum}
+		and cm.cm_num = #{cmNum}
 	</select>
 	
 	<select id="selectAllChatMessageByCrNum" parameterType="int" resultMap="chatMessageMap">
 		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, m.m_num, m.m_name, m.m_profile_img
 		from tbl_chat_message cm, tbl_member m
 		where cm.m_num = m.m_num 
-		and cr_num = #{crNum}
+		and cm.cr_num = #{crNum}
 	</select>
 	
 	<resultMap id="chatMessageMap" type="chatMessage">

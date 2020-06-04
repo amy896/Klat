@@ -106,7 +106,7 @@ function addMessage(msgInfo) {
 		processedWriteDate = hour + ":" + minute + " AM"; 
 	}
 	
-	chatMsg.append("<div>"+msgInfo.mNum+"</div>"
+	chatMsg.append("<div>"+msgInfo.mName+"</div>"
 				  +"<div>"+processedWriteDate+"</div>"
 				  +"<div>"+content+"</div>");
 
