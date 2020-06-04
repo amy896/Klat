@@ -1,7 +1,13 @@
 package com.fanta.klat.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,12 +68,41 @@ public class MemberService {
 		return memberDao.selectAuthoritiesByMNum(mNum);
 	}
 
+	public byte[] getProfileImg(Member member) {
+		String path = "/Users/amy/Desktop/profileImage";
+		String profileImgName = member.getmProfileImg();
+		File file = new File(path + "/" + profileImgName);
+		if (!file.exists()) {
+			profileImgName = "profileImage.png";
+			path = "/Users/amy/workspace1/Klat/src/main/webapp/resources/img";
+			file = new File(path + "/" + profileImgName);
+		}
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			return IOUtils.toByteArray(in);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
 	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
 		List<String> memberListByKeyword = memberDao.selectMemberByKeyword(keyword);
 		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
-		
+
 		memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
-		
+
 		for (int j = 0; j < mNumList.size(); j++) {
 			String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
 			memberListByKeyword.remove(mIdInChatRoom);

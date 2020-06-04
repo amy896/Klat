@@ -152,7 +152,7 @@ function getRoundedCanvas(sourceCanvas){
 			<form class="modify_member_form" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<a class="my_page_profile_img" href="${contextPath}/mypage/mypagemain">
-					<img src="http://via.placeholder.com/600x600" alt="프로필 이미지입니다">
+					<img src="${contextPath}/member/showProfileImg?mnum=${sessionScope.member.mNum}" alt="프로필 이미지입니다">
 				</a>
 				<div class="modify_profileImage_btn_area">		
 					<input type="hidden" id="profileImgType" name="profileImgType"> 
