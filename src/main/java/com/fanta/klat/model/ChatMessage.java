@@ -12,8 +12,8 @@ public class ChatMessage {
 	private Date cmWriteDate;
 	private int crNum;
 	private int mNum;
-	private int mName;
-	private int mProfileImg;
+	private String mName;
+	private String mProfileImg;
 	
 	public int getCmNum() {
 		return cmNum;
@@ -51,16 +51,16 @@ public class ChatMessage {
 	public void setmNum(int mNum) {
 		this.mNum = mNum;
 	}
-	public int getmName() {
+	public String getmName() {
 		return mName;
 	}
-	public void setmName(int mName) {
+	public void setmName(String mName) {
 		this.mName = mName;
 	}
-	public int getmProfileImg() {
+	public String getmProfileImg() {
 		return mProfileImg;
 	}
-	public void setmProfileImg(int mProfileImg) {
+	public void setmProfileImg(String mProfileImg) {
 		this.mProfileImg = mProfileImg;
 	}
 	@Override
