@@ -6,7 +6,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.js"></script>
+
 <script>
+
 var profileImgType = null;
 var cropper = null;
 var croppedCanvas = null;
@@ -14,6 +16,7 @@ var roundedCanvas = null;
 var roundImg = null;
 var profileImgType = null;
 var cropImg = null;
+
 $(function() {
 	//이미지 크롭 모달 보여주기
 	 $("#attachImgBtn").on('change', function() { //첨부파일이 변경되면
@@ -151,9 +154,13 @@ function getRoundedCanvas(sourceCanvas){
 		<div class="my_page_box">
 			<form class="modify_member_form" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<a class="my_page_profile_img" href="${contextPath}/mypage/mypagemain">
-					<img src="${contextPath}/member/showProfileImg?mnum=${sessionScope.member.mNum}" alt="프로필 이미지입니다">
-				</a>
+				
+				<div class="my_page_profile_container">
+					<a class="my_page_profile_img" href="${contextPath}/mypage/mypagemain">
+						<img src="${contextPath}/member/showProfileImg?mnum=${sessionScope.member.mNum}" alt="프로필 이미지입니다">
+					</a>
+				</div>
+				
 				<div class="modify_profileImage_btn_area">		
 					<input type="hidden" id="profileImgType" name="profileImgType"> 
 					<input type="file" id="attachImgBtn" name="profileImg" value="사진 선택" accept="image/*" multiple>
@@ -161,21 +168,24 @@ function getRoundedCanvas(sourceCanvas){
 					<input type="button" id="defalutImgBtn">
 					<label for="defalutImgBtn">기본이미지</label>
 				</div>
-				<div>
+				
+				<div class="my_page_name_container">
 					<p>닉네임</p>
 					<input type="text" name="mname" value="${member.mName}" autocomplete="off">
 				</div>
-				<div>
+				<div class="my_page_pw_container">
 					<p>비밀번호</p>
 					<input type="password" name="mpw" value="${member.mPw}" autocomplete="off">
 				</div>
-				<div>
+				<div class="my_page_pw_container">
 					<p>비밀번호 확인</p>
 					<input type="password" name="mpwcheck" value="${member.mPw}" autocomplete="off">
 				</div>
-				<input type="submit" value="수정">
+				
+				<input class="my_page_modify_btn" type="submit" value="수정">
 			</form>
 		</div>
+		
 		<!-- 프로필 이미지 수정 모달 -->
 		<div class="cropImgModal modal">
 			<div id="addImgForm">

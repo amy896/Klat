@@ -8,26 +8,24 @@
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 	<div class="container">
 		<div class="my_page_box">
-			<a class="my_page_profile_img" href="${contextPath}/mypage/mypagemain">
+			<div class="my_page_profile_container">
 				<img src="${contextPath}/member/showProfileImg?mnum=${sessionScope.member.mNum}" alt="프로필 이미지입니다">
-			</a>
-			<div>
+			</div>
+			<div class="my_page_id_container">
 				<p>아이디</p>
-				${member.mId}
+				<p>${member.mId}</p>
 			</div>
-			<div>
+			<div class="my_page_name_container">
 				<p>닉네임</p>
-				${member.mName}
+				<p>${member.mName}</p>
 			</div>
-			<div>
+			<div class="my_page_pw_container">
 				<p>비밀번호</p>
-				${member.mPw}
+				<p>${member.mPw}</p>
 			</div>
-			<button onclick="location.href='${contextPath}/mypage/modifyform'">수정</button>
-			<button onclick="removeMember(${member.mNum})">탈퇴</button>
+			<button class="my_page_modify_btn" onclick="location.href='${contextPath}/mypage/modifyform'">내 정보 수정</button>
 		</div>
-		
-			
+		<button onclick="removeMember(${member.mNum})">탈퇴</button>
 	</div>
 
 <script>
