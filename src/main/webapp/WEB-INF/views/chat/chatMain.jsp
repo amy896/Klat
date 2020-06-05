@@ -19,7 +19,7 @@
 					<c:forEach items="${chatInfo.chatMemberList}" var="member">
 						<li class="member_container">
 							<div class="profile_img_container">
-								<img src="${contextPath}/member/showProfileImg?mnum=${member.mNum}" alt="프로필 이미지입니다">
+								<img src="https://via.placeholder.com/150" alt="프로필 이미지입니다">
 							</div>
 							<p class="member_name">${member.mName}</p>	
 						</li>
