@@ -2,18 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <link rel="stylesheet" type="text/css" href="${contextPath}/css/chat.css"/>
-<link rel="stylesheet" type="text/css" href="${contextPath}/lib/codemirror/lib/codemirror.css" />
-<link rel="stylesheet" type="text/css" href="${contextPath}/lib/codemirror/theme/gruvbox-dark.css" />
-<script type="text/javascript" src="${contextPath}/lib/codemirror/lib/codemirror.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/edit/closetag.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/hint/show-hint.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/addon/hint/css-hint.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/javascript/javascript.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/css/css.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/clike/clike.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/xml/xml.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/sql/sql.js"></script>
-<script type="text/javascript" src="${contextPath}/lib/codemirror/mode/php/php.js"></script>
+
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <script>
 
