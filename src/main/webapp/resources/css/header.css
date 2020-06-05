@@ -6,12 +6,12 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: black;
+	background: linear-gradient(45deg, #91A8EE 20%, #9ABCE9 50%, #D5E5F5 100%);
 }
 
 .chat_room_title input {
-	background-color: black;
-	color: white;
+	color: #FFF;
+	background: content-box;
 	border: 0px;
     font-size: 25px;
     width: 170px;
