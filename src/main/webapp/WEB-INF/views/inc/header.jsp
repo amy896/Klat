@@ -59,7 +59,6 @@
 				dataType : "json",
 				success : function(result) {
 					$("#new_chat_room_title").attr("readonly", true);
-					$("#new_chat_room_title").css({backgroundColor : "black", color : "white"});
 					$(".chat_room_title button").css("display", "none");
 					location.reload();
 				},
