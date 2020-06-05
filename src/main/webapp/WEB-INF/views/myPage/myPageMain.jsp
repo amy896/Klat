@@ -9,7 +9,7 @@
 	<div class="container">
 		<div class="my_page_box">
 			<div class="my_page_profile_container">
-				<img src="${contextPath}/member/showProfileImg?mnum=${sessionScope.member.mNum}" alt="프로필 이미지입니다">
+				<img src="https://via.placeholder.com/150" alt="프로필 이미지입니다">
 			</div>
 			<div class="my_page_id_container">
 				<p>아이디</p>
