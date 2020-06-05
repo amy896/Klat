@@ -63,16 +63,19 @@ public class MyPageController {
 		String uploadFolder = "/Users/amy/Desktop/profileImage";
 		String saveFileName = null;
 		File saveFile = new File(uploadFolder, member.getmId());
-		
-		if(croppedImage != null) {
-			try {
-				croppedImage.transferTo(saveFile);
-				saveFileName = member.getmId();
-			} catch (Exception e) {
-				return false;
+		if(profileImgType.equals("")) {
+			return  memberService.modifyMember(member.getmNum(), mname, mpw, member.getmProfileImg());
+		}else {
+			if(croppedImage != null) {
+				try {
+					croppedImage.transferTo(saveFile);
+					saveFileName = member.getmId();
+				} catch (Exception e) {
+					return false;
+				}
 			}
+			return  memberService.modifyMember(member.getmNum(), mname, mpw, saveFileName);
 		}
-		return  memberService.modifyMember(member.getmNum(), mname, mpw, saveFileName);
 	}
 
 }
