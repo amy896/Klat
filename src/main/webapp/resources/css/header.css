@@ -39,3 +39,12 @@
 	width: calc(100% - 200px);
 	height: calc(100% - 71px);
 }
+
+.invite_member_btn, .exit_chatroom_btn {
+	padding: 5px;
+	margin-top: 20px;
+}
+
+.invite_member_btn {
+	
+}

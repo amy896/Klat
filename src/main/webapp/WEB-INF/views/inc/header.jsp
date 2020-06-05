@@ -62,10 +62,10 @@
 		<button onclick="change()">수정</button>
 	</div>
 	
-	<div>
-		<button onclick="location.href='${contextPath}/chat/inviteform'">초대</button>
+	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
+		<i class="fas fa-user-friends"></i>
 	</div>
-	<div>
-		<button onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${sessionScope.crNum}'">나가기</button>
+	<div class="exit_chatroom_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
+		<i class="fas fa-sign-out-alt"></i>
 	</div>
 </div>
