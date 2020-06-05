@@ -37,13 +37,6 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/showProfileImg")
-	public byte[] showProfileImg(int mnum) {
-		Member member = memberService.getMemberByMNum(mnum);
-		return memberService.getProfileImg(member);
-	}
-	
-	@ResponseBody
 	@RequestMapping(value = "/checkUserId", method = RequestMethod.GET)
 	public boolean checkUserId(String userId) {
 		Member member = memberService.getMemberByMId(userId);

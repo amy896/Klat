@@ -41,11 +41,10 @@ public class MemberService {
 		return false;
 	}
 
-	public boolean modifyMember(int mNum, String mName, String mPw, String mProfileImg) {
+	public boolean modifyMember(int mNum, String mName, String mPw) {
 		Member member = memberDao.selectMemberByMNum(mNum);
 		member.setmName(mName);
 		member.setmPw(mPw);
-		member.setmProfileImg(mProfileImg);
 		if (memberDao.updateMember(member) > 0) {
 			return true;
 		}
@@ -66,35 +65,6 @@ public class MemberService {
 
 	public List<String> getAuthoritiesByMNum(int mNum) {
 		return memberDao.selectAuthoritiesByMNum(mNum);
-	}
-
-	public byte[] getProfileImg(Member member) {
-		String path = "/Users/amy/Desktop/profileImage";
-		String profileImgName = member.getmProfileImg();
-		File file = new File(path + "/" + profileImgName);
-		if (!file.exists()) {
-			profileImgName = "profileImage.png";
-			path = "/Users/amy/workspace1/Klat/src/main/webapp/resources/img";
-			file = new File(path + "/" + profileImgName);
-		}
-		InputStream in = null;
-		try {
-			in = new FileInputStream(file);
-			return IOUtils.toByteArray(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (in != null) {
-					in.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
 	}
 
 	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
