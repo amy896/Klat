@@ -9,8 +9,25 @@
 	background-color: black;
 }
 
-.header_container * {
+.chat_room_title input {
+	background-color: black;
 	color: white;
+	border: 0px;
+    font-size: 25px;
+    width: 170px;
+}
+
+.chat_room_title button {
+	display: none;
+}
+
+.invite_member_btn,
+.exit_chatroom_btn {
+	color: white;
+}
+
+.chat_room_title p {
+	font-size: 30px;
 }
 
 .header_container>* {
