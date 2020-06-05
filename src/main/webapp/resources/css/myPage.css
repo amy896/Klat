@@ -44,22 +44,6 @@
 	height: 25px;
 }
 
-.modal {
-	width: 300px;
-	height: 300px;
-	border: 1px solid black;
-	background-color: white;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: none;
-}
-
-.modal .btn {
-	border: 1px solid black;
-}
-
 .cropImgModal #cropImgArea{
 	width : 100%;
 	height: 200px;

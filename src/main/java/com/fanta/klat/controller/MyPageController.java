@@ -54,28 +54,11 @@ public class MyPageController {
 		return "myPage/myPageModifyForm";
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/modifymember", method = RequestMethod.POST)
-	public boolean  modifyMember(@RequestParam(value = "croppedImage", required = false)MultipartFile croppedImage, 
-									@RequestParam(value = "profileImgType", required = false)String profileImgType, 
-									String mname, String mpw, HttpSession session) {
+	public String  modifyMember(String mname, String mpw, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
-		String uploadFolder = "/Users/amy/Desktop/profileImage";
-		String saveFileName = null;
-		File saveFile = new File(uploadFolder, member.getmId());
-		if(profileImgType.equals("")) {
-			return  memberService.modifyMember(member.getmNum(), mname, mpw, member.getmProfileImg());
-		}else {
-			if(croppedImage != null) {
-				try {
-					croppedImage.transferTo(saveFile);
-					saveFileName = member.getmId();
-				} catch (Exception e) {
-					return false;
-				}
-			}
-			return  memberService.modifyMember(member.getmNum(), mname, mpw, saveFileName);
-		}
+		memberService.modifyMember(member.getmNum(), mname, mpw);
+		return "redirect:/mypage/mypagemain";
 	}
 
 }
