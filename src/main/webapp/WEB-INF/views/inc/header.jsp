@@ -16,27 +16,6 @@
 			$(".header_container > div").hide();
 		}
 	});
-
-	function change() {
-		var crNum = 1;
-		var crTitle = $("#new_chat_room_title").val();
-		$.ajax({
-			url : "${contextPath}/chat/modifychatroom",
-			data : {
-				"crnum" : crNum,
-				"crtitle" : crTitle
-			},
-			dataType : "json",
-			success : function(result) {
-				$("#new_chat_room_title").val('Default Value');
-				$(".chat_room_title > p").empty();
-				$(".chat_room_title > p").text(crTitle);
-			},
-			error : function(request, status, error) {
-				alert("request:" + request + " status:" + status + " error:" + error);
-			}
-		})
-	}// end change()
 	
 	function socketConnect(){
 		sock = new SockJS("${contextPath}/chat");
@@ -57,10 +36,39 @@
 	</a>
 
 	<div class="chat_room_title">
-		<p></p>
-		<input type="text" id="new_chat_room_title" placeholder="new title please">
+		<input type="text" id="new_chat_room_title" value="${chatroom.crTitle}" readonly="readonly">
 		<button onclick="change()">수정</button>
 	</div>
+	
+	<script type="text/javascript">
+		$("#new_chat_room_title").dblclick(function() {
+			$("#new_chat_room_title").attr("readonly", false);
+			$("#new_chat_room_title").css({backgroundColor : "white", color : "black"});
+			$(".chat_room_title button").css("display", "inline-block");
+		})
+		
+		function change() {
+			var crNum = $(".crNum").val();
+			var crTitle = $("#new_chat_room_title").val();
+			$.ajax({
+				url : "${contextPath}/chat/modifychatroom",
+				data : {
+					"crnum" : crNum,
+					"crtitle" : crTitle
+				},
+				dataType : "json",
+				success : function(result) {
+					$("#new_chat_room_title").attr("readonly", true);
+					$("#new_chat_room_title").css({backgroundColor : "black", color : "white"});
+					$(".chat_room_title button").css("display", "none");
+					location.reload();
+				},
+				error : function(request, status, error) {
+					alert("request:" + request + " status:" + status + " error:" + error);
+				}
+			})
+		}
+	</script>
 	
 	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
 		<i class="fas fa-user-friends"></i>
