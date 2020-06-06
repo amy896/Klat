@@ -1,12 +1,10 @@
 package com.fanta.klat.controller;
 
-import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fanta.klat.model.ChatMessage;
 import com.fanta.klat.model.ChatRoom;
@@ -38,6 +35,8 @@ public class ChatController {
 	private ChatMessageService cmService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private SimpMessagingTemplate smt;
 
 	@RequestMapping("/chatmain")
 	public String showChatMain(Principal principal, HttpSession session, Model model) {
@@ -71,12 +70,18 @@ public class ChatController {
 		session.setAttribute("mNum", mNum);
 		session.setAttribute("crNum", crnum);
 
-		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
-		//System.out.println(chatMessageList);
+		List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("member", member);
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
+	}
+
+	@ResponseBody
+	@RequestMapping("/loadallmessage")
+	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
+		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crNum);
+		return chatMessageList;
 	}
 
 	@RequestMapping("/addform")
@@ -102,8 +107,9 @@ public class ChatController {
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		int crNum = (Integer) session.getAttribute("crNum");
-		crService.exitChatRoom(crNum, mNum);
+		
+		ChatMessage cm = crService.exitChatRoom(crnum, mNum);
+//		smt.convertAndSend("/category/systemMsg/" + crnum, cm);
 		return "redirect:chatmain";
 	}
 
@@ -121,8 +127,11 @@ public class ChatController {
 	}
 
 	@RequestMapping("/invitemember")
-	public String inviteMember(HttpSession session) {
+	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
+		int mNum = memberService.getMemberByMId(mid).getmNum();
+		crService.addChatRoomMember(crNum, mNum);
+
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
@@ -137,11 +146,9 @@ public class ChatController {
 
 	@SendTo("/category/msg/{var2}")
 	@MessageMapping("/sendChatMessage/{var1}/{var2}")
-	public ChatMessage sendChatMessage( 
-			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum, 
-			String cmContent) {
-		
+	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value = "var2") int crNum, String cmContent) {
+
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType("message");
@@ -151,5 +158,5 @@ public class ChatController {
 		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
 		return cm;
 	}
-	
+
 }
