@@ -7,6 +7,7 @@
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 	<div class="container">
+		<input type="hidden" class="pageType" value="chatmain">
 		<c:forEach items="${chatInfoList}" var="chatInfo">
 			<div class="chatInfo_container">
 				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">

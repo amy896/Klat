@@ -4,9 +4,15 @@
 
 $(function() {
 	loadChatRoomList();
+	var pageType = $(".pageType").val();
+	if(pageType == "chatmain"){
+		$(".chat_list_container").hide();
+	}
+	
 });
 
 function loadChatRoomList() {
+	var crNum = $(".crNum").val();
 	var chatRoomList = $(".chatRoomList");
 	$.ajax({
 		url : "${contextPath}/chat/getchatroomlist",
@@ -14,9 +20,10 @@ function loadChatRoomList() {
 		success : function(data) {
 			chatRoomList.empty();
 			$.each(data, function (index, item) {
-				var str = "<div onclick='enterChatRoom("+item.crNum+")'>"+item.crTitle+"</div>";
+				var str = "<div "+(crNum ==item.crNum?'class="currentChat"':"")+" onclick='enterChatRoom("+item.crNum+")'>"+item.crTitle+"</div>";
 				chatRoomList.append(str);
 			})
+			
 		}
 	})
 }
@@ -31,15 +38,15 @@ function enterChatRoom(crNum) {
 		<a class="profile_img_container" href="${contextPath}/mypage/mypagemain">
 			<img src="https://via.placeholder.com/150" alt="프로필 이미지입니다">
 		</a>
-		<a href="${contextPath}/mypage/mypagemain">${sessionScope.member.mName}님</a>	
+		<a href="${contextPath}/mypage/mypagemain"><span class="member_name">${sessionScope.member.mName}</span> 님</a>	
 	</div>
 	<form action="${contextPath}/member/signoutmember" method="post">
 		<input type="hidden" value="${_csrf.token}" name="${_csrf.parameterName}">
 		<button>로그아웃</button>
 	</form>
 	<div class="chat_list_container">
-		<p class="title">채팅</p>
-		<div class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-plus"></i></div>
+		<p class="title">채팅 목록</p>
+		<button class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-comment-medical"></i></button>
 		<div class="chatRoomList"></div>
 	</div>
 </div>
