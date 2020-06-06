@@ -22,6 +22,13 @@ public class ChatRoomService {
 		}
 		return chatRoom.getCrNum();
 	}
+	
+	public boolean addChatRoomMember(int crNum, int mNum) {
+		if(crDao.insertChatRoomMember(crNum, mNum) > 0) {
+			return true;
+		} 
+		return false;
+	}
 
 	public boolean modifyChatRoom(int crNum, String crTitle) {
 		ChatRoom chatRoom = new ChatRoom();

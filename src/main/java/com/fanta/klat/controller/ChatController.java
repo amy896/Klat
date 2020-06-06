@@ -73,7 +73,7 @@ public class ChatController {
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/loadallmessage")
 	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
@@ -123,8 +123,11 @@ public class ChatController {
 	}
 
 	@RequestMapping("/invitemember")
-	public String inviteMember(HttpSession session) {
+	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
+		int mNum = memberService.getMemberByMId(mid).getmNum();
+		crService.addChatRoomMember(crNum, mNum);
+
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
@@ -139,11 +142,9 @@ public class ChatController {
 
 	@SendTo("/category/msg/{var2}")
 	@MessageMapping("/sendChatMessage/{var1}/{var2}")
-	public ChatMessage sendChatMessage( 
-			@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum, 
-			String cmContent) {
-		
+	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
+			@DestinationVariable(value = "var2") int crNum, String cmContent) {
+
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType("message");
@@ -153,5 +154,5 @@ public class ChatController {
 		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
 		return cm;
 	}
-	
+
 }
