@@ -24,6 +24,7 @@
 .invite_member_btn,
 .exit_chatroom_btn {
 	color: white;
+	cursor: pointer;
 }
 
 .chat_room_title p {

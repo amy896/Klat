@@ -104,8 +104,8 @@ public class ChatController {
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		int crNum = (Integer) session.getAttribute("crNum");
-		crService.exitChatRoom(crNum, mNum);
+//		int crNum = (Integer) session.getAttribute("crNum");
+		crService.exitChatRoom(crnum, mNum);
 		return "redirect:chatmain";
 	}
 

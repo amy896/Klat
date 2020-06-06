@@ -72,7 +72,7 @@
 	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
 		<i class="fas fa-user-friends"></i>
 	</div>
-	<div class="exit_chatroom_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
+	<div class="exit_chatroom_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatroom.crNum}'">
 		<i class="fas fa-sign-out-alt"></i>
 	</div>
 </div>
