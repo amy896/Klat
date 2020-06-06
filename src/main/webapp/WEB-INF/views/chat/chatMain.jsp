@@ -11,7 +11,7 @@
 		<div class="chat_room_list_title">
 			채팅 목록
 		</div>
-		<div class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'">
+		<div class="chat_main_add_btn" onclick="location.href='${contextPath}/chat/addform'">
 			<i class="fas fa-plus"></i><br>
 		</div>
 		<c:forEach items="${chatInfoList}" var="chatInfo">

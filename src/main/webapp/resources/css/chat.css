@@ -1,17 +1,63 @@
 .chatInfo_container {
 	width: 70%;
-	min-height: 150px;
-	margin: 0px auto;
-	border: 1px solid black;
-	margin-top: 30px;
+	
+.container {
+	overflow: scroll;
+}
+
+.container::-webkit-scrollbar {
+	display: none;
+}
+
+.chat_room_list_title {
+	width: 85%;
+	margin: 30px auto;
+	color: #414368;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.chatInfo_container,.chat_main_add_btn {
+	width: 85%;
+	margin: 30px auto;
+	border-radius: 5px;
 	position: relative;
+	box-sizing: border-box;
+}
+
+.chatInfo_container{
+	min-height: 150px;
+	margin: 30px auto;
+	border-radius: 5px;
+	position: relative;
+	background-color: #D1D9E5;
+	color: #414368;
+}
+
+.chat_main_add_btn {
+	border: 1px solid #5169B3;
+	height: 40px;
+	color: #5169B3;
+	text-align: center;
+	cursor: pointer;
+
+}
+
+.chat_main_add_btn .fa-plus{
+	padding: 10px;
 }
 
 .chatInfo_container .chat_room_title {
-	background-color: black;
-	color: white;
-	font-size: 20px;
-	padding: 15px;
+	color: #414368;
+	font-size: 17px;
+	padding: 5px;
+	margin: 10px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.chatInfo_container .chat_room_title span {
+	cursor: pointer;
 }
 
 .chatInfo_container .chat_exit_btn {
@@ -21,36 +67,40 @@
 	top: 10px;
 	right: 10px;
 	cursor: pointer;
-	color: white;
 }
 
 .chatInfo_container  ul {
-	padding: 20px;
+	padding: 0px 20px;
 }
 
-.chatInfo_container .chat_invite_btn {
-	
+.chat_exit_btn+p {
+	font-size: 14px;
+	margin-left: 20px
 }
 
 .chatInfo_container .member_list_container li {
 	display: inline-block;
 	text-align: center;
-	margin-right: 10px;
+	margin: 10px 5px;
+	font-size: 12px;
 }
 
-.member_container .profile_img_container, .member_list_container .chat_invite_btn
-	{
-	border: 1px solid black;
+.chatInfo_container .chat_invite_btn .fa-plus {
+	margin: 11.5px 12px;
+}
+
+.member_container .profile_img_container, .member_list_container .chat_invite_btn {
 	display: block;
-	width: 30px;
-	height: 30px;
+	width: 35px;
+	height: 35px;
 	border-radius: 50%;
 	margin: 5px auto;
 }
 
 .member_list_container .chat_invite_btn {
-	background-color: black;
+	background-color: #5169B3;
 	color: white;
+	text-align: center;
 	cursor: pointer;
 }
 
