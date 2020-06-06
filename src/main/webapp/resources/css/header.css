@@ -7,24 +7,38 @@
 	top: 0;
 	left: 0;
 	background: linear-gradient(45deg, #414368 20%, #5169B3 50%, #99BFD5 100%);
+	position: relative;
 }
 
 .chat_room_title input {
 	color: #FFF;
 	background: content-box;
 	border: 0px;
-    font-size: 25px;
-    width: 170px;
+	font-size: 25px;
+	width: 170px;
 }
 
 .chat_room_title button {
 	display: none;
 }
 
-.invite_member_btn,
+.invite_member_btn, .exit_chatroom_btn {
+	position: absolute;
+	color: white;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.invite_member_btn {
+	color: white;
+	cursor: pointer;
+	right: 60px;
+}
+
 .exit_chatroom_btn {
 	color: white;
 	cursor: pointer;
+	right: 20px;
 }
 
 .chat_room_title p {
