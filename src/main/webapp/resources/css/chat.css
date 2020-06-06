@@ -83,7 +83,10 @@
 
 .chat_message_box {
 	padding: 10px 10px;
-	border-bottom: 1px solid gray;
+}
+
+.my_msg {
+	background-color: rgba(209, 217, 229, 0.2);	
 }
 
 .chat_message_box_img {

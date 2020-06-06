@@ -23,6 +23,7 @@ $(function(){
 
 function loadAllMessage() {
 	var crNum = $(".crNum").val();
+	
 	$.ajax({
 		url : "${contextPath}/chat/loadallmessage",
 		data : {"crNum" : crNum},
@@ -39,14 +40,23 @@ function loadAllMessage() {
 }
 
 function addMessage(msgInfo) {
-	var chatMsg = $("<div class='chat_message_box'>");
-	var content = msgInfo.cmContent;
-	var writeDate = new Date(msgInfo.cmWriteDate);
+	/* 이 채팅메시지는 누가 썼을까? */
+	var msgType;
+	var mNum = $(".mNum").val();
+	if(msgInfo.mNum == mNum) {
+		msgType = "my_msg";
+	} else {
+		msgType = "their_msg";
+	}
 	
-	var processedWriteDate;
+	var chatMsg = $("<div class='chat_message_box "+msgType+"'>");
+	
+	/* 채팅메시지 시간 */
+	var writeDate = new Date(msgInfo.cmWriteDate);
 	var hour = writeDate.getHours();
 	var minute = writeDate.getMinutes();
 	
+	var processedWriteDate;
 	if(hour > 12) {
 		processedWriteDate = (Number(hour) - Number(12)) + ":" + minute + " PM";
 	} else if (hour == 12) {
@@ -55,11 +65,12 @@ function addMessage(msgInfo) {
 		processedWriteDate = hour + ":" + minute + " AM"; 
 	}
 	
+	/* 채팅메시지 그리는 부분 */
 	chatMsg.append("<div class='chat_message_box_img'></div>"
 				  +"<div class='chat_message_box_text'>"
 				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
 				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
-				  +"<p class='chat_message_box_content'>"+content+"</p>"
+				  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
 				  +"</div>");
 
 	$(".chat_message_list_container").append(chatMsg);
