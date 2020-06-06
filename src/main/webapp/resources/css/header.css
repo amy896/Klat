@@ -13,17 +13,32 @@
 	color: #FFF;
 	background: content-box;
 	border: 0px;
-    font-size: 25px;
-    width: 170px;
+	font-size: 25px;
+	width: 170px;
 }
 
 .chat_room_title button {
 	display: none;
 }
 
-.invite_member_btn,
-.exit_chatroom_btn {
+.invite_member_btn, .exit_chatroom_btn {
+	width: 30px;
+	height: 23px;
 	color: white;
+	font-size: 22px;
+	text-align: center;
+	position: absolute;
+	padding: 5px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+.invite_member_btn {
+	right: 76px;
+}
+
+.exit_chatroom_btn {
+	right: 30px;
 }
 
 .chat_room_title p {
@@ -55,13 +70,4 @@
 	left: 201px;
 	width: calc(100% - 200px);
 	height: calc(100% - 71px);
-}
-
-.invite_member_btn, .exit_chatroom_btn {
-	padding: 5px;
-	margin-top: 20px;
-}
-
-.invite_member_btn {
-	
 }
