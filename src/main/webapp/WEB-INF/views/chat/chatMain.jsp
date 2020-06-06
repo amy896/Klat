@@ -8,15 +8,19 @@
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
 	<div class="container">
 		<input type="hidden" class="pageType" value="chatmain">
+		<div class="chat_room_list_title">
+			채팅 목록
+		</div>
 		<c:forEach items="${chatInfoList}" var="chatInfo">
 			<div class="chatInfo_container">
 				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">
 					${chatInfo.chat.crTitle}
 				</div>
-				
+				<div class="chat_exit_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
+					<i class="fas fa-sign-out-alt"></i>
+				</div>
+				<p>참여자 목록</p>
 				<ul class="member_list_container">
-					<li class="chat_invite_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum='+${chatInfo.chat.crNum}">
-					</li>
 					<c:forEach items="${chatInfo.chatMemberList}" var="member">
 						<li class="member_container">
 							<div class="profile_img_container">
@@ -24,11 +28,11 @@
 							</div>
 							<p class="member_name">${member.mName}</p>	
 						</li>
-					</c:forEach>				
+					</c:forEach>
+					<li class="chat_invite_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum='+${chatInfo.chat.crNum}">
+						<i class="fas fa-plus"></i>
+					</li>		
 				</ul>
-				<div class="chat_exit_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
-					<i class="fas fa-sign-out-alt"></i>
-				</div>
 			</div>
 		</c:forEach>		
 	</div>
