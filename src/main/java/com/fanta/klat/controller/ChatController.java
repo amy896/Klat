@@ -1,12 +1,10 @@
 package com.fanta.klat.controller;
 
-import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,10 +15,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fanta.klat.model.ChatMessage;
 import com.fanta.klat.model.ChatRoom;
@@ -71,12 +67,18 @@ public class ChatController {
 		session.setAttribute("mNum", mNum);
 		session.setAttribute("crNum", crnum);
 
-		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crnum);
-		//System.out.println(chatMessageList);
+		List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
 		model.addAttribute("chatroom", chatroom);
 		model.addAttribute("member", member);
 		model.addAttribute("chatMessageList", chatMessageList);
 		return "chat/chatRoom";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/loadallmessage")
+	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
+		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crNum);
+		return chatMessageList;
 	}
 
 	@RequestMapping("/addform")

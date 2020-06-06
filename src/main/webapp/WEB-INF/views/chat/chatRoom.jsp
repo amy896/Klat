@@ -7,6 +7,8 @@
 
 $(function(){
 
+	loadAllMessage();
+	
 	$("#send_chat_message_btn").on("click", function() {
 		sendMessage();
 	});
@@ -19,9 +21,26 @@ $(function(){
 	
 });
 
+function loadAllMessage() {
+	var crNum = $(".crNum").val();
+	$.ajax({
+		url : "${contextPath}/chat/loadallmessage",
+		data : {"crNum" : crNum},
+		dataType : "json",
+		success : function(data) {
+			$.each(data, function(index, item) {
+				addMessage(item);
+			})
+		},
+		error : function(request, status, error) {
+			alert("request:"+request+" status:"+status+" error:"+error);
+		}
+	})
+}
+
 function addMessage(msgInfo) {
 	var chatMsg = $("<div class='chat_message_box'>");
-	var content = "<div>"+msgInfo.cmContent+"</div>";
+	var content = msgInfo.cmContent;
 	var writeDate = new Date(msgInfo.cmWriteDate);
 	
 	var processedWriteDate;
@@ -44,7 +63,6 @@ function addMessage(msgInfo) {
 				  +"</div>");
 
 	$(".chat_message_list_container").append(chatMsg);
-
 }
 </script>
 
