@@ -39,6 +39,14 @@ function loadAllMessage() {
 	})
 }
 
+/* 날짜 */
+var todayDate;
+function showDateMessage(year, month, date){
+	var dateMessageDiv = $("<div class='date_msg' align='center'><hr><div>"+year+"-"+month+"-"+date+"</div></div>");
+	$(".chat_message_list_container").append(dateMessageDiv);
+	todayDate = date;
+}
+
 function addMessage(msgInfo) {
 	/* 이 채팅메시지는 누가 썼을까? */
 	var msgType;
@@ -65,6 +73,11 @@ function addMessage(msgInfo) {
 		processedWriteDate = hour + ":" + minute + " AM"; 
 	}
 	
+	/* 오늘 날짜(todayDate)와 만들려는 chatMessage의 날짜가 같지 않으면  */
+	if(todayDate != writeDate.getDate() && todayDate != 0){
+		showDateMessage(writeDate.getFullYear(), Number(writeDate.getMonth())+Number(1), writeDate.getDate());
+	}
+	
 	/* 채팅메시지 그리는 부분 */
 	chatMsg.append("<div class='chat_message_box_img'></div>"
 				  +"<div class='chat_message_box_text'>"
@@ -75,6 +88,7 @@ function addMessage(msgInfo) {
 
 	$(".chat_message_list_container").append(chatMsg);
 }
+
 </script>
 
 </head>
@@ -89,23 +103,12 @@ function addMessage(msgInfo) {
 			<input type="hidden" class="mNum" value="${member.mNum }">
 			
 			<div class="chat_message_list_container">
-				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
-					<div class="chat_message_box">
-						<div class="chat_message_box_img"></div>
-						<div class="chat_message_box_text">
-							<span class="chat_message_box_name">${chatMessage.mName}</span>
-							<span class="chat_message_box_date"><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="hh:mm"/></span>
-							<p class="chat_message_box_content">${chatMessage.cmContent}</p>
-						</div>
-					</div>
-				</c:forEach>
 			</div>
 			
 			<div class="chat_message_input_box">
 				<textarea id="chat_message" placeholder="write a message!"></textarea>
 				<button id="send_chat_message_btn">전송</button>
 			</div>
-			
 		</div>
 	</div>
 </body>
