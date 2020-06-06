@@ -15,7 +15,7 @@
 }
 
 
-.chatInfo_container,.chat_add_btn {
+.chatInfo_container,.chat_main_add_btn {
 	width: 85%;
 	margin: 30px auto;
 	border-radius: 5px;
@@ -34,7 +34,7 @@
 	color: #414368;
 }
 
-.chat_add_btn {
+.chat_main_add_btn {
 	border: 1px solid #5169B3;
 
 	height: 40px;
@@ -44,7 +44,7 @@
 	cursor: pointer;
 
 }
-.chat_add_btn .fa-plus{
+.chat_main_add_btn .fa-plus{
 	padding: 10px;
 }
 
