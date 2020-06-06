@@ -36,9 +36,12 @@ function addMessage(msgInfo) {
 		processedWriteDate = hour + ":" + minute + " AM"; 
 	}
 	
-	chatMsg.append("<div>"+msgInfo.mName+"</div>"
-				  +"<div>"+processedWriteDate+"</div>"
-				  +content);
+	chatMsg.append("<div class='chat_message_box_img'></div>"
+				  +"<div class='chat_message_box_text'>"
+				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
+				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
+				  +"<p class='chat_message_box_content'>"+content+"</p>"
+				  +"</div>");
 
 	$(".chat_message_list_container").append(chatMsg);
 
@@ -59,10 +62,12 @@ function addMessage(msgInfo) {
 			<div class="chat_message_list_container">
 				<c:forEach items="${chatMessageList}" var="chatMessage" varStatus="status">
 					<div class="chat_message_box">
-						<div>${chatMessage.mProfileImg}</div>
-						<div>${chatMessage.mName}</div>
-						<div><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="hh:mm"/></div>
-						<div>${chatMessage.cmContent}</div>
+						<div class="chat_message_box_img"></div>
+						<div class="chat_message_box_text">
+							<span class="chat_message_box_name">${chatMessage.mName}</span>
+							<span class="chat_message_box_date"><fmt:formatDate value="${chatMessage.cmWriteDate}" pattern="hh:mm"/></span>
+							<p class="chat_message_box_content">${chatMessage.cmContent}</p>
+						</div>
 					</div>
 				</c:forEach>
 			</div>

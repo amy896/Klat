@@ -77,16 +77,43 @@
     overflow: scroll;
 }
 
+.chat_message_list_container::-webkit-scrollbar {
+    display: none;
+}
+
 .chat_message_box {
-	padding: 5px 10px;
+	padding: 10px 10px;
 	border-bottom: 1px solid gray;
+}
+
+.chat_message_box_img {
+	width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.chat_message_box_text {
+    display: inline-block;	
+    vertical-align: top;
+    margin-left: 5px;
+}
+
+.chat_message_box_date {
+	font-size: 8pt;
+}
+
+.chat_message_box_content {
+	font-weight: 200;
+	padding: 2px 0px 0px 0px;
 }
 
 .chat_message_input_box {
 	border: 1px solid #D1D9E5;
-  margin: 0px 5px;
-  border-radius: 5px;
-  padding: 3px;
+	margin: 0px 5px;
+	border-radius: 5px;
+	padding: 3px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
