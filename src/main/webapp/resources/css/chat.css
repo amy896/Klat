@@ -1,3 +1,11 @@
+.container {
+	overflow: scroll;
+}
+
+.container::-webkit-scrollbar {
+	display: none;
+}
+
 .chat_room_list_title {
 	width: 85%;
 	margin: 30px auto;
@@ -6,16 +14,40 @@
 	font-weight: 600;
 }
 
-.chatInfo_container {
+
+.chatInfo_container,.chat_add_btn {
 	width: 85%;
-	min-height: 150px;
-	margin: 0px auto;
+	margin: 30px auto;
 	border-radius: 5px;
-	margin-top: 30px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.chatInfo_container{
+	
+	
+	min-height: 150px;
+	margin: 30px auto;
+	border-radius: 5px;
 	position: relative;
 	background-color: #D1D9E5;
-		color: #414368;
+	color: #414368;
 }
+
+.chat_add_btn {
+	border: 1px solid #5169B3;
+
+	height: 40px;
+
+	color: #5169B3;
+	text-align: center;
+	cursor: pointer;
+
+}
+.chat_add_btn .fa-plus{
+	padding: 10px;
+}
+
 
 .chatInfo_container .chat_room_title {
 	color: #414368;
@@ -68,7 +100,7 @@
 	margin: 5px auto;
 }
 
-.member_list_container .chat_invite_btn {
+.member_list_container .chat_invite_btn{
 	background-color: #5169B3;
 	color: white;
 	text-align: center;
