@@ -12,7 +12,7 @@
 			<p>초대하고 싶은 회원님의 아이디를 입력해주세요.</p>
 			<form action="invitemember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<input class="search_member_id" type="text" placeholder="invite someone">
+				<input class="search_member_id" type="text" name="mid" placeholder="invite someone" autocomplete="off">
 				<input class="invite_member_btn" type="submit" value="초대">
 				
 				<ul class="search_member_list_container"></ul>
