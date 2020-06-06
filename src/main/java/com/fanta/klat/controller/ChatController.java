@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,8 @@ public class ChatController {
 	private ChatMessageService cmService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private SimpMessagingTemplate smt;
 
 	@RequestMapping("/chatmain")
 	public String showChatMain(Principal principal, HttpSession session, Model model) {
@@ -104,8 +107,9 @@ public class ChatController {
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-//		int crNum = (Integer) session.getAttribute("crNum");
-		crService.exitChatRoom(crnum, mNum);
+		
+		ChatMessage cm = crService.exitChatRoom(crnum, mNum);
+//		smt.convertAndSend("/category/systemMsg/" + crnum, cm);
 		return "redirect:chatmain";
 	}
 

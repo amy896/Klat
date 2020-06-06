@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fanta.klat.dao.ChatRoomDao;
+import com.fanta.klat.model.ChatMessage;
 import com.fanta.klat.model.ChatRoom;
 
 @Service
@@ -40,16 +41,17 @@ public class ChatRoomService {
 		return false;
 	}
 
-	public boolean exitChatRoom(int crNum, int mNum) {
+	public ChatMessage exitChatRoom(int crNum, int mNum) {
+		ChatMessage cm = new ChatMessage();
 		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
 			if(removeChatRoom()) {
 				System.out.println("비어있는 채팅방을 삭제했습니다.");
 			} else {
 				System.out.println("비어있는 채팅방이 없습니다.");
 			}
-			return true;
+			return cm;
 		}
-		return false; 
+		return cm; 
 	}
 	
 	public boolean exitAllChatRoom(int mNum) {
