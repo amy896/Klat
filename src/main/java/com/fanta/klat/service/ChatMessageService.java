@@ -29,11 +29,12 @@ public class ChatMessageService {
 	}
 
 	public List<ChatMessage> getAllChatMessageByCrNum(int crNum) {
-		return cmDao.selectAllChatMessageByCrNum(crNum);
+		List<ChatMessage> cmList = cmDao.selectAllChatMessageByCrNum(crNum);
+		System.out.println(cmList);
+		return cmList;
 	}
 	
 	public ChatMessage getSystemMessageByCmNum(int cmNum) {
-		ChatMessage chatMessage = new ChatMessage();
-		return chatMessage;
+		return cmDao.selectSystemMessageByCmNum(cmNum);
 	}
 }

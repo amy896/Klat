@@ -78,13 +78,17 @@ function addMessage(msgInfo) {
 		showDateMessage(writeDate.getFullYear(), Number(writeDate.getMonth())+Number(1), writeDate.getDate());
 	}
 	
-	/* 채팅메시지 그리는 부분 */
-	chatMsg.append("<div class='chat_message_box_img'></div>"
+	/* 채팅메시지 & 입장퇴장메시지 그리는 부분 */
+	if(msgInfo.cmType == 'message') {
+		chatMsg.append("<div class='chat_message_box_img'></div>"
 				  +"<div class='chat_message_box_text'>"
 				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
 				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
 				  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
-				  +"</div>");
+				  +"</div>");		
+	} else if(msgInfo.cmType == 'system') {
+		chatMsg.append("<div class='system_message'>"+msgInfo.mName+" "+msgInfo.cmContent+"</div>");
+	}
 
 	$(".chat_message_list_container").append(chatMsg);
 }

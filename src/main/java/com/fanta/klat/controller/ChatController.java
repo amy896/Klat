@@ -25,6 +25,7 @@ import com.fanta.klat.model.Member;
 import com.fanta.klat.service.ChatMessageService;
 import com.fanta.klat.service.ChatRoomService;
 import com.fanta.klat.service.MemberService;
+import com.fanta.klat.service.SystemMessageService;
 
 @Controller
 @RequestMapping("/chat")
@@ -35,6 +36,8 @@ public class ChatController {
 	private ChatMessageService cmService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private SystemMessageService smService;
 	@Autowired
 	private SimpMessagingTemplate smt;
 
@@ -81,6 +84,7 @@ public class ChatController {
 	@RequestMapping("/loadallmessage")
 	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crNum);
+		System.out.println(chatMessageList);
 		return chatMessageList;
 	}
 
@@ -107,9 +111,10 @@ public class ChatController {
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		
-		ChatMessage cm = crService.exitChatRoom(crnum, mNum);
-//		smt.convertAndSend("/category/systemMsg/" + crnum, cm);
+		crService.exitChatRoom(crnum, mNum);
+		Member member = memberService.getMemberByMNum(mNum);
+		ChatMessage chatMessage = smService.sendExitMessage(crnum, member);
+		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
 		return "redirect:chatmain";
 	}
 
@@ -131,7 +136,9 @@ public class ChatController {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = memberService.getMemberByMId(mid).getmNum();
 		crService.addChatRoomMember(crNum, mNum);
-
+		Member member = memberService.getMemberByMNum(mNum);
+		ChatMessage chatMessage = smService.sendEntranceMessage(crNum, member);
+		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
