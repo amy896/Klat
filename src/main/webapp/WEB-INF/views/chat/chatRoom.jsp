@@ -13,11 +13,22 @@ $(function(){
 		sendMessage();
 	});
 	
+	/* 엔터를 누르면 채팅 메시지 보내기 */
+	$("#chat_message").on("keydown", function(e){
+		if(e.keyCode == 13 && !e.shiftKey){
+			e.preventDefault();
+			sendMessage();
+		}
+	});
+	
 	function sendMessage() {
+		console.log("sendMessage");
 		var cmContent = $("#chat_message").val();
 		stompClient.send("/client/sendChatMessage/"+$(".mNum").val()+"/"+$(".crNum").val(), {}, cmContent);
 		$("#chat_message").val("");
 	}
+	
+
 	
 });
 
