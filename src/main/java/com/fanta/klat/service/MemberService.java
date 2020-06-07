@@ -30,7 +30,7 @@ public class MemberService {
 			if (memberDao.deleteAuthority(mNum) > 0) {
 				return true;
 			}
-			return false;
+			return true;
 		}
 		return false;
 	}

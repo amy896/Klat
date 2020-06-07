@@ -2,6 +2,31 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
 <link rel="stylesheet" type="text/css" href="${contextPath}/css/chat.css"/>
+<script>
+$(function(){
+	$(".chat_invite_form").on("submit", function(){
+		var data = $(".chat_invite_form").serialize();
+		$.ajax({
+			url:"${contextPath}/chat/invitemember",
+			method:"get",
+			data: data,
+			dataType:"json",
+			success:function(data){
+				if(data.addMemberResult){
+					stompClient.send("/client/sendChatMessage/-1/"+data.crNum, {}, data.receiverName+"님이 입장하셨습니다.");
+					window.location.href="${contextPath}/chat/chatroom?crnum="+data.crNum;
+				}else{
+					alert("멤버 초대 실패");
+				}
+			},
+			error:function(request,status,error){
+				alert("멤버 초대 실패");
+			}
+		});
+		return false;
+	});
+});
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
@@ -10,7 +35,7 @@
 	
 		<div class="chat_invite_form_container">
 			<p>초대하고 싶은 회원님의 아이디를 입력해주세요.</p>
-			<form action="invitemember" method="post">
+			<form class="chat_invite_form" action="invitemember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<input class="search_member_id" type="text" name="mid" placeholder="invite someone" autocomplete="off">
 				<input class="invite_member_btn" type="submit" value="초대">

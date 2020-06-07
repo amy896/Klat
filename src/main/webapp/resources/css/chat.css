@@ -213,6 +213,15 @@
 	margin-right: 15px;
 }
 
+.chat_system_message_box{
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 10px 0px;
+    border-top: 0.5px solid #8798c64f;
+    border-bottom: 0.5px solid #8798c64f;
+}
+
 /* 채팅방 생성 & 채팅방 초대 */
 .chat_add_form_container {
 	margin: 20% auto;
