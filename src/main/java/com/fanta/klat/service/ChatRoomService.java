@@ -41,7 +41,7 @@ public class ChatRoomService {
 		return false;
 	}
 
-	public ChatMessage exitChatRoom(int crNum, int mNum) {
+	public boolean exitChatRoom(int crNum, int mNum) {
 		ChatMessage cm = new ChatMessage();
 		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
 			if(removeChatRoom()) {
@@ -49,9 +49,9 @@ public class ChatRoomService {
 			} else {
 				System.out.println("비어있는 채팅방이 없습니다.");
 			}
-			return cm;
+			return true;
 		}
-		return cm; 
+		return false; 
 	}
 	
 	public boolean exitAllChatRoom(int mNum) {

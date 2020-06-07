@@ -104,13 +104,13 @@ public class ChatController {
 		return crService.modifyChatRoom(crnum, crtitle);
 	}
 
-	@RequestMapping("/exitchatroom")
+	@ResponseBody
+	@RequestMapping(value = "/exitchatroom", produces = "text/plain;charset=UTF-8")
 	public String exitChatRoom(HttpSession session, int crnum) {
-		int mNum = (Integer) session.getAttribute("mNum");
-
-		ChatMessage cm = crService.exitChatRoom(crnum, mNum);
-//		smt.convertAndSend("/category/systemMsg/" + crnum, cm);
-		return "redirect:chatmain";
+		Member member = (Member) session.getAttribute("member");
+		boolean exitChatroomResult = crService.exitChatRoom(crnum, member.getmNum());
+		String jsonStr = "{\"exitChatroomResult\":\"" + exitChatroomResult + "\",\"crNum\":\"" + crnum + "\",\"receiverName\":\"" + member.getmName() + "\"}";
+		return jsonStr;
 	}
 
 	@ResponseBody
@@ -160,7 +160,6 @@ public class ChatController {
 		chatMessage.setmNum(mNum);
 		int cmNum = cmService.sendChatMessage(chatMessage);
 		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
-		System.out.println(cm);
 		return cm;
 	}
 

@@ -19,7 +19,7 @@
 				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">
 					${chatInfo.chat.crTitle}
 				</div>
-				<div class="chat_exit_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
+				<div class="chat_exit_btn" onclick="exitChatRoom(${chatInfo.chat.crNum})">
 					<i class="fas fa-sign-out-alt"></i>
 				</div>
 				<p>참여자 목록</p>
