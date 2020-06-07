@@ -22,22 +22,65 @@
 	display: none;
 }
 
-.invite_member_btn, .exit_chatroom_btn {
+.search_chat_btn, .invite_member_btn, .exit_chatroom_btn {
 	position: absolute;
+	top: 20px;
 	color: white;
 	cursor: pointer;
 	font-size: 20px;
 }
 
-.invite_member_btn {
+.search_chat_btn {
+	right: 100px;
+}
+
+.search_chat_container {
+	width: calc(100% - 200px);
+	height: 41px;
+	box-sizing: border-box;
+	padding: 6px;
+	background-color: #e1ebf1;
+	position: absolute;
+	bottom: -41px;
+	left: 201px;
+	display: none;
+	z-index: 1;
+}
+
+.search_chat_container input {
+	width: calc(100% - 102px);
+	height: 27px;
+	box-sizing: border-box;
+	padding-left: 15px; border : none;
+	border-radius: 3px;
+	border: none;
+}
+
+.search_chat_container button {
+	width: 29px;
+	height: 29px;
+	border: none;
+	border-radius: 3px;
+	background-color: #5169B3;
 	color: white;
 	cursor: pointer;
+}
+
+.search_chat_container button:disabled {
+	background-color: gray;
+	opacity: 0.15;
+}
+
+.search_highlighter{
+    background-color: #5169B3;
+    color: white;
+}
+
+.invite_member_btn {
 	right: 60px;
 }
 
 .exit_chatroom_btn {
-	color: white;
-	cursor: pointer;
 	right: 20px;
 }
 
@@ -60,8 +103,30 @@
 }
 
 .header_container .chat_room_title {
-	width: 300px;
-	margin: 16px 90px;
+	max-width: 300px;
+	position: absolute;
+	top: 15px;
+	left: 204px;
+}
+
+.header_container .chat_room_title {
+	max-width: 300px;
+	position: absolute;
+	top: 15px;
+	left: 204px;
+}
+
+.header_container .chat_message_search_box {
+	position: absolute;
+	top: 21px;
+	right: 112px;
+}
+
+.chat_message_search_box input {
+	border: none;
+	height: 26px;
+	border-radius: 3px;
+	padding-left: 20px;
 }
 
 .navigation_container+.container {
@@ -72,11 +137,6 @@
 	height: calc(100% - 71px);
 }
 
-.invite_member_btn, .exit_chatroom_btn {
+.search_chat_btn, .invite_member_btn, .exit_chatroom_btn {
 	padding: 5px;
-	margin-top: 20px;
-}
-
-.invite_member_btn {
-	
 }

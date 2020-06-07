@@ -5,6 +5,11 @@
 <script>
 	var sock;
 	var stompClient;
+	var index;
+	var offset;
+	var regex;
+	var search_chat_keyword;
+	var chat_message_array = new Array();
 	
 	$(function() {
 		socketConnect();
@@ -15,6 +20,33 @@
 		}else{
 			$(".header_container > div").hide();
 		}
+		
+		/* 검색 영역 toggle */
+		$(".search_chat_btn").on("click", function(){
+			$(".search_chat_container").toggle();
+			searchCofigReset();
+		});
+		
+		/* 엔터를 누르면 검색하기 */
+		$(".search_chat_input").on("keydown", function(e){
+			if(e.keyCode == 13){
+				search_chat_keyword = $(".search_chat_input").val();
+				regex = new RegExp(search_chat_keyword,"");
+
+				$('.chat_message_box_content').each(function (index, item) { 
+					var chat_message = $(item).text();
+					if(chat_message.includes(search_chat_keyword)){
+						chat_message_array.push($(item));}
+				});
+
+				if(chat_message_array.length==0){
+					alert("검색결과가 없습니다.");
+				}else{
+					index = chat_message_array.length-1;
+					searchResultFoucus(index);
+				} 
+			}
+		});
 	});
 	
 	function socketConnect(){
@@ -28,6 +60,45 @@
 			});
 		});
 	}//end socketConnect()
+	
+	function searchResultUp(){
+		index = index-1;
+		searchResultFoucus(index);
+	}
+	
+	function searchResultDown(){
+		index = index+1;
+		searchResultFoucus(index);
+	}
+	
+	function searchResultFoucus(index){
+		$("span").removeClass('search_highlighter');
+		var current_message = chat_message_array[index];
+		current_message.html(current_message.text().replace(regex, "<span class='search_highlighter'>"+search_chat_keyword+"</span>"));
+		offset = chat_message_array[index].offset();
+		console.log(offset.top);
+		$(".chat_message_list_container").scrollTop(offset.top);
+		$(".search_result_up").attr('disabled', false);
+		$(".search_result_down").attr('disabled', false);
+		
+		if(index == 0){
+			$(".search_result_up").attr('disabled', true);}
+		if(index == chat_message_array.length-1){
+			$(".search_result_down").attr('disabled', true);}
+	}
+	
+	function searchCofigReset(){
+		$(".search_chat_input").val("");
+		$(".search_result_up").attr('disabled', true);
+		$(".search_result_down").attr('disabled', true);
+		$("span").removeClass('search_highlighter');
+		chat_message_array = new Array();
+	}
+	
+	function closeSearchContainer(){
+		$(".search_chat_container").hide();
+		searchCofigReset();
+	}
 	
 </script>
 <div class="header_container">
@@ -68,7 +139,15 @@
 			})
 		}
 	</script>
-	
+	<div class="search_chat_btn">
+		<i class="fas fa-search"></i>
+	</div>
+	<div class="search_chat_container">
+		<input class="search_chat_input" type="text" placeholder="대화내용 검색">
+		<button class="search_result_up" onclick="searchResultUp()"><i class="fas fa-chevron-up"></i></button>
+		<button class="search_result_down" onclick="searchResultDown()"><i class="fas fa-chevron-down"></i></button>
+		<button onclick="closeSearchContainer()"><i class="fas fa-times"></i></button>
+	</div>
 	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
 		<i class="fas fa-user-friends"></i>
 	</div>
