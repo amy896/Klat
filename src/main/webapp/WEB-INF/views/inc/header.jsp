@@ -29,29 +29,6 @@
 		});
 	}//end socketConnect()
 	
-	function exitChatRoom(crnum){
-		$.ajax({
-			url : "${contextPath}/chat/exitchatroom",
-			method : "get",
-			data : {"crnum":crnum},
-			dataType : "json",
-			success: function(data){
-				alert(data.exitChatroomResult);
-				alert(data.crnum);
-				alert(data.receiverName);
-				if(data.exitChatroomResult){
-					stompClient.send("/client/sendChatMessage/-1/"+data.crNum, {}, data.receiverName+"님이 퇴장하셨습니다.");
-					window.location.href="${contextPath}/chat/chatmain";
-				}else{
-					alert("채팅방 나가기 실패");
-				}
-			},
-			error: function(){
-				alert("채팅방 나가기 에러 발생");
-			}
-		});	
-	}
-	
 </script>
 <div class="header_container">
 	<a class="img_container" href="${contextPath }/chat/chatmain">
@@ -95,7 +72,7 @@
 	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
 		<i class="fas fa-user-friends"></i>
 	</div>
-	<div class="exit_chatroom_btn" onclick="exitChatRoom(${chatroom.crNum})">
+	<div class="exit_chatroom_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatroom.crNum}'">
 		<i class="fas fa-sign-out-alt"></i>
 	</div>
 </div>

@@ -108,22 +108,14 @@ public class ChatController {
 		return crService.modifyChatRoom(crnum, crtitle);
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/exitchatroom", produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
-<<<<<<< HEAD
 		int mNum = (Integer) session.getAttribute("mNum");
 		crService.exitChatRoom(crnum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = smService.sendExitMessage(crnum, member);
 		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
 		return "redirect:chatmain";
-=======
-		Member member = (Member) session.getAttribute("member");
-		boolean exitChatroomResult = crService.exitChatRoom(crnum, member.getmNum());
-		String jsonStr = "{\"exitChatroomResult\":\"" + exitChatroomResult + "\",\"crNum\":\"" + crnum + "\",\"receiverName\":\"" + member.getmName() + "\"}";
-		return jsonStr;
->>>>>>> refs/heads/amy
 	}
 
 	@ResponseBody
@@ -139,23 +131,15 @@ public class ChatController {
 		return "chat/chatInviteForm";
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/invitemember", produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "/invitemember")
 	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
-<<<<<<< HEAD
 		int mNum = memberService.getMemberByMId(mid).getmNum();
 		crService.addChatRoomMember(crNum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = smService.sendEntranceMessage(crNum, member);
 		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
 		return "redirect:chatroom?crnum=" + crNum;
-=======
-		Member receiver = memberService.getMemberByMId(mid);
-		boolean addMemberResult = crService.addChatRoomMember(crNum, receiver.getmNum());
-		String jsonStr = "{\"addMemberResult\":\"" + addMemberResult + "\",\"crNum\":\"" + crNum + "\",\"receiverName\":\"" + receiver.getmName() + "\"}";
-		return jsonStr;
->>>>>>> refs/heads/amy
 	}
 
 	@ResponseBody
@@ -172,7 +156,7 @@ public class ChatController {
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
 			@DestinationVariable(value = "var2") int crNum, String cmContent) {
 		String msgType = "message";
-		if(mNum == -1) {
+		if (mNum == -1) {
 			msgType = "systemMessage";
 		}
 		ChatMessage chatMessage = new ChatMessage();
