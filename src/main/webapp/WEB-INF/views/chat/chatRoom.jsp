@@ -59,47 +59,52 @@ function showDateMessage(year, month, date){
 }
 
 function addMessage(msgInfo) {
-	/* 이 채팅메시지는 누가 썼을까? */
-	var msgType;
-	var mNum = $(".mNum").val();
-	if(msgInfo.mNum == mNum) {
-		msgType = "my_msg";
-	} else {
-		msgType = "their_msg";
-	}
-	
-	var chatMsg = $("<div class='chat_message_box "+msgType+"'>");
-	
-	/* 채팅메시지 시간 */
-	var writeDate = new Date(msgInfo.cmWriteDate);
-	var hour = writeDate.getHours();
-	var minute = writeDate.getMinutes();
-	
-	var processedWriteDate;
-	if(hour > 12) {
-		processedWriteDate = (Number(hour) - Number(12)) + ":" + minute + " PM";
-	} else if (hour == 12) {
-		processedWriteDate = hour + ":" + minute + " PM";
-	} else {
-		processedWriteDate = hour + ":" + minute + " AM"; 
-	}
 	
 	/* 오늘 날짜(todayDate)와 만들려는 chatMessage의 날짜가 같지 않으면  */
+	var writeDate = new Date(msgInfo.cmWriteDate);
 	if(todayDate != writeDate.getDate() && todayDate != 0){
 		showDateMessage(writeDate.getFullYear(), Number(writeDate.getMonth())+Number(1), writeDate.getDate());
 	}
 	
-	/* 채팅메시지 그리는 부분 */
-	chatMsg.append("<div class='chat_message_box_img'></div>"
-				  +"<div class='chat_message_box_text'>"
-				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
-				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
-				  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
-				  +"</div>");
-
-	$(".chat_message_list_container").append(chatMsg);
-}
-
+	if(msgInfo.cmType == "message"){
+		/* 이 채팅메시지는 누가 썼을까? */
+		var msgType;
+		var mNum = $(".mNum").val();
+		if(msgInfo.mNum == mNum) {
+			msgType = "my_msg";
+		} else {
+			msgType = "their_msg";
+		}
+		
+		var chatMsg = $("<div class='chat_message_box "+msgType+"'>");
+		
+		/* 채팅메시지 시간 */
+		var hour = writeDate.getHours();
+		var minute = writeDate.getMinutes();
+		
+		var processedWriteDate;
+		if(hour > 12) {
+			processedWriteDate = (Number(hour) - Number(12)) + ":" + minute + " PM";
+		} else if (hour == 12) {
+			processedWriteDate = hour + ":" + minute + " PM";
+		} else {
+			processedWriteDate = hour + ":" + minute + " AM"; 
+		}
+		
+		/* 채팅메시지 그리는 부분 */
+		chatMsg.append("<div class='chat_message_box_img'></div>"
+					  +"<div class='chat_message_box_text'>"
+					  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
+					  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
+					  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
+					  +"</div>");
+	} else {
+			/* 입장 퇴장 메시지 그리는 부분 */
+			chatMsg = "<div class='chat_system_message_box'>"
+					+ msgInfo.cmContent + "<div>";
+		}
+		$(".chat_message_list_container").append(chatMsg);
+	}
 </script>
 
 </head>

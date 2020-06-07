@@ -107,7 +107,7 @@ public class ChatController {
 	@RequestMapping("/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		
+
 		ChatMessage cm = crService.exitChatRoom(crnum, mNum);
 //		smt.convertAndSend("/category/systemMsg/" + crnum, cm);
 		return "redirect:chatmain";
@@ -126,13 +126,14 @@ public class ChatController {
 		return "chat/chatInviteForm";
 	}
 
-	@RequestMapping("/invitemember")
+	@ResponseBody
+	@RequestMapping(value = "/invitemember", produces = "text/plain;charset=UTF-8")
 	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
-		int mNum = memberService.getMemberByMId(mid).getmNum();
-		crService.addChatRoomMember(crNum, mNum);
-
-		return "redirect:chatroom?crnum=" + crNum;
+		Member receiver = memberService.getMemberByMId(mid);
+		boolean addMemberResult = crService.addChatRoomMember(crNum, receiver.getmNum());
+		String jsonStr = "{\"addMemberResult\":\"" + addMemberResult + "\",\"crNum\":\"" + crNum + "\",\"receiverName\":\"" + receiver.getmName() + "\"}";
+		return jsonStr;
 	}
 
 	@ResponseBody
@@ -148,14 +149,18 @@ public class ChatController {
 	@MessageMapping("/sendChatMessage/{var1}/{var2}")
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
 			@DestinationVariable(value = "var2") int crNum, String cmContent) {
-
+		String msgType = "message";
+		if(mNum == -1) {
+			msgType = "systemMessage";
+		}
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
-		chatMessage.setCmType("message");
+		chatMessage.setCmType(msgType);
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
 		int cmNum = cmService.sendChatMessage(chatMessage);
 		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
+		System.out.println(cm);
 		return cm;
 	}
 
