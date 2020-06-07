@@ -19,10 +19,16 @@
 	</select>
 	
 	<select id="selectAllChatMessageByCrNum" parameterType="int" resultMap="chatMessageMap">
-		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, m.m_num, m.m_name, m.m_profile_img
+		select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, cm.m_num, m.m_name, m.m_profile_img
 		from tbl_chat_message cm, tbl_member m
-		where cm.m_num = m.m_num 
+		where cm.m_num = m.m_num
 		and cm.cr_num = #{crNum}
+	</select>
+	
+	<select id="selectSystemMessageByCmNum" parameterType="int" resultMap="chatMessageMap">
+		select cm_num, cm_content, cm_type, cm_write_date, cr_num, m_num
+		from tbl_chat_message
+		where cm_num = #{cmNum}
 	</select>
 	
 	<resultMap id="chatMessageMap" type="chatMessage">

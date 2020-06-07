@@ -8,4 +8,5 @@ public interface ChatMessageDao {
 	public int insertChatMessage(ChatMessage chatMessage);
 	public ChatMessage selectChatMessageByCmNum(int cmNum);
 	public List<ChatMessage> selectAllChatMessageByCrNum(int crNum);
+	public ChatMessage selectSystemMessageByCmNum(int cmNum);
 }
