@@ -82,6 +82,5 @@ form+a {
 }
 
 form+a:link, form+a:visited {
-	text-decoration: underline;
 	color: white;
 }
