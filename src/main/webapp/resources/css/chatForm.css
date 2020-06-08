@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+/* 채팅방 생성 & 채팅방 초대 */
+
+.chat_add_form_container,
+.chat_invite_form_container {
+	margin: 200px auto;
+	height: 80px;
+	width: 450px;
+	border: 1px solid #D1D9E5;
+	border-radius: 7px;
+	background: linear-gradient(0deg, #A6BAD8 5%, #FFFFFF 50%, #FFFFFF 100%);
+	padding: 40px;
+}
+
+.chat_add_form_container p,
+.chat_invite_form_container p {
+	color: #414368;
+	margin-bottom: 20px;
+	font-size: 15pt;
+}
+
+.chat_add_form_container input[type=text],
+.chat_invite_form_container input[type=text] {
+	border: 1px solid #D1D9E5;
+	border-radius: 5px;
+	height: 30px;
+	width: 250px;
+}
+
+.chat_add_form_container input[type=submit],
+.chat_invite_form_container input[type=submit] {
+	border: 1px solid #D1D9E5;
+	height: 36px;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+}
+
+.search_member_id {
+	height: 30px;
+	width: 250px;
+}
+
+.chat_invite_form_container li {
+	width: 246px;
+	background-color: rgba(209, 217, 229, 0.5);
+	height: 20px;
+	padding: 4px 4px;
+	border-radius: 5px;
+}

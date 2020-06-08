@@ -114,7 +114,7 @@
 	<script type="text/javascript">
 		$("#new_chat_room_title").dblclick(function() {
 			$("#new_chat_room_title").attr("readonly", false);
-			$("#new_chat_room_title").css({backgroundColor : "white", color : "black"});
+			$("#new_chat_room_title").css({backgroundColor : "rgba(255, 255, 225, 0.1)", border : "1px solid white"});
 			$(".chat_room_title button").css("display", "inline-block");
 		})
 		

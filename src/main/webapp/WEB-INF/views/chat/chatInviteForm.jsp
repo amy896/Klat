@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/inc/common.jsp"%>
-<link rel="stylesheet" type="text/css" href="${contextPath}/css/chat.css"/>
+<link rel="stylesheet" type="text/css" href="${contextPath}/css/chatForm.css"/>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
@@ -12,8 +12,8 @@
 			<p>초대하고 싶은 회원님의 아이디를 입력해주세요.</p>
 			<form class="chat_invite_form" action="invitemember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<input class="search_member_id" type="text" name="mid" placeholder="invite someone" autocomplete="off">
-				<input class="invite_member_btn" type="submit" value="초대">
+				<input class="search_member_id" type="text" name="mid" placeholder="아이디를 입력해주세요." autocomplete="off">
+				<input class="invite_member_form_btn" type="submit" value="초대">
 				
 				<ul class="search_member_list_container"></ul>
 				
@@ -40,7 +40,7 @@
 													li.on("click", function() {
 														$(".search_member_id").val(memberList[member]);
 														$(".search_member_list_container").hide();
-														$(".invite_member_btn").attr("disabled", false);
+														$(".invite_member_form_btn").attr("disabled", false);
 													})
 												})(i)
 												$(".search_member_list_container").append(li);
