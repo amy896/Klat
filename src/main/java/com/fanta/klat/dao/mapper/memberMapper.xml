@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="selctChatMemberListExceptMe" resultMap="memberMap">
-		select m.m_num, m.m_id, m.m_name
+		select m.m_num, m.m_id, m.m_name, m.m_profile_img
 		from tbl_chat_room_member crm join tbl_member m
 		on crm.cr_num = #{param1} and crm.m_num = m.m_num and m.m_num != #{param2}
 	</select>

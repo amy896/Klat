@@ -36,7 +36,7 @@ function enterChatRoom(crNum) {
 <div class="navigation_container">
 	<div class="profile_container">
 		<a class="profile_img_container" href="${contextPath}/mypage/mypagemain">
-			<img src="https://via.placeholder.com/150" alt="프로필 이미지입니다">
+			<img src="${contextPath}/img/${sessionScope.member.mProfileImg}.png" alt="프로필 이미지입니다">
 		</a>
 		<a href="${contextPath}/mypage/mypagemain"><span class="member_name">${sessionScope.member.mName}</span> 님</a>	
 	</div>

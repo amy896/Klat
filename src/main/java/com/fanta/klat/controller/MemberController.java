@@ -1,5 +1,7 @@
 package com.fanta.klat.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,8 @@ public class MemberController {
 		member.setmId(userid);
 		member.setmName(username);
 		member.setmPw(userpassword);
+		int randomNum = new Random().nextInt(10);
+		member.setmProfileImg("type"+randomNum);
 		memberService.signUpMember(member);
 		return "redirect:/member/signinform";
 	}
