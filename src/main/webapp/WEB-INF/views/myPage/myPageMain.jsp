@@ -19,13 +19,11 @@
 				<p>닉네임</p>
 				<p>${member.mName}</p>
 			</div>
-			<div class="my_page_pw_container">
-				<p>비밀번호</p>
-				<p>${member.mPw}</p>
-			</div>
-			<button class="my_page_modify_btn" onclick="location.href='${contextPath}/mypage/modifyform'">내 정보 수정</button>
+			<button class="my_page_modify_btn" onclick="location.href='${contextPath}/mypage/modifyform'">수정</button>
 		</div>
-		<button onclick="removeMember(${member.mNum})">탈퇴</button>
+		<div class="my_page_btn_box">
+			<button class="my_page_remove_btn" onclick="removeMember(${member.mNum})">탈퇴하시겠습니까?</button>
+		</div>
 	</div>
 
 <script>
