@@ -14,12 +14,21 @@
 	color: #FFF;
 	background: content-box;
 	border: 0px;
+	border-radius: 5px;
 	font-size: 25px;
 	width: 170px;
+	padding: 1px;
 }
 
 .chat_room_title button {
 	display: none;
+	background: content-box;
+	border: 1px solid #FFFFFF;
+	border-radius: 3px;
+	padding: 2px 2px;
+	font-size: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
 .search_chat_btn, .invite_member_btn, .exit_chatroom_btn {
