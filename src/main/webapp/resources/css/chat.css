@@ -58,7 +58,7 @@
 	font-size: 19px;
 	font-weight: 600;
 	padding: 5px;
-	margin: 20px 20px 10px;
+	margin: 20px 30px 10px;
 	display: inline-block;
 	cursor: pointer;
 }
@@ -79,7 +79,7 @@
 .chatInfo_container  ul {
 	width: 100%;
 	height: 60px;
-	padding: 0px 40px;
+	padding: 0px 30px;
 	box-sizing: border-box;
 }
 
@@ -97,7 +97,8 @@
 
 .member_container .profile_img_container, .chat_invite_btn {
 	display: block;
-	width: 42px; height : 42px;
+	width: 42px;
+	height: 42px;
 	border-radius: 50%;
 	margin: 5px auto;
 	border: 3px solid #5169B3;
@@ -128,14 +129,18 @@
 
 /* 채팅방 */
 .chat_container {
-	width: 100%;
-	height: 100%;
+	width: 98%;
+	height: calc(100% - 79px);
+	border-radius: 5px;
+	border: 1px solid #A6BAD8;
+	margin: 10px auto 0px;
 }
 
 .chat_message_list_container {
 	width: 100%;
-	height: 94%;
-	overflow: scroll;
+	height: 100%;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .chat_message_list_container::-webkit-scrollbar {
@@ -146,38 +151,71 @@
 	padding: 10px 10px;
 }
 
+.chat_system_message_box {
+	text-align: center;
+	font-size: 13px;
+	font-weight: 300;
+	padding: 10px 0px;
+	border-top: 0.5px solid #8798c64f;
+	border-bottom: 0.5px solid #8798c64f;
+}
+
+.chat_system_message_box+.chat_system_message_box {
+	border-top: 0px;
+}
+
 .my_msg {
 	background-color: rgba(209, 217, 229, 0.2);
+	#
+	bfc6d8
+}
+
+.their_msg {
+	background-color: #a6bad880;
 }
 
 .date_msg {
 	position: relative;
+	padding: 6px 0px;
 }
 
+/*
 .date_msg hr {
 	width: 100%;
-	margin: 11px;
 	position: absolute;
+	bottom: 9px;
 	border: 1px solid #414368;
 	border-bottom: 0px;
 	z-index: -1;
 }
 
 .date_msg div {
-	border: 1px solid #414368;
-	background-color: #414368;
-	color: white;
+    border: 1px solid #414368;
+    background-color: #414368;
+    color: white;
+    width: 100px;
+    border-radius: 30px;
+    padding: 5px;
+    font-weight: 100;
+    z-index: 0;
+    font-size: 13px;
+}
+*/
+.date_msg div {
+	background-color: #D1D9E5;
+	color: #414368;
 	width: 100px;
 	border-radius: 30px;
-	padding: 2px;
-	font-weight: 100;
+	padding: 5px;
+	font-weight: 400;
 	z-index: 0;
+	font-size: 13px;
 }
 
 .chat_message_box_img {
-	width: 30px;
-	height: 30px;
-	border: 1px solid black;
+	width: 35px;
+	height: 35px;
+	border: 3px solid #5169B3;
 	border-radius: 50%;
 	display: inline-block;
 }
@@ -189,51 +227,57 @@
 .chat_message_box_text {
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 10px;
+	margin: 2px 0px 0px 10px;
+}
+
+.chat_message_box_name {
+	font-size: 15px;
 }
 
 .chat_message_box_date {
-	font-size: 7pt;
-	padding-left: 4px;
+	font-size: 9px;
+	padding-left: 9px;
+	font-weight: 200;
 }
 
 .chat_message_box_content {
 	font-weight: 200;
-	padding: 2px 0px 0px 0px;
+	padding: 5px 0px 0px 0px;
 }
 
 .chat_message_input_box {
-	border: 1px solid #A6BAD8;
-	margin: 5px 5px 5px 5px;
-	border-radius: 5px;
-	padding: 3px;
-	position: absolute;
-	bottom: 0;
 	width: 98%;
+	border: 1px solid #A6BAD8;
+	border-radius: 5px;
+	padding: 8px;
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	box-sizing: border-box;
 }
 
 .chat_message_input_box textarea {
-	height: 20px;
-	width: 92%;
+	width: calc(100% - 67px);
+	height: 32px;
 	float: left;
-	margin-left: 15px;
 	resize: none;
 	background-color: rgba(209, 217, 229, 0.3);
 	border: 0px;
+	border-radius: 3px;
+	padding: 5px 13px;
+	box-sizing: border-box;
 }
 
 .chat_message_input_box button {
+	width: 57px;
+	height: 32px;
 	float: right;
-	margin-right: 15px;
-}
-
-.chat_system_message_box {
-	text-align: center;
+	border: none;
+	background-color: #5169B3;
+	color: white;
+	border-radius: 3px;
 	font-size: 13px;
-	font-weight: 300;
-	padding: 10px 0px;
-	border-top: 0.5px solid #8798c64f;
-	border-bottom: 0.5px solid #8798c64f;
 }
 
 /* 채팅방 생성 & 채팅방 초대 */

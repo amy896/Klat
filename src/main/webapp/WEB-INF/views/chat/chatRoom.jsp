@@ -47,7 +47,7 @@ function loadAllMessage() {
 /* 날짜 */
 var todayDate;
 function showDateMessage(year, month, date){
-	var dateMessageDiv = $("<div class='date_msg' align='center'><hr><div>"+year+"-"+month+"-"+date+"</div></div>");
+	var dateMessageDiv = $("<div class='date_msg' align='center'><div>"+year+" - "+month+" - "+date+"</div></div>");
 	$(".chat_message_list_container").append(dateMessageDiv);
 	todayDate = date;
 }
@@ -91,6 +91,7 @@ function addMessage(msgInfo) {
 				  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
 				  +"</div>");		
 	} else if(msgInfo.cmType == 'system') {
+		chatMsg = $("<div class='chat_system_message_box'>");
 		chatMsg.append("<div class='system_message'>"+msgInfo.mName+" "+msgInfo.cmContent+"</div>");
 	}
 	$(".chat_message_list_container").append(chatMsg);
