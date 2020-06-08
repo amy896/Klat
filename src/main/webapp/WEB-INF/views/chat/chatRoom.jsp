@@ -84,7 +84,7 @@ function addMessage(msgInfo) {
 	
 	/* 채팅메시지 & 입장퇴장메시지 그리는 부분 */
 	if(msgInfo.cmType == 'message') {
-		chatMsg.append("<div class='chat_message_box_img'></div>"
+		chatMsg.append("<div class='chat_message_box_img'><img src='${contextPath}/img/"+msgInfo.mProfileImg+".png'></div>"
 				  +"<div class='chat_message_box_text'>"
 				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
 				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"

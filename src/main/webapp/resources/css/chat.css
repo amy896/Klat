@@ -172,6 +172,11 @@
 	display: inline-block;
 }
 
+
+.chat_message_box_img  img{
+	width: 100%;
+}
+
 .chat_message_box_text {
 	display: inline-block;
 	vertical-align: top;
