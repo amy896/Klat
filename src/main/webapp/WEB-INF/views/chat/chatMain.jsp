@@ -11,9 +11,7 @@
 		<div class="chat_room_list_title">
 			채팅 목록
 		</div>
-		<div class="chat_main_add_btn" onclick="location.href='${contextPath}/chat/addform'">
-			<i class="fas fa-plus"></i><br>
-		</div>
+		<button class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-comment-medical"></i></button>
 		<c:forEach items="${chatInfoList}" var="chatInfo">
 			<div class="chatInfo_container">
 				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">
@@ -22,7 +20,6 @@
 				<div class="chat_exit_btn" onclick="exitChatRoom(${chatInfo.chat.crNum})">
 					<i class="fas fa-sign-out-alt"></i>
 				</div>
-				<p>참여자 목록</p>
 				<ul class="member_list_container">
 					<c:forEach items="${chatInfo.chatMemberList}" var="member">
 						<li class="member_container">
@@ -32,9 +29,12 @@
 							<p class="member_name">${member.mName}</p>	
 						</li>
 					</c:forEach>
-					<li class="chat_invite_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum='+${chatInfo.chat.crNum}">
-						<i class="fas fa-plus"></i>
-					</li>		
+					<li class="member_container">
+						<div class="chat_invite_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum='+${chatInfo.chat.crNum}">
+							<i class="fas fa-plus"></i>
+						</div>
+						<p class="member_name">.</p>	
+					</li>
 				</ul>
 			</div>
 		</c:forEach>

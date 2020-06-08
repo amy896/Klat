@@ -63,7 +63,7 @@
 				
 				<input type="submit" value="로그인">
 			</form>
-			<a href="${contextPath}/member/signupform">회원 가입</a>
+			<a href="${contextPath}/member/signupform">회원가입</a>
 		</div>
 	</div>
 

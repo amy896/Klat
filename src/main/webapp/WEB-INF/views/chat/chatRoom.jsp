@@ -47,7 +47,7 @@ function loadAllMessage() {
 /* 날짜 */
 var todayDate;
 function showDateMessage(year, month, date){
-	var dateMessageDiv = $("<div class='date_msg' align='center'><hr><div>"+year+"-"+month+"-"+date+"</div></div>");
+	var dateMessageDiv = $("<div class='date_msg' align='center'><div>"+year+" - "+month+" - "+date+"</div></div>");
 	$(".chat_message_list_container").append(dateMessageDiv);
 	todayDate = date;
 }
@@ -84,13 +84,14 @@ function addMessage(msgInfo) {
 	
 	/* 채팅메시지 & 입장퇴장메시지 그리는 부분 */
 	if(msgInfo.cmType == 'message') {
-		chatMsg.append("<div class='chat_message_box_img'></div>"
+		chatMsg.append("<div class='chat_message_box_img'><img src='${contextPath}/img/"+msgInfo.mProfileImg+".png'></div>"
 				  +"<div class='chat_message_box_text'>"
 				  +"<span class='chat_message_box_name'>"+msgInfo.mName+"</span>"
 				  +"<span class='chat_message_box_date'>"+processedWriteDate+"</span>"
 				  +"<p class='chat_message_box_content'>"+msgInfo.cmContent+"</p>"
 				  +"</div>");		
 	} else if(msgInfo.cmType == 'system') {
+		chatMsg = $("<div class='chat_system_message_box'>");
 		chatMsg.append("<div class='system_message'>"+msgInfo.mName+" "+msgInfo.cmContent+"</div>");
 	}
 	$(".chat_message_list_container").append(chatMsg);
