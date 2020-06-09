@@ -35,10 +35,12 @@ public class MemberService {
 		return false;
 	}
 
-	public boolean modifyMember(int mNum, String mName, String mPw) {
+	public boolean modifyMember(int mNum, String mName, String mPw, String mProfileImg) {
 		Member member = memberDao.selectMemberByMNum(mNum);
 		member.setmName(mName);
 		member.setmPw(mPw);
+		member.setmProfileImg(mProfileImg);
+		
 		if (memberDao.updateMember(member) > 0) {
 			return true;
 		}
