@@ -55,9 +55,9 @@ public class MyPageController {
 	}
 
 	@RequestMapping(value = "/modifymember", method = RequestMethod.POST)
-	public String  modifyMember(String mname, String mpw, HttpSession session) {
+	public String  modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
-		memberService.modifyMember(member.getmNum(), mname, mpw);
+		memberService.modifyMember(member.getmNum(), mname, mpw, mProfileImg);
 		return "redirect:/mypage/mypagemain";
 	}
 

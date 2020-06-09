@@ -1,9 +1,7 @@
 @charset "UTF-8";
 
 /* myPageMain */
-
-.my_page_box,
-.my_page_modify_box {
+.my_page_box, .my_page_modify_box {
 	border: 1px solid #D1D9E5;
 	border-radius: 7px;
 	background: linear-gradient(0deg, #A6BAD8 5%, #FFFFFF 50%, #FFFFFF 100%);
@@ -29,7 +27,11 @@
 	width: 100px;
 	height: 100px;
 	border: 1px solid white;
-	border-radius: 50%;	
+	border-radius: 50%;
+}
+
+.my_page_modify_box .my_page_profile_container {
+	cursor: pointer;
 }
 
 .my_page_profile_container img {
@@ -54,10 +56,8 @@
 	border-bottom: 1px solid black;
 }
 
-.my_page_id_container,
-.my_page_name_container,
-.my_page_pw_container,
-.my_page_pw_check_container {
+.my_page_id_container, .my_page_name_container, .my_page_pw_container,
+	.my_page_pw_check_container {
 	padding: 5px 25px 5px 25px;
 }
 
@@ -65,28 +65,27 @@
 	border: 0px;
 	border-radius: 3px;
 	background-color: #FFFFFF;
-    padding: 5px 10px;
-    font-size: 10px;
-    font-weight: 300;
-    color: #414368;
-    cursor: pointer;
-    float: right;
-    margin-top: 15px;
+	padding: 5px 10px;
+	font-size: 10px;
+	font-weight: 300;
+	color: #414368;
+	cursor: pointer;
+	float: right;
+	margin-top: 15px;
 }
 
 .my_page_remove_btn {
 	border: 0px;
 	border-radius: 3px;
 	background-color: #FFFFFF;
-    padding: 2px 2px;
-    font-size: 8px;
-    color: #A6BAD8;
-    cursor: pointer;
-    float: right; 
+	padding: 2px 2px;
+	font-size: 8px;
+	color: #A6BAD8;
+	cursor: pointer;
+	float: right;
 }
 
 /* myPageModifyForm */
-
 .my_page_modify_box div {
 	margin: 0px auto 15px auto;
 }
@@ -107,9 +106,8 @@
 	font-weight: 600;
 }
 
-.my_page_name_container input,
-.my_page_pw_container input,
-.my_page_pw_check_container input {
+.my_page_name_container input, .my_page_pw_container input,
+	.my_page_pw_check_container input {
 	border: 1px solid #D1D9E5;
 	border-radius: 3px;
 	background-color: #FFFFFF;
@@ -121,29 +119,104 @@
 	text-align: center;
 }
 
-.modal {
-	width: 300px;
-	height: 300px;
-	border: 1px solid black;
-	background-color: white;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+/* 프로필 수정 모달 */
+.profile_img_modal {
 	display: none;
+	width: 347px;
+	height: 373px;
+	padding: 44px 35px;
+	box-sizing: border-box;
+	background-color: white;
+	border-radius: 3px;
+	position: absolute;
+	top: 111px;
+	left: 50%;
+	transform: translateX(-50%);
+	box-shadow: 0px 1px 6px 0px #A6BAD8;
+	font-size: 18px;
+	color: #5169B3;
+	text-align: center;
+	width: 347px;
 }
 
-.modal .btn {
-	border: 1px solid black;
+.profile_img_modal .profile_img_list {
+	margin: 20px 0px;
 }
 
-.cropImgModal #cropImgArea {
-	width : 100%;
-	height: 200px;
+.profile_img_modal .close_btn {
+	margin-top: 30px;
+	position: absolute;
+	top: -16px;
+	right: 18px;
+	font-size: 23px;
+	cursor: pointer;
 }
 
-.cropper-view-box {
-	box-shadow: 0 0 0 1px #39f;
+.profile_img_modal li {
+	float: left;
+	width: 65px;
+	height: 65px;
+	margin: 13px;
 	border-radius: 50%;
-	outline: 0;
+	background-size: contain;
+	cursor: pointer;
+}
+
+.profile_img_modal li:nth-child(1) {
+	background-image: url("../img/type0.png");
+}
+
+.profile_img_modal li:nth-child(2) {
+	background-image: url("../img/type1.png");
+}
+
+.profile_img_modal li:nth-child(3) {
+	background-image: url("../img/type2.png");
+}
+
+.profile_img_modal li:nth-child(4) {
+	background-image: url("../img/type3.png");
+}
+
+.profile_img_modal li:nth-child(5) {
+	background-image: url("../img/type4.png");
+}
+
+.profile_img_modal li:nth-child(6) {
+	background-image: url("../img/type5.png");
+}
+
+.profile_img_modal li:nth-child(7) {
+	background-image: url("../img/type6.png");
+}
+
+.profile_img_modal li:nth-child(8) {
+	background-image: url("../img/type7.png");
+}
+
+.profile_img_modal li:nth-child(9) {
+	background-image: url("../img/type8.png");
+}
+
+.profile_img_modal li div {
+	display: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.5);
+	text-align: center;
+	color: white;
+	font-size: 30px;
+}
+
+.profile_img_modal li div.checked {
+	display: block;
+}
+
+.profile_img_modal li div .fa-check {
+	padding: 22.5px 0px;
+}
+
+.profile_img_modal li img {
+	width: 100%;
 }
