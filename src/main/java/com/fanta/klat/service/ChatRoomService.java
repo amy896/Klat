@@ -5,29 +5,39 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fanta.klat.dao.ChatRoomDao;
-import com.fanta.klat.model.ChatMessage;
 import com.fanta.klat.model.ChatRoom;
+import com.fanta.klat.model.ChatRoomMember;
+import com.fanta.klat.repository.ChatRoomMemberRepository;
+import com.fanta.klat.repository.ChatRoomRepository;
 
 @Service
 public class ChatRoomService {
 	@Autowired
-	private ChatRoomDao crDao;
+	private ChatRoomRepository crRepository;
+	@Autowired
+	private ChatRoomMemberRepository chatRoomMemberRepository;
 
 	public int addChatRoom(int mNum, String crTitle) {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setCrTitle(crTitle);
-
-		if (crDao.insertChatRoom(chatRoom) > 0) {
-			crDao.insertChatRoomMember(chatRoom.getCrNum(), mNum);
+		ChatRoom chatRoomSaved = crRepository.save(chatRoom);
+		ChatRoomMember chatRoomMember = null;
+		if (chatRoomSaved != null) {
+			chatRoomMember = new ChatRoomMember();
+			chatRoomMember.setCrNum(chatRoomSaved.getCrNum());
+			chatRoomMember.setmNum(mNum);
+			chatRoomMemberRepository.save(chatRoomMember);
 		}
-		return chatRoom.getCrNum();
+		return chatRoomSaved.getCrNum();
 	}
-	
+
 	public boolean addChatRoomMember(int crNum, int mNum) {
-		if(crDao.insertChatRoomMember(crNum, mNum) > 0) {
+		ChatRoomMember chatRoomMember = new ChatRoomMember();
+		chatRoomMember.setCrNum(crNum);
+		chatRoomMember.setmNum(mNum);
+		if (chatRoomMemberRepository.save(chatRoomMember) != null) {
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -35,54 +45,50 @@ public class ChatRoomService {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setCrNum(crNum);
 		chatRoom.setCrTitle(crTitle);
-		if (crDao.updateChatRoom(chatRoom) > 0) {
+
+		if (crRepository.save(chatRoom) != null) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean removeChatRoom() {
+		if (crRepository.eliminateEmptyChatRoom() > 0) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean exitChatRoom(int crNum, int mNum) {
-		ChatMessage cm = new ChatMessage();
-		if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
-			if(removeChatRoom()) {
+		if (chatRoomMemberRepository.removeBycrNumAndMNum(crNum, mNum) > 0) {
+			if (removeChatRoom()) {
 				System.out.println("비어있는 채팅방을 삭제했습니다.");
 			} else {
 				System.out.println("비어있는 채팅방이 없습니다.");
 			}
 			return true;
 		}
-		return false; 
+		return false;
 	}
-	
+
 	public boolean exitAllChatRoom(int mNum) {
 		boolean isExit = false;
 		List<ChatRoom> chatRoomList = getChatRoomListByMNum(mNum);
-		for(int i=0; i<chatRoomList.size(); i++) {
+
+		for (int i = 0; i < chatRoomList.size(); i++) {
 			int crNum = chatRoomList.get(i).getCrNum();
-			if(crDao.deleteChatRoomMember(crNum, mNum) > 0) {
-				isExit = true;
-				if(removeChatRoom()) {
-					System.out.println("비어있는 채팅방을 삭제했습니다.");
-				} else {
-					System.out.println("비어있는 채팅방이 없습니다.");
-				}
-			}
+			isExit = exitChatRoom(crNum, mNum);
 		}
-		return isExit; 
+		return isExit;
 	}
 
-	public boolean removeChatRoom() {
-		if (crDao.deleteEmptyChatRoom() > 0) {
-			return true;
-		}
-		return false;
-	}
-	
 	public ChatRoom getChatRoomByCrNum(int crNum) {
-		return crDao.selectChatRoomByCrNum(crNum);
+		ChatRoom chatRoom = crRepository.findById(crNum).get();
+		return chatRoom;
 	}
 
 	public List<ChatRoom> getChatRoomListByMNum(int mNum) {
-		return crDao.selectChatRoomListByMNum(mNum);
+		List<ChatRoom> chatRoomList = crRepository.selectChatRoomListByMNum(mNum);
+		return chatRoomList;
 	}
 }

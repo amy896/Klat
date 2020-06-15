@@ -6,35 +6,30 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fanta.klat.dao.ChatMessageDao;
 import com.fanta.klat.model.ChatMessage;
+import com.fanta.klat.repository.ChatMessageRepository;
 
 @Service
 public class ChatMessageService {
 	@Autowired
-	private ChatMessageDao cmDao;
+	private ChatMessageRepository cmRepository;
 
-	public int sendChatMessage(ChatMessage chatMessage) {		
-		int cmNum = 0;
-		Date cmWriteDate = new Date();
-		chatMessage.setCmWriteDate(cmWriteDate);
-		if (cmDao.insertChatMessage(chatMessage) > 0) {
-			cmNum = chatMessage.getCmNum();
-		}
-		return cmNum;
+	public ChatMessage sendChatMessage(ChatMessage chatMessage) {
+		ChatMessage chatMessageSaved = cmRepository.save(chatMessage);
+		return chatMessageSaved;
 	}
 
 	public ChatMessage getChatMessageByCmNum(int cmNum) {
-		return cmDao.selectChatMessageByCmNum(cmNum);
+		ChatMessage chatMessage = cmRepository.findById(cmNum).get();
+		return chatMessage;
 	}
 
 	public List<ChatMessage> getAllChatMessageByCrNum(int crNum) {
-		List<ChatMessage> cmList = cmDao.selectAllChatMessageByCrNum(crNum);
-		System.out.println(cmList);
+		List<ChatMessage> cmList = cmRepository.selectAllChatMessageByCrNum(crNum);
 		return cmList;
 	}
-	
+
 	public ChatMessage getSystemMessageByCmNum(int cmNum) {
-		return cmDao.selectSystemMessageByCmNum(cmNum);
+		return cmRepository.selectSystemMessageByCmNum(cmNum);
 	}
 }

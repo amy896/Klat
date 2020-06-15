@@ -1,7 +1,5 @@
 package com.fanta.klat.controller;
 
-import java.io.File;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.fanta.klat.model.Member;
+import com.fanta.klat.repository.ChatRoomRepository;
 import com.fanta.klat.service.ChatRoomService;
 import com.fanta.klat.service.MemberService;
 
 @Controller
 @RequestMapping("/mypage")
 public class MyPageController {
+
 	@Autowired
 	MemberService memberService;
 	@Autowired
@@ -31,6 +28,7 @@ public class MyPageController {
 		Member member = memberService.getMemberByMNum(mNum);
 		model.addAttribute("member", member);
 		session.setAttribute("member", member);
+		System.out.println("mypagemain = " + memberService.getChatMemberListExceptMe(10, mNum));
 		return "myPage/myPageMain";
 	}
 
@@ -55,9 +53,12 @@ public class MyPageController {
 	}
 
 	@RequestMapping(value = "/modifymember", method = RequestMethod.POST)
-	public String  modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
-		Member member = (Member)session.getAttribute("member");
-		memberService.modifyMember(member.getmNum(), mname, mpw, mProfileImg);
+	public String modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		member.setmName(mname);
+		member.setmPw(mpw);
+		member.setmProfileImg(mProfileImg);
+		memberService.modifyMember(member);
 		return "redirect:/mypage/mypagemain";
 	}
 
