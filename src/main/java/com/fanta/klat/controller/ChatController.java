@@ -156,25 +156,15 @@ public class ChatController {
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
 									   @DestinationVariable(value = "var2") int crNum, String cmContent) {
 		String msgType = "message";
-<<<<<<< HEAD
+
 		if (mNum == -1) msgType = "systemMessage";
 		
-=======
-		if (mNum == -1)
-			msgType = "systemMessage";
-
->>>>>>> refs/heads/amy
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType(msgType);
 		chatMessage.setCmWriteDate(new Date());
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> refs/heads/amy
 		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
 		return chatMessageSent;
 	}

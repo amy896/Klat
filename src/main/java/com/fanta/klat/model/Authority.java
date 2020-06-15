@@ -13,17 +13,10 @@ import org.hibernate.annotations.ColumnDefault;
 @IdClass(AuthorityId.class)
 @Table(name = "tbl_authority")
 public class Authority {
-<<<<<<< HEAD
-	
 	@Id
 	@Column(name = "m_num")
 	private int mNum;
-	
-=======
-	@Id
-	@Column(name = "m_num")
-	private int mNum;
->>>>>>> refs/heads/amy
+
 	@Id
 	@Column(name = "a_authority")
 	@ColumnDefault("ROLE_USER")

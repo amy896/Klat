@@ -7,11 +7,7 @@ public class AuthorityId implements Serializable {
 	private int mNum;
 	private String authority;
 
-<<<<<<< HEAD
 	public AuthorityId() {
-=======
-	AuthorityId() {
->>>>>>> refs/heads/amy
 
 	}
 

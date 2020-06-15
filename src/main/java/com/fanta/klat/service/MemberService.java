@@ -26,10 +26,6 @@ public class MemberService {
 	@Transactional
 	public boolean signUpMember(Member member) {
 		Authority authority = null;
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/amy
 		if (memberReposiotry.save(member) != null) {
 			authority = new Authority();
 			authority.setmNum(member.getmNum());
@@ -69,7 +65,7 @@ public class MemberService {
 	}
 
 	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
-<<<<<<< HEAD
+
 		List<Member> memberListByKeyword = memberReposiotry.findByMIdContaining(keyword);
 //		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
 //
@@ -81,22 +77,6 @@ public class MemberService {
 //		}
 
 		return null;
-=======
-		System.out.println("2-1. " + keyword + " " + crNum + " " + mNum);
-		List<String> memberListByKeyword = null;
-		//memberReposiotry.findByKeywordLike(keyword);
-		System.out.println("2-2. " + memberListByKeyword);
-//		      List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
-		//
-//		      memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
-		//
-//		      for (int j = 0; j < mNumList.size(); j++) {
-//		         String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
-//		         memberListByKeyword.remove(mIdInChatRoom);
-//		      }
-
-		return memberListByKeyword;
->>>>>>> refs/heads/amy
 	}
 
 }

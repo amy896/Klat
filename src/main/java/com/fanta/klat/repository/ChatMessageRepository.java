@@ -11,7 +11,6 @@ import com.fanta.klat.model.ChatMessage;
 @Repository("chatMessageRepository")
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Integer>{
 
-<<<<<<< HEAD
 	@Query(value = "select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, cm.m_num, m.m_name, m.m_profile_img\r\n" + 
 			"		from tbl_chat_message cm, tbl_member m\r\n" + 
 			"		where cm.m_num = m.m_num\r\n" + 
@@ -23,16 +22,3 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Intege
 			"		where cm_num = ?1", nativeQuery = true)
 	public ChatMessage selectSystemMessageByCmNum(int cmNum);
 }
-=======
-   @Query(value = "select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, cm.m_num, m.m_name, m.m_profile_img\r\n" + 
-         "      from tbl_chat_message cm, tbl_member m\r\n" + 
-         "      where cm.m_num = m.m_num\r\n" + 
-         "      and cm.cr_num = ?1", nativeQuery = true)
-   public List<ChatMessage> selectAllChatMessageByCrNum(int crNum);
-   
-   @Query(value = "select cm_num, cm_content, cm_type, cm_write_date, cr_num, m_num\r\n" + 
-         "      from tbl_chat_message\r\n" + 
-         "      where cm_num = ?1", nativeQuery = true)
-   public ChatMessage selectSystemMessageByCmNum(int cmNum);
-}
->>>>>>> refs/heads/amy
