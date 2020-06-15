@@ -1,19 +1,43 @@
 package com.fanta.klat.model;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class ChatMessage {
+@Entity
+@Table(name="tbl_chat_message")
+public class ChatMessage implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="cm_num")
 	private int cmNum;
+	
+	@Column(name="cm_content")
 	private String cmContent;
+	
+	@Column(name="cm_type")
 	private String cmType;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name="cm_write_date")
 	private Date cmWriteDate;
+
+	@Column(name="cr_num")
 	private int crNum;
+	
+	@Column(name="m_num")
 	private int mNum;
-	private String mName;
-	private String mProfileImg;
 	
 	public int getCmNum() {
 		return cmNum;
@@ -51,22 +75,10 @@ public class ChatMessage {
 	public void setmNum(int mNum) {
 		this.mNum = mNum;
 	}
-	public String getmName() {
-		return mName;
-	}
-	public void setmName(String mName) {
-		this.mName = mName;
-	}
-	public String getmProfileImg() {
-		return mProfileImg;
-	}
-	public void setmProfileImg(String mProfileImg) {
-		this.mProfileImg = mProfileImg;
-	}
+	
 	@Override
 	public String toString() {
 		return "ChatMessage [cmNum=" + cmNum + ", cmContent=" + cmContent + ", cmType=" + cmType + ", cmWriteDate="
-				+ cmWriteDate + ", crNum=" + crNum + ", mNum=" + mNum + ", mName=" + mName + ", mProfileImg="
-				+ mProfileImg + "]";
+				+ cmWriteDate + ", crNum=" + crNum + ", mNum=" + mNum + "]";
 	}
 }

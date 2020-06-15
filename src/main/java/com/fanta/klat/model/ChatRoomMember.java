@@ -10,33 +10,49 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tbl_chat_room")
-public class ChatRoom implements Serializable {
-	
+@Table(name = "tbl_chat_room_member")
+public class ChatRoomMember implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="cr_num")
+	@Column(name = "crm_num")
+	private int crmNum;
+
+	@Column(name = "cr_num")
 	private int crNum;
-	
-	@Column(name="cr_title")
-	private String crTitle;
-	
+
+	@Column(name = "m_num")
+	private int mNum;
+
+	public int getCrmNum() {
+		return crmNum;
+	}
+
+	public void setCrmNum(int crmNum) {
+		this.crmNum = crmNum;
+	}
+
 	public int getCrNum() {
 		return crNum;
 	}
+
 	public void setCrNum(int crNum) {
 		this.crNum = crNum;
 	}
-	public String getCrTitle() {
-		return crTitle;
+
+	public int getmNum() {
+		return mNum;
 	}
-	public void setCrTitle(String crTitle) {
-		this.crTitle = crTitle;
+
+	public void setmNum(int mNum) {
+		this.mNum = mNum;
 	}
+
 	@Override
 	public String toString() {
-		return "ChatRoom [crNum=" + crNum + ", crTitle=" + crTitle + "]";
+		return "ChatRoomMember [crmNum=" + crmNum + ", crNum=" + crNum + ", mNum=" + mNum + "]";
 	}
+
 }

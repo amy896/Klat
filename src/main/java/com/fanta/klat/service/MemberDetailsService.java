@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.fanta.klat.model.Authority;
 import com.fanta.klat.model.Member;
 import com.fanta.klat.model.MemberDetails;
 
@@ -19,15 +20,16 @@ public class MemberDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+		
 		Member originalMember = memberService.getMemberByMId(userid);
 		String mPw = originalMember.getmPw();
 		int mNum = originalMember.getmNum();
-		List<String> authList = memberService.getAuthoritiesByMNum(mNum);
+		List<Authority> authList = memberService.getAuthoritiesByMNum(mNum);
 		MemberDetails member = new MemberDetails();
 		member.setmId(userid);
 		member.setmPw(mPw);
-		for (String auth : authList) {
-			member.addAuth(auth);
+		for (Authority auth : authList) {
+			member.addAuth(auth.getAuthority());
 		}
 		return member;
 	}

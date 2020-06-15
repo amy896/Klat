@@ -2,6 +2,7 @@ package com.fanta.klat.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,8 +145,7 @@ public class ChatController {
 
 	@ResponseBody
 	@RequestMapping(value = "/searchmemberlist")
-	public List<String> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword,
-			String mid) {
+	public List<String> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword) {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = (Integer) session.getAttribute("mNum");
 		return memberService.searchMemberList(keyword, crNum, mNum);
@@ -154,19 +154,18 @@ public class ChatController {
 	@SendTo("/category/msg/{var2}")
 	@MessageMapping("/sendChatMessage/{var1}/{var2}")
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
-			@DestinationVariable(value = "var2") int crNum, String cmContent) {
+									   @DestinationVariable(value = "var2") int crNum, String cmContent) {
 		String msgType = "message";
-		if (mNum == -1) {
-			msgType = "systemMessage";
-		}
+		if (mNum == -1) msgType = "systemMessage";
+		
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType(msgType);
+		chatMessage.setCmWriteDate(new Date());
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
-		int cmNum = cmService.sendChatMessage(chatMessage);
-		ChatMessage cm = cmService.getChatMessageByCmNum(cmNum);
-		return cm;
+		
+		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
+		return chatMessageSent;
 	}
-
 }

@@ -2,42 +2,38 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan base-package="com.fanta.klat.service" />
-
+	<context:component-scan base-package="com.fanta.klat.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/klat_db?useSSL=false&amp;serverTimezone=Asia/Seoul"></property>
 		<property name="username" value="klat_user"></property>
 		<property name="password" value="klat_pw"></property>
 	</bean>
-
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	</bean>
+		
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath:com/fanta/klat/dao/mapper/**/*.xml"></property>
-		<property name="typeAliasesPackage" value="com.fanta.klat.model"></property>
-	</bean>
-
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"></property>
 	</bean>
 	
-	<bean id="memberDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.fanta.klat.dao.MemberDao"></property>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
 	</bean>
-
-	<bean id="chatRoomDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.fanta.klat.dao.ChatRoomDao"></property>
-	</bean>	
 	
-	<bean id="chatMessageDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.fanta.klat.dao.ChatMessageDao"></property>
-	</bean>	
+	<tx:annotation-driven/>
+	
+	<jpa:repositories base-package="com.fanta.klat.repository"></jpa:repositories>
 
 </beans>

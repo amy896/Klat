@@ -1,79 +1,80 @@
 package com.fanta.klat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fanta.klat.dao.ChatRoomDao;
-import com.fanta.klat.dao.MemberDao;
+import com.fanta.klat.model.Authority;
+import com.fanta.klat.model.ChatRoomMember;
 import com.fanta.klat.model.Member;
+import com.fanta.klat.repository.AuthorityRepository;
+import com.fanta.klat.repository.ChatRoomMemberRepository;
+import com.fanta.klat.repository.MemberRepository;
 
 @Service
 public class MemberService {
 	@Autowired
-	MemberDao memberDao;
+	MemberRepository memberReposiotry;
 	@Autowired
-	ChatRoomDao chatRoomDao;
+	AuthorityRepository authorityRepository;
+	@Autowired
+	ChatRoomMemberRepository chatRoomMemberRepository;
 
 	@Transactional
 	public boolean signUpMember(Member member) {
-		if (memberDao.insertMember(member) > 0)
-			if (memberDao.insertAuthority(member.getmNum()) > 0)
-				return true;
-		return false;
-	}
-
-	public boolean removeMember(int mNum) {
-		if (memberDao.deleteMemberByMNum(mNum) > 0) {
-			if (memberDao.deleteAuthority(mNum) > 0) {
+		Authority authority = null;
+		if (memberReposiotry.save(member) != null) {
+			authority = new Authority();
+			authority.setmNum(member.getmNum());
+			if (authorityRepository.save(authority) != null) {
 				return true;
 			}
-			return true;
 		}
 		return false;
 	}
 
-	public boolean modifyMember(int mNum, String mName, String mPw, String mProfileImg) {
-		Member member = memberDao.selectMemberByMNum(mNum);
-		member.setmName(mName);
-		member.setmPw(mPw);
-		member.setmProfileImg(mProfileImg);
-		
-		if (memberDao.updateMember(member) > 0) {
-			return true;
-		}
-		return false;
+	public void removeMember(int mNum) {
+		memberReposiotry.deleteById(mNum);
+		authorityRepository.deleteByMNum(mNum);
 	}
 
 	public Member getMemberByMId(String mId) {
-		return memberDao.selectMemberByMId(mId);
+		return memberReposiotry.findByMId(mId);
 	}
 
 	public Member getMemberByMNum(int mNum) {
-		return memberDao.selectMemberByMNum(mNum);
+		return memberReposiotry.findById(mNum).get();
 	}
 
-	public List<Member> getChatMemberListExceptMe(int crNum, int mNum) {
-		return memberDao.selctChatMemberListExceptMe(crNum, mNum);
+	public boolean modifyMember(Member member) {
+		if (memberReposiotry.save(member) != null) {
+			return true;
+		}
+		return false;
 	}
 
-	public List<String> getAuthoritiesByMNum(int mNum) {
-		return memberDao.selectAuthoritiesByMNum(mNum);
+	public List<ChatRoomMember> getChatMemberListExceptMe(int crNum, int mNum) {
+		return chatRoomMemberRepository.findExceptMe(crNum, mNum);
+	}
+
+	public List<Authority> getAuthoritiesByMNum(int mNum) {
+		return authorityRepository.findByMNum(mNum);
 	}
 
 	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
-		List<String> memberListByKeyword = memberDao.selectMemberByKeyword(keyword);
-		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
+		List<Member> memberListByKeyword = memberReposiotry.findByMIdContaining(keyword);
+//		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
+//
+//		memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
+//
+//		for (int j = 0; j < mNumList.size(); j++) {
+//			String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
+//			memberListByKeyword.remove(mIdInChatRoom);
+//		}
 
-		memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
-
-		for (int j = 0; j < mNumList.size(); j++) {
-			String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
-			memberListByKeyword.remove(mIdInChatRoom);
-		}
-
-		return memberListByKeyword;
+		return null;
 	}
 }
