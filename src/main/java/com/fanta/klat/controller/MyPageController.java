@@ -50,9 +50,12 @@ public class MyPageController {
 	}
 
 	@RequestMapping(value = "/modifymember", method = RequestMethod.POST)
-	public String  modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
-//		Member member = (Member)session.getAttribute("member");
-//		memberService.modifyMember(member.getmNum(), mname, mpw, mProfileImg);
+	public String modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		member.setmName(mname);
+		member.setmPw(mpw);
+		member.setmProfileImg(mProfileImg);
+		memberService.modifyMember(member);
 		return "redirect:/mypage/mypagemain";
 	}
 

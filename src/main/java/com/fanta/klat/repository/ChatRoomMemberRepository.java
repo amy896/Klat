@@ -19,4 +19,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
 
 	@Transactional
 	public int removeBycrNumAndMNum(int crNum, int mNum);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/heads/amy

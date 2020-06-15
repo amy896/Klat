@@ -58,7 +58,6 @@ public class ChatController {
 			chatInfo.put("chatMemberList", memberService.getChatMemberListExceptMe(chat.getCrNum(), mNum));
 			chatInfoList.add(chatInfo);
 		}
-
 		model.addAttribute("member", member);
 		model.addAttribute("chatInfoList", chatInfoList);
 		return "chat/chatMain";
@@ -100,6 +99,7 @@ public class ChatController {
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		int crNum = crService.addChatRoom(mNum, crtitle);
+		System.out.println("controller =  " + mNum + ", " + crtitle);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
@@ -156,15 +156,25 @@ public class ChatController {
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
 									   @DestinationVariable(value = "var2") int crNum, String cmContent) {
 		String msgType = "message";
+<<<<<<< HEAD
 		if (mNum == -1) msgType = "systemMessage";
 		
+=======
+		if (mNum == -1)
+			msgType = "systemMessage";
+
+>>>>>>> refs/heads/amy
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCmContent(cmContent);
 		chatMessage.setCmType(msgType);
 		chatMessage.setCmWriteDate(new Date());
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> refs/heads/amy
 		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
 		return chatMessageSent;
 	}

@@ -13,7 +13,11 @@ public class ChatMessageService {
 	@Autowired
 	private ChatMessageRepository cmRepository;
 
+<<<<<<< HEAD
 	public ChatMessage sendChatMessage(ChatMessage chatMessage) {		
+=======
+	public ChatMessage sendChatMessage(ChatMessage chatMessage) {
+>>>>>>> refs/heads/amy
 		ChatMessage chatMessageSaved = cmRepository.save(chatMessage);
 		return chatMessageSaved;
 	}
@@ -27,7 +31,7 @@ public class ChatMessageService {
 		List<ChatMessage> cmList = cmRepository.selectAllChatMessageByCrNum(crNum);
 		return cmList;
 	}
-	
+
 	public ChatMessage getSystemMessageByCmNum(int cmNum) {
 		return cmRepository.selectSystemMessageByCmNum(cmNum);
 	}
