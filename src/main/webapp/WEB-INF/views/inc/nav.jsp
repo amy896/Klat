@@ -46,7 +46,7 @@ function enterChatRoom(crNum) {
 	</form>
 	<div class="chat_list_container">
 		<p class="title">채팅 목록</p>
-		<button class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-comment-medical"></i></button>
+		<button class="nav_chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-comment-medical"></i></button>
 		<div class="chatRoomList"></div>
 	</div>
 </div>
