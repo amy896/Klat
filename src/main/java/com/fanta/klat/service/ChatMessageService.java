@@ -13,10 +13,9 @@ public class ChatMessageService {
 	@Autowired
 	private ChatMessageRepository cmRepository;
 
-
-	public ChatMessage sendChatMessage(ChatMessage chatMessage) {		
-		ChatMessage chatMessageSaved = cmRepository.save(chatMessage);
-		return chatMessageSaved;
+	public ChatMessage sendChatMessage(ChatMessage chatMessage) {
+		ChatMessage chatMessageSaved = cmRepository.saveAndFlush(chatMessage);
+		return cmRepository.findById(chatMessageSaved.getCmNum()).get();
 	}
 
 	public ChatMessage getChatMessageByCmNum(int cmNum) {

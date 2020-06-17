@@ -165,6 +165,7 @@ public class ChatController {
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
 		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
+		System.out.println("************chatMessageSent = " + chatMessageSent);
 		return chatMessageSent;
 	}
 }
