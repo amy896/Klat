@@ -35,13 +35,14 @@
 									success : function(memberList) {
 										$(".search_member_list_container li").remove();
 										$(".search_member_list_container").show();
+										
 										if(memberList.length > 0) {
 											for(var i in memberList) {
 												var li = $("<li class='search_member_list'>");
-												li.text(memberList[i]);
+												li.text(memberList[i].mId);
 												(function(member) {
 													li.on("click", function() {
-														$(".search_member_id").val(memberList[member]);
+														$(".search_member_id").val(memberList[member].mId);
 														$(".search_member_list_container").hide();
 														$(".invite_member_form_btn").attr("disabled", false);
 													})
@@ -50,7 +51,7 @@
 											}
 										} else {
 											var li = $("<li class='no_search_member_list'>");
-											li.text("그런 회원 없음");
+											li.text("존재하지 않는 회원입니다.");
 											$(".search_member_list_container").append(li);
 										}
 									},

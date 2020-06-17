@@ -145,10 +145,11 @@ public class ChatController {
 
 	@ResponseBody
 	@RequestMapping(value = "/searchmemberlist")
-	public List<String> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword) {
+	public List<Member> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword) {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = (Integer) session.getAttribute("mNum");
-		return memberService.searchMemberList(keyword, crNum, mNum);
+		List<Member> memberList = memberService.searchMemberList(keyword, crNum, mNum);
+		return memberList;
 	}
 
 	@SendTo("/category/msg/{var2}")
