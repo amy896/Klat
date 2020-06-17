@@ -1,5 +1,6 @@
 package com.fanta.klat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,14 @@ public class MemberService {
 		return false;
 	}
 
-	public List<ChatRoomMember> getChatMemberListExceptMe(int crNum, int mNum) {
-		return chatRoomMemberRepository.findExceptMe(crNum, mNum);
+	public List<Member> getChatMemberListExceptMe(int crNum, int mNum) {
+		List<ChatRoomMember> memberList = chatRoomMemberRepository.findByCrNumAndMNumNot(crNum, mNum);
+		System.out.println("memberList : "+memberList);
+		List<Member> ml = new ArrayList<Member>();
+		for(int i=0; i<memberList.size(); i++) {
+			ml.add(memberList.get(i).getMember());
+		}
+		return ml;
 	}
 
 	public List<Authority> getAuthoritiesByMNum(int mNum) {

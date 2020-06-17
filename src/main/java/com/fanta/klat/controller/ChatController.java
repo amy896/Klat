@@ -55,7 +55,8 @@ public class ChatController {
 		for (ChatRoom chat : chatList) {
 			Map<String, Object> chatInfo = new HashMap<String, Object>();
 			chatInfo.put("chat", chat);
-			chatInfo.put("chatMemberList", memberService.getChatMemberListExceptMe(chat.getCrNum(), mNum));
+			List<Member> chatMemberList = memberService.getChatMemberListExceptMe(chat.getCrNum(), mNum);
+			chatInfo.put("chatMemberList", chatMemberList);
 			chatInfoList.add(chatInfo);
 		}
 		model.addAttribute("member", member);
