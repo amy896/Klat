@@ -18,10 +18,10 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer> {
 	@Query(value = "delete from tbl_chat_room cr where (select count(*) from tbl_chat_room_member crm where crm.cr_num = cr.cr_num) = 0", nativeQuery = true)
 	public int eliminateEmptyChatRoom();
 
-	@Query(value = "select cr.cr_num, cr.cr_title \r\n"
-			+ "      from tbl_chat_room cr join tbl_chat_room_member crm\r\n" + "      on cr.cr_num = crm.cr_num\r\n"
-			+ "      where crm.m_num = ?1\r\n" + "      order by cr.cr_num desc", nativeQuery = true)
+	@Query(value = "select cr.cr_num, cr.cr_title "
+			+ "from tbl_chat_room cr join tbl_chat_room_member crm " 
+			+ "on cr.cr_num = crm.cr_num "
+			+ "where crm.m_num = ?1 " 
+			+ "order by cr.cr_num desc", nativeQuery = true)
 	public List<ChatRoom> selectChatRoomListByMNum(int mNum);
-
-	
 }
