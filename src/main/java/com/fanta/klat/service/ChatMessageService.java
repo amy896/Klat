@@ -25,8 +25,7 @@ public class ChatMessageService {
 	}
 
 	public List<ChatMessage> getAllChatMessageByCrNum(int crNum) {
-		List<ChatMessage> cmList = cmRepository.selectAllChatMessageByCrNum(crNum);
-		return cmList;
+		return cmRepository.findAll();
 	}
 
 	public ChatMessage getSystemMessageByCmNum(int cmNum) {

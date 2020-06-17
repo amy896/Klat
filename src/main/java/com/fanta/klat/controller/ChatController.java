@@ -84,7 +84,6 @@ public class ChatController {
 	@RequestMapping("/loadallmessage")
 	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
 		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crNum);
-		System.out.println(chatMessageList);
 		return chatMessageList;
 	}
 

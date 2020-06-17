@@ -15,7 +15,6 @@ public class SystemMessageService {
 	public ChatMessage sendEntranceMessage(int crNum, Member member) {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCrNum(crNum);
-//		chatMessage.setmName(member.getmName());
 		chatMessage.setCmContent(" 님이 입장하셨습니다.");
 		chatMessage.setCmType("system");
 		chatMessage.setmNum(member.getmNum());
@@ -26,7 +25,6 @@ public class SystemMessageService {
 	public ChatMessage sendExitMessage(int crNum, Member member) {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCrNum(crNum);
-//		chatMessage.setmName(member.getmName());
 		chatMessage.setCmContent(" 님이 퇴장하셨습니다.");
 		chatMessage.setCmType("system");
 		chatMessage.setmNum(member.getmNum());
