@@ -13,4 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	public Member findByMId(String mId);
 
 	public List<Member> findByMIdContaining(String mId);
+		
+	public List<Member> findByMNumIn(List<Integer> mNumList);
 }
