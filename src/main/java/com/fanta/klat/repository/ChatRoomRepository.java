@@ -22,4 +22,6 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer> {
 			+ "      from tbl_chat_room cr join tbl_chat_room_member crm\r\n" + "      on cr.cr_num = crm.cr_num\r\n"
 			+ "      where crm.m_num = ?1\r\n" + "      order by cr.cr_num desc", nativeQuery = true)
 	public List<ChatRoom> selectChatRoomListByMNum(int mNum);
+
+	
 }

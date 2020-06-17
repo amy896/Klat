@@ -1,6 +1,5 @@
 package com.fanta.klat.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,19 +63,21 @@ public class MemberService {
 		return authorityRepository.findByMNum(mNum);
 	}
 
-	public List<String> searchMemberList(String keyword, int crNum, int mNum) {
+	public List<Member> searchMemberList(String keyword, int crNum, int mNum) {
 
 		List<Member> memberListByKeyword = memberReposiotry.findByMIdContaining(keyword);
-//		List<Integer> mNumList = chatRoomDao.selectChatRoomMemberListByCrNum(crNum);
-//
-//		memberListByKeyword.remove(memberDao.selectMemberByMNum(mNum).getmId());
-//
-//		for (int j = 0; j < mNumList.size(); j++) {
-//			String mIdInChatRoom = memberDao.selectMemberByMNum(mNumList.get(j)).getmId();
-//			memberListByKeyword.remove(mIdInChatRoom);
-//		}
+		List<ChatRoomMember> memberListInChatRoom = chatRoomMemberRepository.findByCrNum(crNum);
 
-		return null;
+		for (int i = 0; i < memberListInChatRoom.size(); i++) {
+			int mNumInChatRoom = memberListInChatRoom.get(i).getmNum();
+			
+			for (int j = 0; j < memberListByKeyword.size(); j++) {
+				if (memberListByKeyword.get(j).getmNum() == mNumInChatRoom) {
+					memberListByKeyword.remove(memberListByKeyword.get(j));
+				}
+			}
+		}
+
+		return memberListByKeyword;
 	}
-
 }
