@@ -11,6 +11,8 @@ import com.fanta.klat.model.ChatMessage;
 @Repository("chatMessageRepository")
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Integer>{
 
+	public List<ChatMessage> findByCrNum(int crNum);
+	
 	@Query(value = "select cm.cm_num, cm.cm_content, cm.cm_type, cm.cm_write_date, cm.cr_num, cm.m_num, m.m_name, m.m_profile_img\r\n" + 
 			"		from tbl_chat_message cm, tbl_member m\r\n" + 
 			"		where cm.m_num = m.m_num\r\n" + 
