@@ -1,5 +1,6 @@
 package com.fanta.klat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,9 +87,13 @@ public class ChatRoomService {
 		ChatRoom chatRoom = crRepository.findById(crNum).get();
 		return chatRoom;
 	}
- 
+
 	public List<ChatRoom> getChatRoomListByMNum(int mNum) {
-		List<ChatRoom> chatRoomList = crRepository.selectChatRoomListByMNum(mNum);
+		List<ChatRoomMember> chatRoomMemberList = chatRoomMemberRepository.findByMNum(mNum);
+		List<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
+		for (int i = 0; i < chatRoomMemberList.size(); i++) {
+			chatRoomList.add(chatRoomMemberList.get(i).getChatRoom());
+		}
 		return chatRoomList;
 	}
 }
