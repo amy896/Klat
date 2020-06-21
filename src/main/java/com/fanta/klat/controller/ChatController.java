@@ -157,7 +157,6 @@ public class ChatController {
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
 									   @DestinationVariable(value = "var2") int crNum, String cmContent) {
 		String msgType = "message";
-
 		if (mNum == -1) msgType = "systemMessage";
 		
 		ChatMessage chatMessage = new ChatMessage();
@@ -167,7 +166,6 @@ public class ChatController {
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
 		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
-		System.out.println("************chatMessageSent = " + chatMessageSent);
 		return chatMessageSent;
 	}
 }
