@@ -10,11 +10,10 @@ $(function(){
 	$("#send_chat_message_btn").on("click", function() {
 		sendMessage();
 	});
-	
-	/* 엔터를 누르면 채팅 메시지 보내기 */
+
+	/* 엔터 누르면 채팅 메시지 보내기 */
 	$("#chat_message").on("keydown", function(e){
 		if(e.keyCode == 13 && !e.shiftKey){
-		
 			e.preventDefault();
 			sendMessage();
 		}
@@ -25,8 +24,8 @@ $(function(){
 		stompClient.send("/client/sendChatMessage/"+$(".mNum").val()+"/"+$(".crNum").val(), {}, cmContent);
 		$("#chat_message").val("");
 	}
-	
 });
+
 function loadAllMessage() {
 	var crNum = $(".crNum").val();
 	
@@ -44,6 +43,7 @@ function loadAllMessage() {
 		}
 	})
 }
+
 /* 날짜 */
 var todayDate;
 function showDateMessage(year, month, date){
@@ -51,10 +51,12 @@ function showDateMessage(year, month, date){
 	$(".chat_message_list_container").append(dateMessageDiv);
 	todayDate = date;
 }
+
 function addMessage(msgInfo) {
-	/* 이 채팅메시지는 누가 썼을까? */
+	/* 채팅메시지 작성자 */
 	var msgType;
 	var mNum = $(".mNum").val();
+	
 	if(msgInfo.mNum == mNum) {
 		msgType = "my_msg";
 	} else {
@@ -77,7 +79,7 @@ function addMessage(msgInfo) {
 		processedWriteDate = hour + ":" + minute + " AM"; 
 	}
 	
-	/* 오늘 날짜(todayDate)와 만들려는 chatMessage의 날짜가 같지 않으면  */
+	/* 오늘 날짜(todayDate)와 만드는 chatMessage의 날짜가 같지 않은 경우  */
 	if(todayDate != writeDate.getDate() && todayDate != 0){
 		showDateMessage(writeDate.getFullYear(), Number(writeDate.getMonth())+Number(1), writeDate.getDate());
 	}
@@ -95,6 +97,9 @@ function addMessage(msgInfo) {
 		chatMsg.append("<div class='system_message'>"+msgInfo.mName+" "+msgInfo.cmContent+"</div>");
 	}
 	$(".chat_message_list_container").append(chatMsg);
+	$(".chat_message_list_container").stop();
+	$(".chat_message_list_container").animate({scrollTop: $(".chat_message_list_container")[0].scrollHeight});
+	
 }
 </script>
 
