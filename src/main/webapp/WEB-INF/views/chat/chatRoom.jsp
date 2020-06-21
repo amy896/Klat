@@ -94,7 +94,7 @@ function addMessage(msgInfo) {
 				  +"</div>");		
 	} else if(msgInfo.cmType == 'system') {
 		chatMsg = $("<div class='chat_system_message_box'>");
-		chatMsg.append("<div class='system_message'>"+msgInfo.mName+" "+msgInfo.cmContent+"</div>");
+		chatMsg.append("<div class='system_message'>"+msgInfo.cmContent+"</div>");
 	}
 	$(".chat_message_list_container").append(chatMsg);
 	$(".chat_message_list_container").stop();

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import com.fanta.klat.model.Authority;
 import com.fanta.klat.model.Member;
 import com.fanta.klat.model.MemberDetails;
-import com.fanta.klat.repository.MemberRepository;
 
 @Component
 public class MemberDetailsService implements UserDetailsService {
