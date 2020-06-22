@@ -14,6 +14,7 @@ public class SystemMessageService {
 	@Autowired
 	private ChatMessageService cmService;
 	
+	//by 혜선, 채팅방 입장 메시지 전송 및 DB 저장 
 	public ChatMessage sendEntranceMessage(int crNum, Member member) {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCrNum(crNum);
@@ -26,6 +27,7 @@ public class SystemMessageService {
 		return chatMessageSend;
 	}
 	
+	//by 혜선, 채팅방 퇴장 메시지 전송 및 DB 저장
 	public ChatMessage sendExitMessage(int crNum, Member member) {
 		ChatMessage chatMessage = new ChatMessage();
 		chatMessage.setCrNum(crNum);
