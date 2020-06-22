@@ -57,13 +57,12 @@ public class MemberService {
 	}
 
 	public List<Member> getChatMemberListExceptMe(int crNum, int mNum) {
-		List<ChatRoomMember> memberList = chatRoomMemberRepository.findByCrNumAndMNumNot(crNum, mNum);
-		System.out.println("memberList : "+memberList);
-		List<Member> ml = new ArrayList<Member>();
-		for(int i=0; i<memberList.size(); i++) {
-			ml.add(memberList.get(i).getMember());
+		List<ChatRoomMember> chatRoomMemberList = chatRoomMemberRepository.findByCrNumAndMNumNot(crNum, mNum);
+		List<Member> memberList = new ArrayList<Member>();
+		for (int i = 0; i < chatRoomMemberList.size(); i++) {
+			memberList.add(chatRoomMemberList.get(i).getMember());
 		}
-		return ml;
+		return memberList;
 	}
 
 	public List<Authority> getAuthoritiesByMNum(int mNum) {
@@ -77,7 +76,7 @@ public class MemberService {
 
 		for (int i = 0; i < memberListInChatRoom.size(); i++) {
 			int mNumInChatRoom = memberListInChatRoom.get(i).getmNum();
-			
+
 			for (int j = 0; j < memberListByKeyword.size(); j++) {
 				if (memberListByKeyword.get(j).getmNum() == mNumInChatRoom) {
 					memberListByKeyword.remove(memberListByKeyword.get(j));
