@@ -18,6 +18,7 @@ public class MemberDetailsService implements UserDetailsService {
 	@Autowired
 	private MemberService memberService;
 
+	//by 미경, 멤버 아이디 기준으로 멤버정보 및 권한 가져오기 
 	@Override
 	public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
 		
