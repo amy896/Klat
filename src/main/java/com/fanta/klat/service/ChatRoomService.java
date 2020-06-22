@@ -1,5 +1,6 @@
 package com.fanta.klat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,8 @@ public class ChatRoomService {
 
 	public boolean exitChatRoom(int crNum, int mNum) {
 		if (chatRoomMemberRepository.removeBycrNumAndMNum(crNum, mNum) > 0) {
-			if (removeChatRoom()) {
+			if (chatRoomMemberRepository.countByCrNum(crNum)==0) {
+				crRepository.removeByCrNum(crNum);
 				System.out.println("비어있는 채팅방을 삭제했습니다.");
 			} else {
 				System.out.println("비어있는 채팅방이 없습니다.");
@@ -86,9 +88,13 @@ public class ChatRoomService {
 		ChatRoom chatRoom = crRepository.findById(crNum).get();
 		return chatRoom;
 	}
- 
+
 	public List<ChatRoom> getChatRoomListByMNum(int mNum) {
-		List<ChatRoom> chatRoomList = crRepository.selectChatRoomListByMNum(mNum);
+		List<ChatRoomMember> chatRoomMemberList = chatRoomMemberRepository.findByMNum(mNum);
+		List<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
+		for (int i = 0; i < chatRoomMemberList.size(); i++) {
+			chatRoomList.add(chatRoomMemberList.get(i).getChatRoom());
+		}
 		return chatRoomList;
 	}
 }
