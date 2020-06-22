@@ -17,4 +17,8 @@ public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, 
 	public List<ChatRoomMember> findByCrNum(int crNum);
 
 	public List<ChatRoomMember> findByCrNumAndMNumNot(int crNum, int mNum);
+	
+	public List<ChatRoomMember> findByMNum(int mNum);
+	
+	public long countByCrNum(int crNum);
 }

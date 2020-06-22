@@ -36,6 +36,11 @@ public class ChatRoomMember implements Serializable {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name = "m_num", referencedColumnName = "m_num", insertable = false, updatable = false)
 	private Member member;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name = "cr_num", referencedColumnName = "cr_num", insertable = false, updatable = false)
+	private ChatRoom chatRoom;
 
 	public int getCrmNum() {
 		return crmNum;
@@ -69,10 +74,19 @@ public class ChatRoomMember implements Serializable {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	
+	public ChatRoom getChatRoom() {
+		return chatRoom;
+	}
+
+	public void setChatRoom(ChatRoom chatRoom) {
+		this.chatRoom = chatRoom;
+	}
 
 	@Override
 	public String toString() {
-		return "ChatRoomMember [crmNum=" + crmNum + ", crNum=" + crNum + ", mNum=" + mNum + "]";
+		return "ChatRoomMember [crmNum=" + crmNum + ", crNum=" + crNum + ", mNum=" + mNum + ", member=" + member
+				+ ", chatRoom=" + chatRoom + "]";
 	}
 
 }

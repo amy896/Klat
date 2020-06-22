@@ -16,7 +16,7 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/klat_db?useSSL=false&amp;serverTimezone=Asia/Seoul"></property>
-		<property name="username" value="klat_id"></property>
+		<property name="username" value="klat_user"></property>
 		<property name="password" value="klat_pw"></property>
 	</bean>
 
