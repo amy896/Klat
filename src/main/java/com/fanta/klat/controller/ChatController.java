@@ -38,10 +38,11 @@ public class ChatController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private SystemMessageService smService;
+	private SystemMessageService systemMessageService;
 	@Autowired
 	private SimpMessagingTemplate smt;
 
+	//by 미경, 채팅 메인(참여한 채팅 리스트) 보여주기 
 	@RequestMapping("/chatmain")
 	public String showChatMain(Principal principal, HttpSession session, Model model) {
 		String mId = principal.getName();
@@ -118,11 +119,12 @@ public class ChatController {
 		int mNum = (Integer) session.getAttribute("mNum");
 		chatRoomService.exitChatRoom(crnum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
-		ChatMessage chatMessage = smService.sendExitMessage(crnum, member);
+		ChatMessage chatMessage = systemMessageService.sendExitMessage(crnum, member);
 		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
 		return "redirect:chatmain";
 	}
 
+	//by 미경, 네비게이션에 (참여한 채팅 리스트) 보여주기 
 	@ResponseBody
 	@RequestMapping("/getchatroomlist")
 	public List<ChatRoom> getChatRoomList(HttpSession session) {
@@ -155,7 +157,7 @@ public class ChatController {
 		int mNum = memberService.getMemberByMId(mid).getmNum();
 		chatRoomService.addChatRoomMember(crNum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
-		ChatMessage chatMessage = smService.sendEntranceMessage(crNum, member);
+		ChatMessage chatMessage = systemMessageService.sendEntranceMessage(crNum, member);
 		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
 		return "redirect:chatroom?crnum=" + crNum;
 	}

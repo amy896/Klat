@@ -30,11 +30,6 @@ public class MyPageController {
 		return "myPage/myPageMain";
 	}
 
-	@RequestMapping("/getmember")
-	public String getMember() {
-		return "redirect:mypagemain";
-	}
-
 	//by 혜선, 탈퇴하기
 	@RequestMapping("/removemember")
 	public String removeMember(int mnum) {

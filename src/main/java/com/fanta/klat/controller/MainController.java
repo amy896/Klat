@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 	
+	//by 미경, 메인 화면 보여주기 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String showMain() {
 		return "main/main";
