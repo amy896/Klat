@@ -99,7 +99,6 @@ public class ChatController {
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		int crNum = crService.addChatRoom(mNum, crtitle);
-		System.out.println("controller =  " + mNum + ", " + crtitle);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
@@ -128,10 +127,20 @@ public class ChatController {
 	}
 
 	@RequestMapping("/inviteform")
-	public String showInviteForm() {
+	public String showInviteForm(HttpSession session,  Model model, int crnum) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		model.addAttribute("crNum", crnum);
+		model.addAttribute("mNum", mNum);
 		return "chat/chatInviteForm";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/searchmemberlist")
+	public List<Member> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword, int crNum, int mNum) {
+		List<Member> memberList = memberService.searchMemberList(keyword, crNum, mNum);
+		return memberList;
+	}
+	
 	@RequestMapping(value = "/invitemember")
 	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
@@ -141,15 +150,6 @@ public class ChatController {
 		ChatMessage chatMessage = smService.sendEntranceMessage(crNum, member);
 		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
 		return "redirect:chatroom?crnum=" + crNum;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/searchmemberlist")
-	public List<Member> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword) {
-		int crNum = (Integer) session.getAttribute("crNum");
-		int mNum = (Integer) session.getAttribute("mNum");
-		List<Member> memberList = memberService.searchMemberList(keyword, crNum, mNum);
-		return memberList;
 	}
 
 	@SendTo("/category/msg/{var2}")
