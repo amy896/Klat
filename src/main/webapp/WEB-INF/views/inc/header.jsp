@@ -9,7 +9,7 @@
 	var offset;
 	var regex;
 	var search_chat_keyword;
-	var chat_message_array = new Array();
+	var chat_message_array = null;
 	
 	$(function() {
 		socketConnect();
@@ -30,6 +30,7 @@
 		/* 엔터를 누르면 검색하기 */
 		$(".search_chat_input").on("keydown", function(e){
 			if(e.keyCode == 13){
+				chat_message_array = new Array();
 				search_chat_keyword = $(".search_chat_input").val();
 				regex = new RegExp(search_chat_keyword,"");
 
