@@ -76,7 +76,7 @@
 	cursor: pointer;
 }
 
-.chatInfo_container  ul {
+.chatInfo_container ul {
 	width: 100%;
 	height: 60px;
 	padding: 0px 30px;
@@ -166,16 +166,26 @@
 }
 
 .my_msg {
-	background-color: rgba(209, 217, 229, 0.2);
+	background-color: rgba(209, 217, 229, 0.25);
 }
 
 .their_msg {
-	background-color: #a6bad880;
+	background-color: rgba(209, 217, 229, 0.05);
 }
 
 .date_msg {
 	position: relative;
 	padding: 6px 0px;
+	border-top: 0.5px solid #8798c64f;
+	border-bottom: 0.5px solid #8798c64f;
+}
+
+.chat_system_message_box+.date_msg {
+	border-top: 0px;
+}
+
+.date_msg+.chat_system_message_box {
+	border-top: 0px;
 }
 
 .date_msg div {
