@@ -23,7 +23,7 @@ public class MemberService {
 	@Autowired
 	ChatRoomMemberRepository chatRoomMemberRepository;
 	
-	//by미경, 멤버 추가 성공시, 멤버 권한 추가하기
+	//by 미경, 멤버 추가 성공 시, 멤버 권한 추가하기
 	@Transactional
 	public boolean signUpMember(Member member) {
 		Authority authority = null;
@@ -37,7 +37,7 @@ public class MemberService {
 		return false;
 	}
 
-	//by혜선, 
+	//by 혜선, 탈퇴 시 멤버 및 권한 삭제하기
 	public void removeMember(int mNum) {
 		memberReposiotry.deleteById(mNum);
 		authorityRepository.deleteByMNum(mNum);
@@ -53,7 +53,7 @@ public class MemberService {
 		return memberReposiotry.findById(mNum).get();
 	}
 
-	//by 혜선, 
+	//by 혜선, 개인정보 수정하기
 	public boolean modifyMember(Member member) {
 		if (memberReposiotry.save(member) != null) {
 			return true;
@@ -76,7 +76,7 @@ public class MemberService {
 		return authorityRepository.findByMNum(mNum);
 	}
 
-	//by 혜선, 
+	//by 혜선, 채팅방에 멤버 초대 시 채팅방 참여자와 본인을 제외한 멤버 리스트 가져오기
 	public List<Member> searchMemberList(String keyword, int crNum, int mNum) {
 
 		List<Member> memberListByKeyword = memberReposiotry.findByMIdContaining(keyword);
