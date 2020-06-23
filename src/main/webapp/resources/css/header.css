@@ -44,7 +44,7 @@
 }
 
 .search_chat_container {
-	width: calc(100% - 200px);
+	width: calc(100% - 201px);
 	height: 41px;
 	box-sizing: border-box;
 	padding: 6px;
