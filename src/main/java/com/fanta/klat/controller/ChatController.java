@@ -152,14 +152,13 @@ public class ChatController {
 	
 	//by 혜선, 채팅방 초대하기
 	@RequestMapping(value = "/invitemember")
-	public String inviteMember(HttpSession session, String mid) {
-		int crNum = (Integer) session.getAttribute("crNum");
+	public String inviteMember(HttpSession session, String mid, int crnum) {
 		int mNum = memberService.getMemberByMId(mid).getmNum();
-		chatRoomService.addChatRoomMember(crNum, mNum);
+		chatRoomService.addChatRoomMember(crnum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
-		ChatMessage chatMessage = systemMessageService.sendEntranceMessage(crNum, member);
-		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
-		return "redirect:chatroom?crnum=" + crNum;
+		ChatMessage chatMessage = systemMessageService.sendEntranceMessage(crnum, member);
+		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
+		return "redirect:chatroom?crnum=" + crnum;
 	}
 
 	//by 혜선, 채팅메시지 보내기

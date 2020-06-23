@@ -12,7 +12,7 @@
 			<p>초대하고 싶은 회원님의 아이디를 입력해주세요.</p>
 			<form class="chat_invite_form" action="invitemember" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				<input type="hidden" class="crNum" value="${crNum}">
+				<input type="hidden" class="crNum" name="crnum" value="${crNum}">
 				<input type="hidden" class="mNum" value="${mNum}">
 				
 				<input class="search_member_id" type="text" name="mid" placeholder="아이디를 입력해주세요." autocomplete="off">
