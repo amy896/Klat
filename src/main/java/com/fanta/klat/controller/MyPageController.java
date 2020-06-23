@@ -20,6 +20,7 @@ public class MyPageController {
 	@Autowired
 	ChatRoomService chatRoomService;
 
+	//by 혜선, 마이 페이지 화면 보여주기
 	@RequestMapping("/mypagemain")
 	public String showMyPageMain(HttpSession session, Model model) {
 		int mNum = (Integer) session.getAttribute("mNum");
@@ -34,6 +35,7 @@ public class MyPageController {
 		return "redirect:mypagemain";
 	}
 
+	//by 혜선, 탈퇴하기
 	@RequestMapping("/removemember")
 	public String removeMember(int mnum) {
 		memberService.removeMember(mnum);
@@ -41,6 +43,7 @@ public class MyPageController {
 		return "redirect:../main";
 	}
 
+	//by 혜선, 개인정보 수정 화면 보여주기
 	@RequestMapping("/modifyform")
 	public String showModifyForm(HttpSession session, Model model) {
 		int mNum = (Integer) session.getAttribute("mNum");
@@ -49,6 +52,7 @@ public class MyPageController {
 		return "myPage/myPageModifyForm";
 	}
 
+	//by 혜선, 개인정보 수정하기
 	@RequestMapping(value = "/modifymember", method = RequestMethod.POST)
 	public String modifyMember(String mname, String mpw, String mProfileImg, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
@@ -58,5 +62,4 @@ public class MyPageController {
 		memberService.modifyMember(member);
 		return "redirect:/mypage/mypagemain";
 	}
-
 }

@@ -9,7 +9,7 @@
 	var offset;
 	var regex;
 	var search_chat_keyword;
-	var chat_message_array = new Array();
+	var chat_message_array = null;
 	
 	$(function() {
 		socketConnect();
@@ -30,6 +30,7 @@
 		/* 엔터를 누르면 검색하기 */
 		$(".search_chat_input").on("keydown", function(e){
 			if(e.keyCode == 13){
+				chat_message_array = new Array();
 				search_chat_keyword = $(".search_chat_input").val();
 				regex = new RegExp(search_chat_keyword,"");
 
@@ -148,7 +149,7 @@
 		<button class="search_result_down" onclick="searchResultDown()"><i class="fas fa-chevron-down"></i></button>
 		<button onclick="closeSearchContainer()"><i class="fas fa-times"></i></button>
 	</div>
-	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform'">
+	<div class="invite_member_btn" onclick="location.href='${contextPath}/chat/inviteform?crnum=${chatroom.crNum}'">
 		<i class="fas fa-user-friends"></i>
 	</div>
 	<div class="exit_chatroom_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatroom.crNum}'">

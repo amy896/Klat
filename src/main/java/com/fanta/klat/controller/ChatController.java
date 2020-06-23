@@ -32,9 +32,9 @@ import com.fanta.klat.service.SystemMessageService;
 @RequestMapping("/chat")
 public class ChatController {
 	@Autowired
-	private ChatRoomService crService;
+	private ChatRoomService chatRoomService;
 	@Autowired
-	private ChatMessageService cmService;
+	private ChatMessageService chatMessageService;
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -51,7 +51,7 @@ public class ChatController {
 		session.setAttribute("member", member);
 
 		List<Map<String, Object>> chatInfoList = new ArrayList<Map<String, Object>>();
-		List<ChatRoom> chatList = crService.getChatRoomListByMNum(mNum);
+		List<ChatRoom> chatList = chatRoomService.getChatRoomListByMNum(mNum);
 		for (ChatRoom chat : chatList) {
 			Map<String, Object> chatInfo = new HashMap<String, Object>();
 			chatInfo.put("chat", chat);
@@ -64,10 +64,10 @@ public class ChatController {
 		return "chat/chatMain";
 	}
 
+	//by 혜선, 채팅방 화면 보여주기 
 	@RequestMapping("/chatroom")
-	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum,
-			Model model) {
-		ChatRoom chatroom = crService.getChatRoomByCrNum(crnum);
+	public String showChatRoom(Principal principal, HttpSession session, @RequestParam(defaultValue = "0") int crnum, Model model) {
+		ChatRoom chatroom = chatRoomService.getChatRoomByCrNum(crnum);
 		String mId = principal.getName();
 		Member member = memberService.getMemberByMId(mId);
 		int mNum = member.getmNum();
@@ -81,13 +81,15 @@ public class ChatController {
 		return "chat/chatRoom";
 	}
 
+	//by 혜선, 채팅방 내 모든 채팅메시지 가져오기
 	@ResponseBody
 	@RequestMapping("/loadallmessage")
 	public List<ChatMessage> loadAllMessage(@RequestParam("crNum") int crNum) {
-		List<ChatMessage> chatMessageList = cmService.getAllChatMessageByCrNum(crNum);
+		List<ChatMessage> chatMessageList = chatMessageService.getAllChatMessageByCrNum(crNum);
 		return chatMessageList;
 	}
 
+	//by 혜선, 채팅방 추가 화면 보여주기
 	@RequestMapping("/addform")
 	public String showAddForm(HttpSession session, Model model) {
 		int mNum = (Integer) session.getAttribute("mNum");
@@ -95,24 +97,26 @@ public class ChatController {
 		return "chat/chatAddForm";
 	}
 
+	//by 혜선, 채팅방 추가하기
 	@RequestMapping("/addchatroom")
 	public String addChatRoom(HttpSession session, String crtitle) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		int crNum = crService.addChatRoom(mNum, crtitle);
-		System.out.println("controller =  " + mNum + ", " + crtitle);
+		int crNum = chatRoomService.addChatRoom(mNum, crtitle);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
+	//by 혜선, 채팅방 제목 수정하기
 	@ResponseBody
 	@RequestMapping("/modifychatroom")
 	public boolean modifyChatRoom(HttpSession session, Model model, int crnum, String crtitle) {
-		return crService.modifyChatRoom(crnum, crtitle);
+		return chatRoomService.modifyChatRoom(crnum, crtitle);
 	}
 
+	//by 혜선, 채팅방 나가기
 	@RequestMapping(value = "/exitchatroom")
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		crService.exitChatRoom(crnum, mNum);
+		chatRoomService.exitChatRoom(crnum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = smService.sendExitMessage(crnum, member);
 		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
@@ -123,35 +127,40 @@ public class ChatController {
 	@RequestMapping("/getchatroomlist")
 	public List<ChatRoom> getChatRoomList(HttpSession session) {
 		int mNum = (Integer) session.getAttribute("mNum");
-		List<ChatRoom> chatRoomList = crService.getChatRoomListByMNum(mNum);
+		List<ChatRoom> chatRoomList = chatRoomService.getChatRoomListByMNum(mNum);
 		return chatRoomList;
 	}
 
+	//by 혜선, 채팅방 초대 화면 보여주기
 	@RequestMapping("/inviteform")
-	public String showInviteForm() {
+	public String showInviteForm(HttpSession session,  Model model, int crnum) {
+		int mNum = (Integer) session.getAttribute("mNum");
+		model.addAttribute("crNum", crnum);
+		model.addAttribute("mNum", mNum);
 		return "chat/chatInviteForm";
 	}
 
+	//by 혜선, 채팅방에 초대할 수 있는 멤버 리스트 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/searchmemberlist")
+	public List<Member> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword, int crNum, int mNum) {
+		List<Member> memberList = memberService.searchMemberList(keyword, crNum, mNum);
+		return memberList;
+	}
+	
+	//by 혜선, 채팅방 초대하기
 	@RequestMapping(value = "/invitemember")
 	public String inviteMember(HttpSession session, String mid) {
 		int crNum = (Integer) session.getAttribute("crNum");
 		int mNum = memberService.getMemberByMId(mid).getmNum();
-		crService.addChatRoomMember(crNum, mNum);
+		chatRoomService.addChatRoomMember(crNum, mNum);
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = smService.sendEntranceMessage(crNum, member);
 		smt.convertAndSend("/category/systemMsg/" + crNum, chatMessage);
 		return "redirect:chatroom?crnum=" + crNum;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/searchmemberlist")
-	public List<Member> searchMemberList(HttpSession session, @RequestParam(value = "keyword") String keyword) {
-		int crNum = (Integer) session.getAttribute("crNum");
-		int mNum = (Integer) session.getAttribute("mNum");
-		List<Member> memberList = memberService.searchMemberList(keyword, crNum, mNum);
-		return memberList;
-	}
-
+	//by 혜선, 채팅메시지 보내기
 	@SendTo("/category/msg/{var2}")
 	@MessageMapping("/sendChatMessage/{var1}/{var2}")
 	public ChatMessage sendChatMessage(@DestinationVariable(value = "var1") int mNum,
@@ -165,7 +174,7 @@ public class ChatController {
 		chatMessage.setCmWriteDate(new Date());
 		chatMessage.setCrNum(crNum);
 		chatMessage.setmNum(mNum);
-		ChatMessage chatMessageSent = cmService.sendChatMessage(chatMessage);
+		ChatMessage chatMessageSent = chatMessageService.sendChatMessage(chatMessage);
 		return chatMessageSent;
 	}
 }

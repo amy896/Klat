@@ -53,13 +53,6 @@ public class ChatRoomService {
 		return false;
 	}
 
-	public boolean removeChatRoom() {
-		if (crRepository.eliminateEmptyChatRoom() > 0) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean exitChatRoom(int crNum, int mNum) {
 		if (chatRoomMemberRepository.removeBycrNumAndMNum(crNum, mNum) > 0) {
 			if (chatRoomMemberRepository.countByCrNum(crNum)==0) {
