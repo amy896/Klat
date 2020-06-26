@@ -13,6 +13,8 @@
 	
 	$(function() {
 		socketConnect();
+		
+		/* 채팅방에서만 채팅방 제목 띄우기 */
 		var pageType = $(".pageType").val();
 		if(pageType == "chatroom"){
 			var chatTitle = $(".crTitle").val();
@@ -50,6 +52,7 @@
 		});
 	});
 	
+	/* 웹소켓 연결 */
 	function socketConnect(){
 		sock = new SockJS("${contextPath}/chat");
 		stompClient = Stomp.over(sock);
@@ -60,18 +63,21 @@
 				addMessage(msgInfo);
 			});
 		});
-	}//end socketConnect()
+	}
 	
+	/* 검색 결과 리스트 중 위쪽 방향으로 포커스 */
 	function searchResultUp(){
 		index = index-1;
 		searchResultFoucus(index);
 	}
-	
+
+	/* 검색 결과 리스트 중 아래쪽 방향으로 포커스 */
 	function searchResultDown(){
 		index = index+1;
 		searchResultFoucus(index);
 	}
 	
+	/* 인덱스를 기준으로 검색 결과 포커스 */
 	function searchResultFoucus(index){
 		$("span").removeClass('search_highlighter');
 		var current_message = chat_message_array[index];
@@ -88,6 +94,7 @@
 			$(".search_result_down").attr('disabled', true);}
 	}
 	
+	/* 검색 영역 초기화 */
 	function searchCofigReset(){
 		$(".search_chat_input").val("");
 		$(".search_result_up").attr('disabled', true);
@@ -96,6 +103,7 @@
 		chat_message_array = new Array();
 	}
 	
+	/* 검색 영역 hide */
 	function closeSearchContainer(){
 		$(".search_chat_container").hide();
 		searchCofigReset();
@@ -119,6 +127,7 @@
 			$(".chat_room_title button").css("display", "inline-block");
 		})
 		
+		/* 채팅방 제목 수정하기 */
 		function change() {
 			var crNum = $(".crNum").val();
 			var crTitle = $("#new_chat_room_title").val();
@@ -135,7 +144,7 @@
 					location.reload();
 				},
 				error : function(request, status, error) {
-					alert("request:" + request + " status:" + status + " error:" + error);
+					alert("채팅방 제목 수정에 실패하였습니다.");
 				}
 			})
 		}
