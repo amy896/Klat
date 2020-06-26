@@ -23,9 +23,9 @@ public class ChatRoomService {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setCrTitle(crTitle);
 		ChatRoom chatRoomSaved = chatRoomRepository.save(chatRoom);
-		ChatRoomMember chatRoomMember = null;
+		
 		if (chatRoomSaved != null) {
-			chatRoomMember = new ChatRoomMember();
+			ChatRoomMember chatRoomMember = new ChatRoomMember();
 			chatRoomMember.setCrNum(chatRoomSaved.getCrNum());
 			chatRoomMember.setmNum(mNum);
 			chatRoomMemberRepository.save(chatRoomMember);
@@ -38,6 +38,7 @@ public class ChatRoomService {
 		ChatRoomMember chatRoomMember = new ChatRoomMember();
 		chatRoomMember.setCrNum(crNum);
 		chatRoomMember.setmNum(mNum);
+		
 		if (chatRoomMemberRepository.save(chatRoomMember) != null) {
 			return true;
 		}
