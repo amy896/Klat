@@ -68,18 +68,21 @@
 				addMessage(msgInfo);
 			});
 		});
-	}//end socketConnect()
+	}
 	
+	/* 검색 결과 리스트 위로 포커스 */
 	function searchResultUp(){
 		index = index-1;
 		searchResultFoucus(index);
 	}
 	
+	/* 검색 결과 리스트 아래로 포커스 */
 	function searchResultDown(){
 		index = index+1;
 		searchResultFoucus(index);
 	}
 	
+	/* 인덱스를 기준으로 검색 결과 포커스 */
 	function searchResultFoucus(index){
 		$("span").removeClass('search_highlighter');
 		var current_message = chat_message_array[index];
@@ -95,6 +98,7 @@
 			$(".search_result_down").attr('disabled', true);}
 	}
 	
+	/* 검색 설정 초기화 */
 	function searchCofigReset(){
 		$(".search_chat_input").val("");
 		$(".search_result_up").attr('disabled', true);
@@ -103,6 +107,7 @@
 		chat_message_array = new Array();
 	}
 	
+	/* 검색 영역 hide */
 	function closeSearchContainer(){
 		$(".search_chat_container").hide();
 		searchCofigReset();
