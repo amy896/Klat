@@ -6,8 +6,8 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
-	<div class="container">
 	
+	<div class="container">
 		<div class="chat_invite_form_container">
 			<p>초대하고 싶은 회원님의 아이디를 입력해주세요.</p>
 			<form class="chat_invite_form" action="invitemember" method="post">
@@ -22,6 +22,7 @@
 				
 				<script type="text/javascript">
 					$(function() {
+						/* by 혜선, 입력된 키워드를 포함하는 아이디 리스트 불러오기 */
 						$(".search_member_id").on("keyup", function() {
 							var keyword = $(".search_member_id").val();
 							var crNum = $(".crNum").val();
@@ -60,7 +61,7 @@
 									},
 									
 									error : function(request, status, error) {
-										alert("request:" + request + " status:" + status + " error:" + error);
+										alert("존재하지 않는 회원입니다.");
 									}
 								});
 							}

@@ -6,12 +6,14 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
+	
 	<div class="container">
 		<input type="hidden" class="pageType" value="chatmain">
 		<div class="chat_room_list_title">
 			채팅 목록
 		</div>
 		<button class="chat_add_btn" onclick="location.href='${contextPath}/chat/addform'"><i class="fas fa-comment-medical"></i></button>
+		
 		<c:forEach items="${chatInfoList}" var="chatInfo">
 			<div class="chatInfo_container">
 				<div class="chat_room_title" onclick="location.href='${contextPath}/chat/chatroom?crnum='+${chatInfo.chat.crNum}">
@@ -20,6 +22,7 @@
 				<div class="chat_exit_btn" onclick="location.href='${contextPath}/chat/exitchatroom?crnum=${chatInfo.chat.crNum}'">
 					<i class="fas fa-sign-out-alt"></i>
 				</div>
+				
 				<ul class="member_list_container">
 					<c:forEach items="${chatInfo.chatMemberList}" var="member">
 						<li class="member_container">
