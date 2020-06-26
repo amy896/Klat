@@ -13,6 +13,7 @@
 	
 	$(function() {
 		socketConnect();
+		
 		var pageType = $(".pageType").val();
 		if(pageType == "chatroom"){
 			var chatTitle = $(".crTitle").val();
@@ -55,8 +56,14 @@
 		stompClient = Stomp.over(sock);
 		stompClient.connect({}, function() {
 			var crNum = $(".crNum").val();
+			
 			stompClient.subscribe("/category/msg/"+crNum, function(cm) {
 				msgInfo = JSON.parse(cm.body);
+				addMessage(msgInfo);
+			});
+			
+			stompClient.subscribe("/category/systemMsg/"+crNum, function(chatMessage) {
+				msgInfo = JSON.parse(chatMessage.body);
 				addMessage(msgInfo);
 			});
 		});
@@ -77,7 +84,6 @@
 		var current_message = chat_message_array[index];
 		current_message.html(current_message.text().replace(regex, "<span class='search_highlighter'>"+search_chat_keyword+"</span>"));
 		offset = chat_message_array[index].offset();
-		console.log(offset.top);
 		$(".chat_message_list_container").scrollTop(offset.top);
 		$(".search_result_up").attr('disabled', false);
 		$(".search_result_down").attr('disabled', false);

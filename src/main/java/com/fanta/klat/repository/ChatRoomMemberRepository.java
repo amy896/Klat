@@ -12,7 +12,7 @@ import com.fanta.klat.model.ChatRoomMember;
 public interface ChatRoomMemberRepository extends JpaRepository<ChatRoomMember, Integer> {
 
 	@Transactional
-	public int removeBycrNumAndMNum(int crNum, int mNum);
+	public int removeByCrNumAndMNum(int crNum, int mNum);
 	
 	public List<ChatRoomMember> findByCrNum(int crNum);
 

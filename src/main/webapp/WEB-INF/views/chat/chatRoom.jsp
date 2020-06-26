@@ -19,6 +19,7 @@ $(function(){
 		}
 	});
 	
+	/* by 혜선, 채팅 메시지 전송 및 입력창 비우기 */
 	function sendMessage() {
 		var cmContent = $("#chat_message").val();
 		stompClient.send("/client/sendChatMessage/"+$(".mNum").val()+"/"+$(".crNum").val(), {}, cmContent);
@@ -26,6 +27,7 @@ $(function(){
 	}
 });
 
+/* by 혜선, 기존의 모든 채팅 메시지 불러오기 */
 function loadAllMessage() {
 	var crNum = $(".crNum").val();
 	
@@ -39,21 +41,24 @@ function loadAllMessage() {
 			})
 		},
 		error : function(request, status, error) {
-			alert("request:"+request+" status:"+status+" error:"+error);
+			alert("채팅 메시지를 불러오는데 실패했습니다.");
 		}
 	})
 }
 
 /* 날짜 */
 var todayDate;
+
+/* by 혜선, 날짜 메시지 띄우기 */
 function showDateMessage(year, month, date){
 	var dateMessageDiv = $("<div class='date_msg' align='center'><div>"+year+" - "+month+" - "+date+"</div></div>");
 	$(".chat_message_list_container").append(dateMessageDiv);
 	todayDate = date;
 }
 
+/* by 혜선, 채팅 메시지 종류 구분하여 그린 후 채팅창에 띄우기 */
 function addMessage(msgInfo) {
-	/* 채팅메시지 작성자 */
+	/* 채팅 메시지 작성자 구분하기 */
 	var msgType;
 	var mNum = $(".mNum").val();
 	
@@ -65,7 +70,7 @@ function addMessage(msgInfo) {
 	
 	var chatMsg = $("<div class='chat_message_box "+msgType+"'>");
 	
-	/* 채팅메시지 시간 */
+	/* 채팅 메시지 시간 */
 	var writeDate = new Date(msgInfo.cmWriteDate);
 	var hour = writeDate.getHours();
 	var minute = writeDate.getMinutes();
@@ -84,7 +89,7 @@ function addMessage(msgInfo) {
 		showDateMessage(writeDate.getFullYear(), Number(writeDate.getMonth())+Number(1), writeDate.getDate());
 	}
 	
-	/* 채팅메시지 & 입장퇴장메시지 그리는 부분 */
+	/* 채팅 메시지 & 입장퇴장 메시지 그리는 부분 */
 	if(msgInfo.cmType == 'message') {
 		chatMsg.append("<div class='chat_message_box_img'><img src='${contextPath}/img/"+msgInfo.member.mProfileImg+".png'></div>"
 				  +"<div class='chat_message_box_text'>"

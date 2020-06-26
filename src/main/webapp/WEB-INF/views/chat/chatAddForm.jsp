@@ -6,8 +6,8 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
-	<div class="container">
 	
+	<div class="container">
 		<div class="chat_add_form_container">
 			<p>채팅방 제목을 입력해주세요.</p>
 			<form action="addchatroom" method="post">
