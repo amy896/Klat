@@ -58,7 +58,7 @@ public class ChatRoomService {
 
 	//by 혜선, 채팅방 나가기
 	public boolean exitChatRoom(int crNum, int mNum) {
-		if (chatRoomMemberRepository.removeBycrNumAndMNum(crNum, mNum) > 0) {
+		if (chatRoomMemberRepository.removeByCrNumAndMNum(crNum, mNum) > 0) {
 			if (chatRoomMemberRepository.countByCrNum(crNum)==0) {
 				chatRoomRepository.removeByCrNum(crNum);
 				System.out.println("비어있는 채팅방을 삭제했습니다.");
