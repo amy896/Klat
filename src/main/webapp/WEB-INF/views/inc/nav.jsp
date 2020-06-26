@@ -4,6 +4,8 @@
 
 $(function() {
 	loadChatRoomList();
+	
+	/* 채팅 메인 화면의 네비게이션에서는 채팅방 리스트 미노출 */
 	var pageType = $(".pageType").val();
 	if(pageType == "chatmain"){
 		$(".chat_list_container").hide();
@@ -11,6 +13,7 @@ $(function() {
 	
 });
 
+/* 참여중인 채팅방 리스트 출력 */
 function loadChatRoomList() {
 	var crNum = $(".crNum").val();
 	var chatRoomList = $(".chatRoomList");
@@ -28,6 +31,7 @@ function loadChatRoomList() {
 	})
 }
 
+/* 해당 채팅방 상세 화면으로 이동 */
 function enterChatRoom(crNum) {
 	location.href="${contextPath}/chat/chatroom?crnum="+crNum;
 }

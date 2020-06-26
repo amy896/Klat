@@ -14,6 +14,7 @@
 	$(function() {
 		socketConnect();
 		
+		/* 채팅방에서만 채팅방 제목 띄우기 */
 		var pageType = $(".pageType").val();
 		if(pageType == "chatroom"){
 			var chatTitle = $(".crTitle").val();
@@ -51,12 +52,12 @@
 		});
 	});
 	
+	/* 웹소켓 연결 */
 	function socketConnect(){
 		sock = new SockJS("${contextPath}/chat");
 		stompClient = Stomp.over(sock);
 		stompClient.connect({}, function() {
 			var crNum = $(".crNum").val();
-			
 			stompClient.subscribe("/category/msg/"+crNum, function(cm) {
 				msgInfo = JSON.parse(cm.body);
 				addMessage(msgInfo);

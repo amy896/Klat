@@ -9,6 +9,7 @@
 	var nameReg  = /^[a-z0-9가-힣]{2,20}$/;
 
 	$(function() {
+		/* submit 이벤트 발생시 <input> 의 값의 유효성 체크하여 회원가입을 진행 */
 		$("form").on("submit", function(){
 			var resultArr = new Array;
 			$(".inputVal").each(function(){
@@ -21,13 +22,15 @@
 				}
 			}
 		});
-
+		
+		/* blur 이벤트 발생시 <input> 의 값의 유효성 체크 */
 		$(".inputVal").on("blur", function() {
 			input_validation_check($(this));
 		});
 		
 	});
 	
+	/* <input> 값 유효성 체크 */
 	function input_validation_check(currentInput){
 		var inputValue = currentInput.val();
 		if (inputValue == "") {
@@ -38,6 +41,7 @@
 			var validation_check = currentInput.next();
 			validation_check.text("");
 			
+			/* 중복 아이디 체크 */
 			if (nameVal == "userid") {
 				if(inputValue.match(idPwreg) != null) {
 					$.ajax({
