@@ -32,7 +32,6 @@ $(function(){
 </script>
 
 </head>
-
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
@@ -63,6 +62,7 @@ $(function(){
 		
 		<div class="profile_img_modal">
 			<h3>프로필 이미지를 선택해주세요!</h3>
+			
 			<ul class="profile_img_list">
 				<li class="type0">
 					<div><i class="fas fa-check"></i></div>			
@@ -92,14 +92,11 @@ $(function(){
 					<div><i class="fas fa-check"></i></div>			
 				</li>
 			</ul>
+			
 			<div class="close_btn">
 				<i class="fas fa-times-circle"></i>
 			</div>
 		</div>
-		
-		
-	
 	</div>
-		
 </body>
 </html>

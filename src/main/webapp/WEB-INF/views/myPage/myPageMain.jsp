@@ -6,6 +6,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/header.jsp"%>
 	<%@ include file="/WEB-INF/views/inc/nav.jsp"%>
+	
 	<div class="container">
 		<div class="my_page_box">
 			<div class="my_page_profile_container">
@@ -27,6 +28,7 @@
 	</div>
 
 <script>
+	/* by 혜선, 탈퇴 버튼 클릭 시 탈퇴 */
 	function removeMember(mNum) {
 		if(confirm("탈퇴하시겠습니까?") == true) {
 			location.href = "${contextPath}/mypage/removemember?mnum=" + mNum;
