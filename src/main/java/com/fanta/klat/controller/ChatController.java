@@ -118,6 +118,7 @@ public class ChatController {
 	public String exitChatRoom(HttpSession session, int crnum) {
 		int mNum = (Integer) session.getAttribute("mNum");
 		chatRoomService.exitChatRoom(crnum, mNum);
+		
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = systemMessageService.sendExitMessage(crnum, member);
 		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
@@ -155,6 +156,7 @@ public class ChatController {
 	public String inviteMember(HttpSession session, String mid, int crnum) {
 		int mNum = memberService.getMemberByMId(mid).getmNum();
 		chatRoomService.addChatRoomMember(crnum, mNum);
+		
 		Member member = memberService.getMemberByMNum(mNum);
 		ChatMessage chatMessage = systemMessageService.sendEntranceMessage(crnum, member);
 		smt.convertAndSend("/category/systemMsg/" + crnum, chatMessage);
