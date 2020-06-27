@@ -30,11 +30,11 @@ public class MyPageController {
 		return "myPage/myPageMain";
 	}
 
-	//by 혜선, 탈퇴하기
+	//by 혜선, 탈퇴 및 모든 채팅방에서 나가기
 	@RequestMapping("/removemember")
 	public String removeMember(int mnum) {
-		memberService.removeMember(mnum);
 		chatRoomService.exitAllChatRoom(mnum);
+		memberService.removeMember(mnum);
 		return "redirect:../main";
 	}
 

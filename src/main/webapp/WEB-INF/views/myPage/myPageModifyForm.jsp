@@ -5,19 +5,19 @@
 <script>
 $(function(){
 	
-	/* 프로필 이미지 클릭시, 프로필이미지 선택 모달 띄우기 */
+	/* 프로필 이미지 클릭 시, 프로필 이미지 선택 모달 띄우기 */
 	$(".my_page_profile_container").on("click",function(){
 		$(".profile_img_modal").fadeIn(300);
 		var currentClassName = $(".mProfileImg").val();
 		$("." + currentClassName).children("div").addClass("checked");
 	});
 	
-	/* 프로필이미지 선택 모달 닫기 */
+	/* 프로필 이미지 선택 모달 닫기 */
 	$(".close_btn").on("click",function(){
 		$(".profile_img_modal").fadeOut(300);
 	});
 
-	/* 모달에서 이미지 선택시, 체크 표시 및 모달 닫기 */
+	/* 모달에서 이미지 선택 시, 체크 표시 및 모달 닫기 */
 	$(".profile_img_list li").on("click", function(){
 		$(".profile_img_list li div").removeClass("checked");
 		var className = $(this).attr("class");
@@ -26,7 +26,7 @@ $(function(){
 		$(".profile_img_modal").fadeOut(300);
 	});
 	
-	/* 모달 이외의 영역 클릭시, 모달 닫기 */
+	/* 모달 이외의 영역 클릭 시, 모달 닫기 */
 	$(".container").mousedown(function(e){
 	if(!$(".profile_img_modal").is(e.target) && $(".profile_img_modal").has(e.target).length===0)
 		$(".profile_img_modal").fadeOut(300);
